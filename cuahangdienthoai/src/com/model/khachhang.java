@@ -1,5 +1,5 @@
 package com.model;
 
-public class khachhang {
+public class KhachHang {
 
 }
