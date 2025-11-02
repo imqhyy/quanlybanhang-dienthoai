@@ -1,5 +1,5 @@
 package com.repository;
 
-public class dienThoaiRepository {
+public class DienThoaiRepository {
 
 }

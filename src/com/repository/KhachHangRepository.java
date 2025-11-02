@@ -1,5 +1,5 @@
 package com.repository;
 
-public class khachHangRepository {
+public class KhachHangRepository {
 
 }

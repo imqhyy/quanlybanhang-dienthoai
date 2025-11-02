@@ -1,5 +1,5 @@
 package com.service;
 
-public class quanLyDienThoai {
+public class QuanLyDienThoai {
 
 }

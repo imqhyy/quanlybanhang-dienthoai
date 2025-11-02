@@ -1,5 +1,5 @@
 package com.service;
 
-public class quanLyDonHang {
+public class QuanLyDonHang {
 
 }
