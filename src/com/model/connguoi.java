@@ -1,16 +1,16 @@
 package com.model;
 import java.util.Scanner;
 
-abstract public class ConNguoi {
+abstract public class conNguoi {
     String hovaten;
     int tuoi;
     String sdt;
-    public ConNguoi() {
+    public conNguoi() {
         hovaten = "null";
         tuoi = 0;
         sdt = "null";        
     }
-    public ConNguoi(String hovaten, int tuoi, String sdt) {
+    public conNguoi(String hovaten, int tuoi, String sdt) {
         this.hovaten = hovaten;
         this.tuoi = tuoi;
         this.sdt = sdt;

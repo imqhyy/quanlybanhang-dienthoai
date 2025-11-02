@@ -1,12 +1,12 @@
 package com.model;
 
-public class KhachHang extends ConNguoi {
+public class khachHang extends conNguoi {
     String ID;
-    public KhachHang() {
+    public khachHang() {
         super();
         ID = "null";
     }
-    public KhachHang(String hovaten, int tuoi, String sdt, String ID) {
+    public khachHang(String hovaten, int tuoi, String sdt, String ID) {
         super(hovaten, tuoi, sdt);
         this.ID = ID;
     }
