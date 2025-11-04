@@ -18,15 +18,21 @@ public class NhanVien extends ConNguoi {
         this.luong = luong;
     }
     @Override public void getInfo() {
-        super.getInfo();
-        System.out.println("Ma khach hang: " + maNV);
+        System.out.println("------Thong tin nhan vien------");
+        System.out.println("Ma nhan vien: " + maNV);
+        System.out.println("Ho va ten: " + super.getHoVaTen());
+        System.out.println("Tuoi: " + super.getTuoi());
+        System.out.println("So dien thoai: " + super.getSDT());
         System.out.println("Chuc vu: " + chucvu);
-        System.out.println("luong: " + luong);
+        System.out.println("Luong: " + luong);
     }
     @Override public void setInfo() {
-        super.setInfo();
-        System.out.print("maKH: ");
+        System.out.println("------Nhap thong tin nhan vien------");
+        System.out.print("Ma nhan vien: ");
         maNV = sc.nextLine();
+        super.setHoVaTen();
+        super.setTuoi();
+        super.setSDT();
         System.out.print("Chuc vu: ");
         chucvu = sc.nextLine();
         System.out.print("Luong: ");

@@ -16,20 +16,8 @@ abstract public class ConNguoi {
         this.sdt = sdt;
     }
     protected static final Scanner sc = new Scanner(System.in);
-    public void getInfo() {
-        System.out.println("Ho va ten: " + hovaten);
-        System.out.println("Tuoi: " + tuoi);
-        System.out.println("So dien thoai: " + sdt);
-    }
-    public void setInfo() {
-        System.out.print("Ho va ten: ");
-        hovaten = sc.nextLine();
-        System.out.print("Tuoi: ");
-        tuoi = sc.nextInt();
-        sc.nextLine(); //doc ky tu enter
-        System.out.print("So dien thoai: ");
-        sdt = sc.nextLine();
-    }
+    abstract public void getInfo();
+    abstract public void setInfo();
     public void setHoVaTen() {
         System.out.print("Ho va ten: ");
         hovaten = sc.nextLine();

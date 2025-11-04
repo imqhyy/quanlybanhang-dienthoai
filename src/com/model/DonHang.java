@@ -10,7 +10,7 @@ public class DonHang {
     private KhachHang khachhang;
     private NhanVien nhanvien;
     private SmartPhone smartphone;
-    private int soluong;
+    private int soLuong;
     private LocalDate ngayMua;
     private static final Scanner sc = new Scanner(System.in);
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -19,15 +19,15 @@ public class DonHang {
         khachhang = new KhachHang();
         nhanvien = new NhanVien();
         smartphone = new SmartPhone();
-        soluong = 0;
+        soLuong = 0;
         ngayMua = null;
     }
-    public DonHang(String maDH, KhachHang khachhang, NhanVien nhanvien, SmartPhone smartphone, int soluong, LocalDate ngayMua) {
+    public DonHang(String maDH, KhachHang khachhang, NhanVien nhanvien, SmartPhone smartphone, int soLuong, LocalDate ngayMua) {
         maDH = this.maDH;
         this.khachhang = khachhang;
         this.nhanvien = nhanvien;
         this.smartphone = smartphone;
-        this.soluong = soluong;
+        this.soLuong = soLuong;
         this.ngayMua = ngayMua;
     }
 
