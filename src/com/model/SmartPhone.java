@@ -1,32 +1,55 @@
 package com.model;
 
-public class SmartPhone extends DienThoai {
+import java.util.Scanner;
+
+public class SmartPhone {
     private String maSP;
     private String tenSP;
     private String thuonghieu;
     private double giaBan;
+    private String chipset;
+    private String ram;
+    private String rom;
+    private String manhinh;
+    private String chitiet; //mô tả chi tiết thông số camera và 1 số đặc điểm khác
+    private static final Scanner sc = new Scanner(System.in);
     public SmartPhone() {
-        super();
         maSP = "null";
         tenSP = "null";
         thuonghieu = "null";
         giaBan = 0;
+        chipset = "null";
+        ram = "null";
+        rom = "null";
+        manhinh = "null";
+        chitiet = "null";
     }
-    public SmartPhone(String maSP, String tenSP, String thuonghieu, double giaBan, String chipset, String ram, String rom, String manhinh) {
-        super(chipset, ram, rom, manhinh);
+    public SmartPhone(String maSP, String tenSP, String thuonghieu, double giaBan, String chipset, String ram, String rom, String manhinh, String chitiet) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.thuonghieu = thuonghieu;
         this.giaBan = giaBan;
+        this.chipset = chipset;
+        this.ram = ram;
+        this.rom = rom;
+        this.manhinh = manhinh;
+        this.chitiet = chitiet;
     }
-    @Override public void getInfo() {
+    public void getInfo() {
+        System.out.println("------Thong tin dien thoai------");
         System.out.print("Ma san pham: " + maSP);
         System.out.println("Ten san pham: " + tenSP);
         System.out.println("Thuong hieu: " + thuonghieu);
         System.out.println("Gia ban: " + giaBan);
-        super.getInfo();
+        System.out.println("------Cau hinh dien thoai------");
+        System.out.println("Chipset: " + chipset);
+        System.out.println("Ram: " + ram);
+        System.out.println("Rom: " + rom);
+        System.out.println("Màn hình: " + manhinh);
+        System.out.println("Chi tiết: " + chitiet);
     }
-    @Override public void setInfo() {
+    public void setInfo() {
+        System.out.println("------Nhập thông tin sản phẩm------");
         System.out.print("Ma san pham: ");
         maSP = sc.nextLine();
         System.out.print("Ten san pham: ");
@@ -35,7 +58,17 @@ public class SmartPhone extends DienThoai {
         thuonghieu = sc.nextLine();
         System.out.print("Gia ban: ");
         giaBan = sc.nextDouble();
-        super.setInfo();
+        System.out.println("------Nhập cấu hình sản phẩm------");
+        System.out.print("Chipset: ");
+        chipset = sc.nextLine();
+        System.out.print("Ram: ");
+        ram = sc.nextLine();
+        System.out.print("Rom: ");
+        rom = sc.nextLine();
+        System.out.print("Màn hình: ");
+        manhinh = sc.nextLine();
+        System.out.print("Chi tiết: ");
+        chitiet = sc.nextLine();
     }
     public String getMaSP() {
         return maSP;
@@ -48,6 +81,21 @@ public class SmartPhone extends DienThoai {
     }
     public double getGiaBan() {
         return giaBan;
+    }
+    public String getChipset() {
+        return chipset;
+    }
+    public String getRam() {
+        return ram;
+    }
+    public String getRom() {
+        return rom;
+    }
+    public String getManHinh() {
+        return manhinh;
+    }
+    public String getChiTiet() {
+        return chitiet;
     }
     public void setMaSP() {
         System.out.print("Ma san pham: ");
@@ -64,5 +112,25 @@ public class SmartPhone extends DienThoai {
     public void setGiaBan() {
         System.out.print("Gia ban: ");
         giaBan = sc.nextDouble();
+    }
+    public void setChipset() {
+        System.out.print("Chipset: ");
+        chipset = sc.nextLine();
+    }
+    public void setRam() {
+        System.out.print("Ram: ");
+        ram = sc.nextLine();
+    }
+    public void setRom() {
+        System.out.print("Rom: ");
+        rom = sc.nextLine();
+    }
+    public void setManHinh() {
+        System.out.print("Màn hình: ");
+        manhinh = sc.nextLine();
+    }
+    public void setChiTiet() {
+        System.out.print("Chi tiết: ");
+        chitiet = sc.nextLine();
     }
 }

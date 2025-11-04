@@ -33,13 +33,13 @@ public class HoaDon {
         String inputString;
 
         do {
-            System.out.print("Nhap ngay(DD/MM/YYYY): ");
+            System.out.print("Nhập ngày(DD/MM/YYYY): ");
             inputString = sc.nextLine();
             try {
                 ngayNhap = LocalDate.parse(inputString, DATE_FORMATTER);
                 return ngayNhap;
             } catch (java.time.format.DateTimeParseException e) {
-                System.out.println("Error: Dinh dang ngay nhap khong hop le");
+                System.err.println("Error: Định dạng ngày nhập không hợp lệ!!!");
                 ngayNhap = null;
             }
         } while (ngayNhap == null);
@@ -49,17 +49,17 @@ public class HoaDon {
 
     public void getInfo() {
         String ngayMuaHang = ngayMua.format(DATE_FORMATTER);
-        System.out.println("------Hoa don------");
-        System.out.println("Ngay: " + ngayMuaHang);
-        System.out.println("Ma don hang: " + maHD);
-        System.out.println("------Thong tin khach hang------");
-        System.out.println("Ma khach hang: " + khachhang.getMaKH());
-        System.out.println("Khach hang: " + khachhang.getHoVaTen());
-        System.out.println("------Thong tin nhan vien ban hang------");
-        System.out.println("Ma nhan vien: " + nhanvien.getMaNV());
-        System.out.println("Ho va ten: " + nhanvien.getHoVaTen());
-        System.out.println("------San pham------");
+        System.out.println("------Hoá đơn------");
+        System.out.println("Ngày: " + ngayMuaHang);
+        System.out.println("Mã đơn hàng: " + maHD);
+        System.out.println("------Thông tin khách hàng------");
+        System.out.println("Mã khách hàng: " + khachhang.getMaKH());
+        System.out.println("Khách hàng: " + khachhang.getHoVaTen());
+        System.out.println("------Thông tin nhân viên bán hàng------");
+        System.out.println("Mã nhân viên: " + nhanvien.getMaNV());
+        System.out.println("Họ và tên: " + nhanvien.getHoVaTen());
+        System.out.println("------Sản phẩm------");
 
-        System.out.println("Tong: ");
+        System.out.println("Tổng: ");
     }
 }

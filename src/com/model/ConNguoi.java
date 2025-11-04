@@ -19,15 +19,15 @@ abstract public class ConNguoi {
     abstract public void getInfo();
     abstract public void setInfo();
     public void setHoVaTen() {
-        System.out.print("Ho va ten: ");
+        System.out.print("Họ và tên: ");
         hovaten = sc.nextLine();
     }
     public void setTuoi() {
-        System.out.print("Tuoi: ");
+        System.out.print("Tuổi: ");
         tuoi = sc.nextInt();
     }
     public void setSDT() {
-        System.out.print("So dien thoai: ");
+        System.out.print("Số điện thoại: ");
         sdt = sc.nextLine();
     }
     public String getHoVaTen() {
