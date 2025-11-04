@@ -1,21 +1,21 @@
-package com.repository;
+package com.list;
 
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.model.NhanVien;
-import javax.sound.sampled.SourceDataLine;
 
-public class NhanVienRepository {
+
+public class DanhSachNhanVien {
     NhanVien[] dsnv;
     int n;
     protected static final Scanner sc = new Scanner(System.in);
-    public NhanVienRepository() {
+    public DanhSachNhanVien() {
         n = 0;
         dsnv = new NhanVien[0];
     }
-    public NhanVienRepository(NhanVien[] dsnv, int n) {
+    public DanhSachNhanVien(NhanVien[] dsnv, int n) {
         this.dsnv = dsnv;
         this.n = n;
     }

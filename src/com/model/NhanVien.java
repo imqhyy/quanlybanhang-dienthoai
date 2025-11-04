@@ -13,7 +13,7 @@ public class NhanVien extends ConNguoi {
         chucvu = "null";
         luong = 0;
     }
-    public NhanVien(String hovaten, int tuoi, String sdt, String maNV, String chucvu, double luong) {
+    public NhanVien(String maNV, String hovaten, int tuoi, String sdt, String chucvu, double luong) {
         super(hovaten, tuoi, sdt);
         this.maNV = maNV;
         this.chucvu = chucvu;
