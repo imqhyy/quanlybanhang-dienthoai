@@ -12,15 +12,15 @@ public class KhachHang extends ConNguoi {
         this.maKH = maKH;
     }
     @Override public void getInfo() {
-        System.out.println("------Thông tin khách hàng------");
-        System.out.println("Mã khách hàng: " + maKH);
-        System.out.println("Họ và tên: " + super.getHoVaTen());
-        System.out.println("Tuổi: " + super.getTuoi());
-        System.out.println("Số điện thoại: " + super.getSDT());
+        System.out.println("------Thong tin khach hang------");
+        System.out.println("Ma khach hang: " + maKH);
+        System.out.println("Ho va ten: " + super.getHoVaTen());
+        System.out.println("Tuoi: " + super.getTuoi());
+        System.out.println("So dien thoai: " + super.getSDT());
     }
     @Override public void setInfo() {
-        System.out.println("------Nhập thông tin khách hàng------");
-        System.out.print("Mã khách hàng: ");
+        System.out.println("------Nhap thong tin khach hang------");
+        System.out.print("Ma khach hang: ");
         maKH = sc.nextLine();
         super.setHoVaTen();
         super.setTuoi();
@@ -30,7 +30,7 @@ public class KhachHang extends ConNguoi {
         return maKH;
     }
     public void setMaKH() {
-        System.out.print("Mã khách hàng: ");
+        System.out.print("Ma khach hang: ");
         maKH = sc.nextLine();
     }
 }

@@ -1,14 +1,8 @@
+# .gitignore
 
-/bin/
-/out/
-/target/
+# ... các quy tắc khác (như .vscode/ và *.md)
 
-
-*.class
-
-
-.vscode/
-.idea/
-
-
-*.log
+# Thêm quy tắc bỏ qua thư mục chứa file biên dịch Java
+bin/
+#bỏ qua thư mục test
+src/test/
