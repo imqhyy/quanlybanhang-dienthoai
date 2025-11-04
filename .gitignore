@@ -5,4 +5,4 @@
 # Thêm quy tắc bỏ qua thư mục chứa file biên dịch Java
 bin/
 #bỏ qua thư mục test
-test/
+src/test/
