@@ -1,7 +1,7 @@
 package com.model;
 
 public class KhachHang extends ConNguoi {
-    protected String maKH;
+    private String maKH;
     public static int soLuong = 0;
     public KhachHang() {
         super();
@@ -18,6 +18,13 @@ public class KhachHang extends ConNguoi {
     @Override public void setInfo() {
         super.setInfo();
         System.out.print("Ma khach hang: " + maKH);
+        maKH = sc.nextLine();
+    }
+    public String getMaKH() {
+        return maKH;
+    }
+    public void setMaKH() {
+        System.out.print("Ma khach hang: ");
         maKH = sc.nextLine();
     }
 }

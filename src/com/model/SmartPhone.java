@@ -1,9 +1,9 @@
 package com.model;
 
 public class SmartPhone extends DienThoai {
-    String maSP;
-    String tenSP;
-    double giaBan;
+    private String maSP;
+    private String tenSP;
+    private double giaBan;
     public SmartPhone() {
         super();
         maSP = "null";
@@ -29,5 +29,26 @@ public class SmartPhone extends DienThoai {
         System.out.print("Gia ban: ");
         giaBan = sc.nextDouble();
         super.setInfo();
+    }
+    public String getMaSP() {
+        return maSP;
+    }
+    public String getTenSP() {
+        return tenSP;
+    }
+    public double getGiaBan() {
+        return giaBan;
+    }
+    public void setMaSP() {
+        System.out.print("Ma san pham: ");
+        maSP = sc.nextLine();
+    }
+    public void setTenSP() {
+        System.out.print("Ten san pham: ");
+        tenSP = sc.nextLine();
+    }
+    public void setGiaBan() {
+        System.out.print("Gia ban: ");
+        giaBan = sc.nextDouble();
     }
 }

@@ -1,7 +1,9 @@
 package com.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
 
 public class DonHang {
     String maDH;
@@ -9,8 +11,9 @@ public class DonHang {
     private NhanVien nhanvien;
     private SmartPhone smartphone;
     private int soluong;
-    LocalDate ngayMua;
-
+    private LocalDate ngayMua;
+    private static final Scanner sc = new Scanner(System.in);
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public DonHang() {
         maDH = "null";
         khachhang = new KhachHang();
@@ -27,14 +30,25 @@ public class DonHang {
         this.soluong = soluong;
         this.ngayMua = ngayMua;
     }
-    public double getTonggiatri() {
-        return smartphone.giaBan * soluong;
+
+    public static LocalDate nhapNgayThangNam(Scanner sc) {
+        LocalDate ngayNhap = null;
+        String inputString;
+
+        do {
+            System.out.print("Nhap ngay(DD/MM/YYYY): ");
+            inputString = sc.nextLine();
+            try {
+                ngayNhap = LocalDate.parse(inputString, DATE_FORMATTER);
+                return ngayNhap;
+            } catch (java.time.format.DateTimeParseException e) {
+                System.out.println("Error: Dinh dang ngay nhap khong hop le");
+                ngayNhap = null;
+            }
+        } while (ngayNhap == null);
+
+        return null;
     }
-    public void getInfo() {
-        System.out.println("-----------Thong tin don hang-----------");
-        System.out.println("Ma don hang: " + maDH);
-        
-        System.out.println("Khach hang: " + khachhang.hovaten);
-        System.out.println("Nhan vien ban hang: " + nhanvien.hovaten);
-    }
+
+    
 }

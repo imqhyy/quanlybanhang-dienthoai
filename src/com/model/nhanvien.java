@@ -1,9 +1,9 @@
 package com.model;
 
 public class NhanVien extends ConNguoi {
-    String maNV;
-    String chucvu;
-    double luong;
+    private String maNV;
+    private String chucvu;
+    private double luong;
     public static int soLuong = 0;
     public NhanVien() {
         super();
@@ -29,6 +29,27 @@ public class NhanVien extends ConNguoi {
         maNV = sc.nextLine();
         System.out.print("Chuc vu: ");
         chucvu = sc.nextLine();
+        System.out.print("Luong: ");
+        luong = sc.nextDouble();
+    }
+    public String getMaNV() {
+        return maNV;
+    }
+    public String getChucVu() {
+        return chucvu;
+    }
+    public double getLuong() {
+        return luong;
+    }
+    public void setMaNV() {
+        System.out.print("Ma nhan vien: ");
+        maNV = sc.nextLine();
+    }
+    public void setChucVu() {
+        System.out.print("Chuc vu: ");
+        chucvu = sc.nextLine();
+    }
+    public void setLuong() {
         System.out.print("Luong: ");
         luong = sc.nextDouble();
     }

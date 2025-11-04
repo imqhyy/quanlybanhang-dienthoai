@@ -2,26 +2,26 @@ package com.model;
 import java.util.Scanner;
 
 abstract public class ConNguoi {
-    protected String hovaten;
-    protected int tuoi;
-    protected String sdt;
-    protected ConNguoi() {
+    private String hovaten;
+    private int tuoi;
+    private String sdt;
+    public ConNguoi() {
         hovaten = "null";
         tuoi = 0;
         sdt = "null";        
     }
-    protected ConNguoi(String hovaten, int tuoi, String sdt) {
+    public ConNguoi(String hovaten, int tuoi, String sdt) {
         this.hovaten = hovaten;
         this.tuoi = tuoi;
         this.sdt = sdt;
     }
     protected static final Scanner sc = new Scanner(System.in);
-    protected void getInfo() {
+    public void getInfo() {
         System.out.println("Ho va ten: " + hovaten);
         System.out.println("Tuoi: " + tuoi);
         System.out.println("So dien thoai: " + sdt);
     }
-    protected void setInfo() {
+    public void setInfo() {
         System.out.print("Ho va ten: ");
         hovaten = sc.nextLine();
         System.out.print("Tuoi: ");
@@ -29,5 +29,26 @@ abstract public class ConNguoi {
         sc.nextLine(); //doc ky tu enter
         System.out.print("So dien thoai: ");
         sdt = sc.nextLine();
+    }
+    public void setHoVaTen() {
+        System.out.print("Ho va ten: ");
+        hovaten = sc.nextLine();
+    }
+    public void setTuoi() {
+        System.out.print("Tuoi: ");
+        tuoi = sc.nextInt();
+    }
+    public void setSDT() {
+        System.out.print("So dien thoai: ");
+        sdt = sc.nextLine();
+    }
+    public String getHoVaTen() {
+        return hovaten;
+    }
+    public int getTuoi() {
+        return tuoi;
+    }
+    public String getSDT() {
+        return sdt;
     }
 }
