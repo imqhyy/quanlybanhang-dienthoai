@@ -29,6 +29,7 @@ abstract public class ConNguoi {
     public void setSDT() {
         System.out.print("So dien thoai: ");
         sdt = sc.nextLine();
+        sc.nextLine();
     }
     public String getHoVaTen() {
         return hovaten;
