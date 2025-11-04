@@ -45,9 +45,28 @@ public class DanhSachNhanVien {
     public void xuat() {
         System.out.println("\nDanh sach nhan vien");
         for(int i = 0; i < n; i++) {
-            System.out.println("\nNhan vien " + i + 1);
+            System.out.println("\nNhan vien " + (i + 1));
             dsnv[i].getInfo();
         }
+    }
+    public String xuatChuoi() {
+        //Hàm này xuất dữ liệu toàn bộ nhân viên thành chuỗi
+        String xuatChuoi = null;
+        for(int i = 0; i < n; i++) {
+            String temp = String.join(",", dsnv[i].getMaNV(), dsnv[i].getHoVaTen(), Integer.toString(dsnv[i].getTuoi()), dsnv[i].getSDT(), dsnv[i].getChucVu(), Double.toString(dsnv[i].getLuong()));
+            if(i == 0) xuatChuoi = temp;
+            else {
+                xuatChuoi = xuatChuoi + temp;
+            }
+            
+            //Xuống dòng với mỗi dữ liệu nhân viên mới
+            xuatChuoi = xuatChuoi + "\n";
+        }
+        //Xoá ký tự enter cuối chuỗi
+        if(xuatChuoi != null && xuatChuoi.length() > 0 ) {
+            xuatChuoi = xuatChuoi.substring(0, xuatChuoi.length() - 1);
+        }
+        return xuatChuoi;
     }
     public void them() {
         dsnv = Arrays.copyOf(dsnv, n + 1);
@@ -144,6 +163,8 @@ public class DanhSachNhanVien {
         }
         if(!suaThanhCong) {
             System.out.println("Khong co nhan vien nay!!!");
+        } else {
+            System.out.println("Sua thanh cong!!!");
         }
     }
 
