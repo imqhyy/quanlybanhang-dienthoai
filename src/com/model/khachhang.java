@@ -1,15 +1,23 @@
 package com.model;
 
 public class KhachHang extends ConNguoi {
-    String ID;
+    protected String maKH;
+    public static int soLuong = 0;
     public KhachHang() {
         super();
-        ID = "null";
+        maKH = "null";
     }
-    public KhachHang(String hovaten, int tuoi, String sdt, String ID) {
+    public KhachHang(String hovaten, int tuoi, String sdt, String maKH) {
         super(hovaten, tuoi, sdt);
-        this.ID = ID;
+        this.maKH = maKH;
     }
-    
-
+    @Override public void getInfo() {
+        super.getInfo();
+        System.out.println("Ma khach hang: " + maKH);
+    }
+    @Override public void setInfo() {
+        super.setInfo();
+        System.out.print("Ma khach hang: " + maKH);
+        maKH = sc.nextLine();
+    }
 }

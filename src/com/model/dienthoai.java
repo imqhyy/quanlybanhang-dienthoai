@@ -1,46 +1,37 @@
 package com.model;
-
+import java.util.Scanner;
 public class DienThoai {
-    private String maSP;
-    private String tenSP;
-    private double giaBan;
-
-    public DienThoai() {
+    protected String chipset;
+    protected String ram;
+    protected String rom;
+    protected String manhinh;
+    protected static final Scanner sc = new Scanner(System.in);
+    protected DienThoai() {
+        chipset = "null";
+        ram = "null";
+        rom = "null";
+        manhinh = "null";
     }
-
-    public DienThoai(String maSP, String tenSP, double giaBan) {
-        this.maSP = maSP;
-        this.tenSP = tenSP;
-        this.giaBan = giaBan;
+    protected DienThoai(String chipset, String ram, String rom, String manhinh) {
+        this.chipset = chipset;
+        this.ram = ram;
+        this.rom = rom;
+        this.manhinh = manhinh;
     }
-
-    @Override
-    public String toString() {
-        return "DienThoai{" + "maSP='" + maSP + '\'' + ", tenSP='" + tenSP + '\'' + ", giaBan=" + giaBan + '}';
+    protected void getInfo() {
+        System.out.println("Chipset: " + chipset);
+        System.out.println("Ram: " + ram);
+        System.out.println("Rom: " + rom);
+        System.out.println("Man hinh: " + manhinh);
     }
-
-    // Xây dựng các phương thức getter - setter
-    public String getmaSP() {
-        return this.maSP;
-    }
-
-    public String getTenSP() {
-        return tenSP;
-    }
-
-    public double getGiaBan() {
-        return giaBan;
-    }
-
-    public void setGiaBan(double giaBan) {
-        this.giaBan = giaBan;
-    }
-
-    public void setMaSP(String maSP) {
-        this.maSP = maSP;
-    }
-
-    public void setTenSP(String tenSP) {
-        this.tenSP = tenSP;
+    protected void setInfo() {
+        System.out.print("Chipset: ");
+        chipset = sc.nextLine();
+        System.out.print("Ram: ");
+        ram = sc.nextLine();
+        System.out.print("Rom: ");
+        rom = sc.nextLine();
+        System.out.print("Man hinh: ");
+        manhinh = sc.nextLine();
     }
 }
