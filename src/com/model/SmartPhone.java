@@ -45,11 +45,11 @@ public class SmartPhone {
         System.out.println("Chipset: " + chipset);
         System.out.println("Ram: " + ram);
         System.out.println("Rom: " + rom);
-        System.out.println("Màn hình: " + manhinh);
-        System.out.println("Chi tiết: " + chitiet);
+        System.out.println("Man hinh: " + manhinh);
+        System.out.println("Chi tiet: " + chitiet);
     }
     public void setInfo() {
-        System.out.println("------Nhập thông tin sản phẩm------");
+        System.out.println("------Nhap thong tin dien thoai------");
         System.out.print("Ma san pham: ");
         maSP = sc.nextLine();
         System.out.print("Ten san pham: ");
@@ -58,16 +58,16 @@ public class SmartPhone {
         thuonghieu = sc.nextLine();
         System.out.print("Gia ban: ");
         giaBan = sc.nextDouble();
-        System.out.println("------Nhập cấu hình sản phẩm------");
+        System.out.println("------Nhap cau hinh san pham------");
         System.out.print("Chipset: ");
         chipset = sc.nextLine();
         System.out.print("Ram: ");
         ram = sc.nextLine();
         System.out.print("Rom: ");
         rom = sc.nextLine();
-        System.out.print("Màn hình: ");
+        System.out.print("Man hinh: ");
         manhinh = sc.nextLine();
-        System.out.print("Chi tiết: ");
+        System.out.print("Chi tiet: ");
         chitiet = sc.nextLine();
     }
     public String getMaSP() {
@@ -126,11 +126,11 @@ public class SmartPhone {
         rom = sc.nextLine();
     }
     public void setManHinh() {
-        System.out.print("Màn hình: ");
+        System.out.print("Man hinh: ");
         manhinh = sc.nextLine();
     }
     public void setChiTiet() {
-        System.out.print("Chi tiết: ");
+        System.out.print("Chi tiet: ");
         chitiet = sc.nextLine();
     }
 }
