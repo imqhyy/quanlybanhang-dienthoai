@@ -1,36 +1,37 @@
-package com.model;
+package com.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import com.model.KhachHang;
+import com.model.NhanVien;
+import com.model.SmartPhone;
 
-public class DonHang {
-    String maDH;
+public class QuanLyHoaDon {
+    private String maHD;
     private KhachHang khachhang;
     private NhanVien nhanvien;
     private SmartPhone smartphone;
-    private int soLuong;
     private LocalDate ngayMua;
     private static final Scanner sc = new Scanner(System.in);
+    //Định dạng ngày tháng năm theo kiểu VN
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    public DonHang() {
-        maDH = "null";
+    public QuanLyHoaDon() {
+        maHD = "null";
         khachhang = new KhachHang();
         nhanvien = new NhanVien();
         smartphone = new SmartPhone();
-        soLuong = 0;
         ngayMua = null;
     }
-    public DonHang(String maDH, KhachHang khachhang, NhanVien nhanvien, SmartPhone smartphone, int soLuong, LocalDate ngayMua) {
-        maDH = this.maDH;
+    public QuanLyHoaDon(String maHD, KhachHang khachhang, NhanVien nhanvien, SmartPhone smartphone, LocalDate ngayMua) {
+        maHD = this.maHD;
         this.khachhang = khachhang;
         this.nhanvien = nhanvien;
         this.smartphone = smartphone;
-        this.soLuong = soLuong;
         this.ngayMua = ngayMua;
     }
-
+    //Hàm này dùng để nhập ngày tháng năm
     public static LocalDate nhapNgayThangNam(Scanner sc) {
         LocalDate ngayNhap = null;
         String inputString;
@@ -50,5 +51,19 @@ public class DonHang {
         return null;
     }
 
-    
+    public void getInfo() {
+        String ngayMuaHang = ngayMua.format(DATE_FORMATTER);
+        System.out.println("------Hoa don------");
+        System.out.println("Ngay: " + ngayMuaHang);
+        System.out.println("Ma don hang: " + maHD);
+        System.out.println("------Thong tin khach hang------");
+        System.out.println("Ma khach hang: " + khachhang.getMaKH());
+        System.out.println("Khach hang: " + khachhang.getHoVaTen());
+        System.out.println("------Thong tin nhan vien ban hang------");
+        System.out.println("Ma nhan vien: " + nhanvien.getMaNV());
+        System.out.println("Ho va ten: " + nhanvien.getHoVaTen());
+        System.out.println("------San pham------");
+
+        System.out.println("Tong: ");
+    }
 }

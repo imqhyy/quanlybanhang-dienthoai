@@ -18,24 +18,24 @@ public class NhanVien extends ConNguoi {
         this.luong = luong;
     }
     @Override public void getInfo() {
-        System.out.println("------Thong tin nhan vien------");
-        System.out.println("Ma nhan vien: " + maNV);
-        System.out.println("Ho va ten: " + super.getHoVaTen());
-        System.out.println("Tuoi: " + super.getTuoi());
-        System.out.println("So dien thoai: " + super.getSDT());
-        System.out.println("Chuc vu: " + chucvu);
-        System.out.println("Luong: " + luong);
+        System.out.println("------Thông tin nhân viên------");
+        System.out.println("Mã nhân viên: " + maNV);
+        System.out.println("Họ và tên: " + super.getHoVaTen());
+        System.out.println("Tuổi: " + super.getTuoi());
+        System.out.println("Số điện thoại: " + super.getSDT());
+        System.out.println("Chức vụ: " + chucvu);
+        System.out.println("Lương: " + luong);
     }
     @Override public void setInfo() {
-        System.out.println("------Nhap thong tin nhan vien------");
-        System.out.print("Ma nhan vien: ");
+        System.out.println("------Nhập thông tin nhân viên------");
+        System.out.print("Mã nhân viên: ");
         maNV = sc.nextLine();
         super.setHoVaTen();
         super.setTuoi();
         super.setSDT();
-        System.out.print("Chuc vu: ");
+        System.out.print("Chức vụ: ");
         chucvu = sc.nextLine();
-        System.out.print("Luong: ");
+        System.out.print("Lương: ");
         luong = sc.nextDouble();
     }
     public String getMaNV() {
@@ -48,15 +48,15 @@ public class NhanVien extends ConNguoi {
         return luong;
     }
     public void setMaNV() {
-        System.out.print("Ma nhan vien: ");
+        System.out.print("Mã nhân viên: ");
         maNV = sc.nextLine();
     }
     public void setChucVu() {
-        System.out.print("Chuc vu: ");
+        System.out.print("Chức vụ: ");
         chucvu = sc.nextLine();
     }
     public void setLuong() {
-        System.out.print("Luong: ");
+        System.out.print("Lương: ");
         luong = sc.nextDouble();
     }
 }
