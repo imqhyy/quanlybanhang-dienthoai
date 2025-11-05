@@ -1,5 +1,6 @@
 package com.model;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class SmartPhone {
@@ -50,25 +51,15 @@ public class SmartPhone {
     }
     public void setInfo() {
         System.out.println("------Nhap thong tin dien thoai------");
-        System.out.print("Ma san pham: ");
-        maSP = sc.nextLine();
-        System.out.print("Ten san pham: ");
-        tenSP = sc.nextLine();
-        System.out.print("Thuong hieu");
-        thuonghieu = sc.nextLine();
-        System.out.print("Gia ban: ");
-        giaBan = sc.nextDouble();
+        setMaSP();
+        setTenSP();
+        setThuongHieu();
+        setGiaBan();
         System.out.println("------Nhap cau hinh san pham------");
-        System.out.print("Chipset: ");
-        chipset = sc.nextLine();
-        System.out.print("Ram: ");
-        ram = sc.nextLine();
-        System.out.print("Rom: ");
-        rom = sc.nextLine();
-        System.out.print("Man hinh: ");
-        manhinh = sc.nextLine();
-        System.out.print("Chi tiet: ");
-        chitiet = sc.nextLine();
+        setChipset();
+        setRam();
+        setRom();
+        setChiTiet();
     }
     public String getMaSP() {
         return maSP;
@@ -110,8 +101,21 @@ public class SmartPhone {
         thuonghieu = sc.nextLine();
     }
     public void setGiaBan() {
-        System.out.print("Gia ban: ");
-        giaBan = sc.nextDouble();
+        boolean nhapThanhCong = false;
+        do {
+            System.out.print("Gia ban: ");
+            //bắt lỗi nếu người dùng nhập chữ
+            try {
+                giaBan = sc.nextDouble();
+                nhapThanhCong = true;
+                sc.nextLine();
+            } catch(InputMismatchException e) {
+                System.err.println("Vui long nhap so!!!");
+                sc.nextLine(); //xoá buffer trước khi người dùng nhập lại
+            }
+            
+        } while(!nhapThanhCong);
+        
     }
     public void setChipset() {
         System.out.print("Chipset: ");
