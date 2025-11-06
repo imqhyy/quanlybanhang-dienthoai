@@ -5,9 +5,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.model.NhanVien;
+import java.io.IOException;
 
 
-public class DanhSachNhanVien {
+public class DanhSachNhanVien implements listInterface.IList {
     NhanVien[] dsnv;
     int n;
     protected static final Scanner sc = new Scanner(System.in);
@@ -19,7 +20,7 @@ public class DanhSachNhanVien {
         this.dsnv = dsnv;
         this.n = n;
     }
-    public void nhap() {
+    @Override public void nhap() {
         boolean nhapThanhCong = false;
         System.out.print("\nNhap so luong nhan vien: ");
         do {
@@ -42,11 +43,15 @@ public class DanhSachNhanVien {
             System.out.println();
         }
     }
-    public void xuat() {
+    @Override public void xuat() {
         System.out.println("\nDanh sach nhan vien");
-        for(int i = 0; i < n; i++) {
-            System.out.println("\nNhan vien " + (i + 1));
-            dsnv[i].getInfo();
+        if(n == 0) {
+            System.out.println("Khong co nhan vien nao!!!");
+        } else {
+            for(int i = 0; i < n; i++) {
+                System.out.println("\nNhan vien " + (i + 1));
+                dsnv[i].getInfo();
+            }
         }
     }
     public String xuatChuoi() {
@@ -68,7 +73,7 @@ public class DanhSachNhanVien {
         }
         return xuatChuoi;
     }
-    public void them() {
+    @Override public void them() {
         dsnv = Arrays.copyOf(dsnv, n + 1);
         dsnv[n] = new NhanVien();
         dsnv[n].setInfo();
@@ -80,7 +85,7 @@ public class DanhSachNhanVien {
         dsnv[n] = a;
         n++;
     }
-    public void xoa(String ma) {
+    @Override public void xoa(String ma) {
         for(int i = 0; i < n; i++) {
             if(dsnv[i].getMaNV().equals(ma)) {
                 for(int j = i; j < n - 1; j++) {
@@ -100,7 +105,7 @@ public class DanhSachNhanVien {
         }
         return null;
     }
-    public void sua() {
+    @Override public void sua() {
         String ma;
         System.out.print("Nhap ma nhan vien can sua: ");
         ma = sc.nextLine();
@@ -151,10 +156,12 @@ public class DanhSachNhanVien {
                             break;
                         case 0:
                             break;
-                        default:
+                        default: {
                             System.out.println("Chuc nang khong hop le!!!");
                             // Đợi 2 giây
                             try { Thread.sleep(2000); } catch (InterruptedException e) {}
+                        }
+                            
                     }
                 } while(chucnang != 0);
                 suaThanhCong = true;
@@ -184,7 +191,7 @@ public class DanhSachNhanVien {
                 System.out.print("\033[H\033[2J");
                 System.out.flush(); 
             }
-        } catch (final Exception e) {
+        } catch (final IOException | InterruptedException e) {
             // Xử lý lỗi nếu không thể chạy lệnh (ví dụ: bị hạn chế quyền)
             System.out.println("\n(Không thể xóa màn hình)\n"); 
         }

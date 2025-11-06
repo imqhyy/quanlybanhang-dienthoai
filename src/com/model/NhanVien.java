@@ -6,7 +6,7 @@ public class NhanVien extends ConNguoi {
     private String maNV;
     private String chucvu;
     private double luong;
-    public static int soLuong = 0;
+    private static int soLuongNV = 0;
     public NhanVien() {
         super();
         maNV = "null";
@@ -71,5 +71,8 @@ public class NhanVien extends ConNguoi {
             }
         } while(!nhapThanhCong);
         
+    }
+    public static void HowManyNhanVien() {
+        System.out.println("Co " + soLuongNV + " nhan vien");
     }
 }
