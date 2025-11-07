@@ -158,8 +158,8 @@ public class DanhSachNhanVien implements listInterface.IList {
                             break;
                         default: {
                             System.out.println("Chuc nang khong hop le!!!");
-                            // Đợi 2 giây
-                            try { Thread.sleep(2000); } catch (InterruptedException e) {}
+                            System.out.println("Nhan enter de quay lai!!!");
+                            sc.nextLine();
                         }
                             
                     }

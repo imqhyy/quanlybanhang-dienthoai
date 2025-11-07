@@ -70,20 +70,20 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
             switch (chucnang) {
                 case 1: {
                     ds1.xuat();
-                    System.out.println("Nhan Enter de thoat!!!");
+                    System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
                     break;
                 }
                 case 2: {
                     ds1.nhap();
-                    System.out.println("Nhan Enter de thoat!!!");
+                    System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
                     break;
                 }
                 case 3: {
                     ds1.them();
                     System.out.println("Them thanh cong!!!");
-                    System.out.println("Nhan Enter de thoat!!!");
+                    System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
                     break; 
                 }
@@ -93,13 +93,13 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                     String ma = sc.nextLine();
                     ds1.xoa(ma);
                     System.out.println("Xoa thanh cong!!!");
-                    System.out.println("Nhan Enter de thoat!!!");
+                    System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
                     break;
                 }
                 case 5: {
                     ds1.sua();
-                    System.out.println("Nhan Enter de thoat!!!");
+                    System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
                     break;
                 }
@@ -117,13 +117,13 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                 }
                 case 7: {
                     inputData();
-                    System.out.println("Nhan Enter de thoat!!!");
+                    System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
                     break;
                 }
                 case 8: {
                     outputData();
-                    System.out.println("Nhan Enter de thoat!!!");
+                    System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
                     break;
                 }
@@ -131,7 +131,8 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                     break;
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");
-                    try { Thread.sleep(2000); } catch (InterruptedException e) {}
+                    System.out.println("Nhan enter de quay lai!!!");
+                    sc.nextLine();
                 }
                     
             }

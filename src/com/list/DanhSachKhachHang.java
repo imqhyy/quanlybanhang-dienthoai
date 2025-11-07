@@ -147,7 +147,9 @@ public class DanhSachKhachHang implements listInterface.IList {
                             break;
                         default: {
                             System.out.println("Chuc nang khong hop le!!!");
-                            try {Thread.sleep(2000);} catch (InterruptedException e) {}
+                            System.out.println("Nhan enter de quay lai!!!");
+                            sc.nextLine();
+                            break;
                         }
                     }
                 } while (chucnang != 0);
