@@ -21,8 +21,17 @@ public class KhachHang extends ConNguoi {
         System.out.println("So dien thoai: " + super.getSDT());
     }
     @Override public void setInfo() {
+        System.out.println("\n------Sua thong tin khach hang------");
+        super.setHoVaTen();
+        super.setTuoi();
+        super.setSDT();
+    }
+    public void setInfo(int seedID) {
         System.out.println("\n------Nhap thong tin khach hang------");
-        setMaKH();
+        String ma = "KH";
+        ma = ma + Integer.toString(seedID);
+        maKH = ma;
+        System.out.println("Ma khach hang: " + maKH);
         super.setHoVaTen();
         super.setTuoi();
         super.setSDT();

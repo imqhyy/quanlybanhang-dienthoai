@@ -9,6 +9,7 @@ import java.util.InputMismatchException;
 public class DanhSachKhachHang implements listInterface.IList {
     KhachHang[] dskh;
     int n;
+    int seedID = 1;
     protected static final Scanner sc = new Scanner(System.in);
     public DanhSachKhachHang() {
         n = 0;
@@ -18,7 +19,36 @@ public class DanhSachKhachHang implements listInterface.IList {
         this.n = n;
         this.dskh = dskh;
     }
+    public void DanhSachKHmini() {
+        //Hiển thị danh sách khách hàng thu gọn
+        System.out.println("--Danh sach khach hang--");
+        System.out.println("Ma khach hang      Ho va ten");
+        //Khoảng cách từ M đến H là 19, đoạn này tính toán để mã KH chiếm 19 ô
+        for(int i = 0; i < n; i++) {
+            System.out.print(dskh[i].getMaKH());
+            for(int j = 0; j < 19 - dskh[i].getMaKH().length();j++) {
+                System.out.print(" ");
+            }
+            System.out.println(dskh[i].getHoVaTen());
+        }
+    }
     @Override public void nhap() {
+        if(n != 0) {
+            String xacnhan;
+            System.out.println("Hanh dong nay se xoa du lieu cu!!!");
+            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
+            do {
+                xacnhan = sc.nextLine();
+                switch (xacnhan) {
+                    case "n":
+                        return;
+                    case "y":
+                        break;
+                    default:
+                        System.out.println("Vui long nhan 'y' hoac 'n'!");
+                }
+            } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
+        }
         boolean nhapThanhCong = false;
         System.out.print("Nhap so luong khach hang: ");
         do {
@@ -36,7 +66,8 @@ public class DanhSachKhachHang implements listInterface.IList {
         for(int i = 0; i < n; i++) {
             System.out.println("Khach hang " + (i + 1));
             dskh[i] = new KhachHang();
-            dskh[i].setInfo();
+            dskh[i].setInfo(seedID);
+            seedID++;
             System.out.println();
         }
     }
@@ -51,6 +82,9 @@ public class DanhSachKhachHang implements listInterface.IList {
                 dskh[i].getInfo();
             }
         }
+    }
+    public int xuatN() {
+        return n;
     }
     public String xuatChuoi() {
         //Hàm này xuất toàn bộ dữ liệu nhân viên thành dữ liệu chuỗi
@@ -74,7 +108,7 @@ public class DanhSachKhachHang implements listInterface.IList {
     @Override public void them() {
         dskh = Arrays.copyOf(dskh, n + 1);
         dskh[n] = new KhachHang();
-        dskh[n].setInfo();
+        dskh[n].setInfo(seedID);
         n++;
     }
     public void them(KhachHang a) {
@@ -104,65 +138,68 @@ public class DanhSachKhachHang implements listInterface.IList {
         return null;
     }
     @Override public void sua() {
-        String ma;
-        System.out.print("Nhap ma khach hang can sua: ");
-        ma = sc.nextLine();
-        boolean suaThanhCong = false;
-        for(int i = 0; i < n; i++) {
-            if(dskh[i].getMaKH().equals(ma)) {
-                int chucnang = 0;
-                do { 
-                    clearScreen();
-                    System.out.println("1. Sua ma khach hang");
-                    System.out.println("2. Sua ten");
-                    System.out.println("3. Sua tuoi");
-                    System.out.println("4. Sua so dien thoai");
-                    System.out.println("5. Sua tat ca");
-                    System.out.println("0. Thoat");
-                    System.out.print("Nhap tinh nang: ");
-                    try {
-                        n = sc.nextInt();
-                        sc.nextLine();
-                    } catch (InputMismatchException e) {
-                        System.err.println("Vui long nhap so!!!");
-                        sc.nextLine(); //Xoá buffer bàn phím trước khi người dùng nhập lại
-                    }
-                    switch(chucnang) {
-                        case 1:
-                            dskh[i].setMaKH();
-                            break;
-                        case 2:
-                            dskh[i].setHoVaTen();
-                            break;
-                        case 3:
-                            dskh[i].setTuoi();
-                            break;
-                        case 4:
-                            dskh[i].setSDT();
-                            break;
-                        case 5:
-                            dskh[i].setInfo();
-                            break;
-                        case 0:
-                            break;
-                        default: {
-                            System.out.println("Chuc nang khong hop le!!!");
-                            System.out.println("Nhan enter de quay lai!!!");
-                            sc.nextLine();
-                            break;
-                        }
-                    }
-                } while (chucnang != 0);
-                suaThanhCong = true;
-                break;
-            }
-        }
-        if(!suaThanhCong) {
-            System.out.println("Khong co khach hang nay!!!");
+        if(n == 0) {
+            System.out.println("Danh sach dang trong!!!");
         }
         else {
-            System.out.println("Sua thanh cong!!!");
+            String ma;
+            DanhSachKHmini();
+            System.out.print("Nhap ma khach hang can sua: ");
+            ma = sc.nextLine();
+            boolean suaThanhCong = false;
+            for(int i = 0; i < n; i++) {
+                if(dskh[i].getMaKH().equals(ma)) {
+                    int chucnang = 0;
+                    do { 
+                        clearScreen();
+                        System.out.println("1. Sua ten");
+                        System.out.println("2. Sua tuoi");
+                        System.out.println("3. Sua so dien thoai");
+                        System.out.println("4. Sua tat ca");
+                        System.out.println("0. Thoat");
+                        System.out.print("Nhap tinh nang: ");
+                        try {
+                            chucnang = sc.nextInt();
+                            sc.nextLine();
+                        } catch (InputMismatchException e) {
+                            System.err.println("Vui long nhap so!!!");
+                            sc.nextLine(); //Xoá buffer bàn phím trước khi người dùng nhập lại
+                        }
+                        switch(chucnang) {
+                            case 1:
+                                dskh[i].setHoVaTen();
+                                break;
+                            case 2:
+                                dskh[i].setTuoi();
+                                break;
+                            case 3:
+                                dskh[i].setSDT();
+                                break;
+                            case 4:
+                                dskh[i].setInfo();
+                                break;
+                            case 0:
+                                break;
+                            default: {
+                                System.out.println("Chuc nang khong hop le!!!");
+                                System.out.println("Nhan enter de quay lai!!!");
+                                sc.nextLine();
+                                break;
+                            }
+                        }
+                    } while (chucnang != 0);
+                    suaThanhCong = true;
+                    break;
+                }
+            }
+            if(!suaThanhCong) {
+                System.out.println("Khong co khach hang nay!!!");
+            }
+            else {
+                System.out.println("Sua thanh cong!!!");
+            }
         }
+        
     }
 
 

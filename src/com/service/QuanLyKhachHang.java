@@ -14,6 +14,22 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
     DanhSachKhachHang ds1 = new DanhSachKhachHang();
     protected static final Scanner sc = new Scanner(System.in);
     @Override public void inputData() {
+        if(ds1.xuatN() != 0) {
+            String xacnhan;
+            System.out.println("Hanh dong nay se xoa du lieu cu!!!");
+            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
+            do {
+                xacnhan = sc.nextLine();
+                switch (xacnhan) {
+                    case "n":
+                        return;
+                    case "y":
+                        break;
+                    default:
+                        System.out.println("Vui long nhan 'y' hoac 'n'!");
+                }
+            } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
+        }
         try {
             try(BufferedReader input = new BufferedReader(new FileReader("src/com/repository/dataKhachHang.txt"))) {
                 String line = input.readLine();
@@ -105,6 +121,7 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                 }
                     
                 case 6: {
+                    ds1.DanhSachKHmini();
                     System.out.print("Nhap ma nhan vien can tim: ");
                     String ma = sc.nextLine();
                     KhachHang ketquaTimKiem = ds1.timkiem(ma);
@@ -113,6 +130,8 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                     } else {
                         ketquaTimKiem.getInfo();
                     }
+                    System.out.println("Nhan enter de quay lai!!!");
+                    sc.nextLine();
                     break;
                 }
                 case 7: {
@@ -154,7 +173,7 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                 System.out.print("\033[H\033[2J");
                 System.out.flush(); 
             }
-        } catch (final Exception e) {
+        } catch (final IOException | InterruptedException e) {
             // Xử lý lỗi nếu không thể chạy lệnh (ví dụ: bị hạn chế quyền)
             System.out.println("\n(Không thể xóa màn hình)\n"); 
         }
