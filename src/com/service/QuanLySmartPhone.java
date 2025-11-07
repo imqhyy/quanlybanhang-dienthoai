@@ -4,44 +4,70 @@ import com.list.DanhSachSmartphone;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
+
 import com.model.SmartPhone;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.InputMismatchException;
 
-public class QuanLySmartPhone {
+public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterface.ILoadSaveData {
     DanhSachSmartphone ds1 = new DanhSachSmartphone();
     protected static final Scanner sc = new Scanner(System.in);
 
-    public boolean inputData() {
+    public void inputData() {
+        // try {
+        // BufferedReader input = new BufferedReader(new
+        // FileReader("dataSmartPhone.txt"));
+        // String line = input.readLine();
+        // while (line != null) {
+        // // chia chuỗi thành các chuỗi con phân cách bởi dấu phẩy
+        // String[] arr = line.split(",");
+
+        // // Khởi tạo SmartPhone với 9 tham số
+        // SmartPhone temp = new SmartPhone(
+        // arr[0], // maSP
+        // arr[1], // tenSP
+        // arr[2], // thuonghieu
+        // Double.parseDouble(arr[3]), // giaBan
+        // arr[4], // chipset
+        // arr[5], // ram
+        // arr[6], // rom
+        // arr[7], // manhinh
+        // arr[8] // chitiet
+        // );
+
+        // ds1.them(temp);
+        // line = input.readLine();
+        // }
+
+        // input.close();
+        // } catch (Exception ex) {
+        // System.out.println("Khong tim thay file dataSmartPhone.txt!!!");
+        // }
         try {
-            BufferedReader input = new BufferedReader(new FileReader("dataSmartPhone.txt"));
-            String line = input.readLine();
-            while (line != null) {
-                // chia chuỗi thành các chuỗi con phân cách bởi dấu phẩy
-                String[] arr = line.split(",");
-
-                // Khởi tạo SmartPhone với 9 tham số
-                SmartPhone temp = new SmartPhone(
-                        arr[0], // maSP
-                        arr[1], // tenSP
-                        arr[2], // thuonghieu
-                        Double.parseDouble(arr[3]), // giaBan
-                        arr[4], // chipset
-                        arr[5], // ram
-                        arr[6], // rom
-                        arr[7], // manhinh
-                        arr[8] // chitiet
-                );
-
-                ds1.them(temp);
-                line = input.readLine();
+            try (BufferedReader input = new BufferedReader(new FileReader("../repository/dataSmartPhone.txt"))) {
+                String line = input.readLine();
+                while (line != null) {
+                    // chia chuỗi thành các chuỗi con phân cách bởi dấu phẩy
+                    String[] arr = line.split(",");
+                    SmartPhone temp = new SmartPhone(
+                            arr[0], // maSP
+                            arr[1], // tenSP
+                            arr[2], // thuonghieu
+                            Double.parseDouble(arr[3]), // giaBan
+                            arr[4], // chipset
+                            arr[5], // ram
+                            arr[6], // rom
+                            arr[7], // manhinh
+                            arr[8] // chitiet
+                    );
+                    ds1.them(temp);
+                    line = input.readLine();
+                }
+                System.out.println("Tai du lieu tu file thanh cong!!!");
             }
-
-            input.close();
-            return true;
-        } catch (Exception ex) {
-            System.out.println("Khong tim thay file dataSmartPhone.txt!!!");
-            return false;
+        } catch (IOException | NumberFormatException e) {
+            System.err.println("Khong tim thay file!!!");
         }
     }
 
@@ -90,7 +116,7 @@ public class QuanLySmartPhone {
             switch (chucnang) {
                 case 1: {
                     ds1.xuat();
-                    System.out.println("\nNhan Enter de thoat!!!");
+                    System.out.println("\nNhan Enter de quay lai!!!");
                     String ma = sc.nextLine();
                     break;
                 }
@@ -98,7 +124,7 @@ public class QuanLySmartPhone {
                 case 2: {
                     ds1.them();
                     // Thông báo "Them thanh cong!!!" đã có trong hàm them()
-                    System.out.println("\nNhan Enter de thoat!!!");
+                    System.out.println("\nNhan Enter de quay lai!!!");
                     String ma = sc.nextLine();
                     break;
                 }
@@ -108,13 +134,13 @@ public class QuanLySmartPhone {
                     String ma = sc.nextLine();
                     ds1.xoa(ma);
                     // Thông báo "Xoa thanh cong!!!" đã có trong hàm xoa()
-                    System.out.println("\nNhan Enter de thoat!!!");
+                    System.out.println("\nNhan Enter de quay lai!!!");
                     ma = sc.nextLine();
                     break;
                 }
                 case 4: {
                     ds1.sua();
-                    System.out.println("\nNhan Enter de thoat!!!");
+                    System.out.println("\nNhan Enter de quay lai!!!");
                     String ma = sc.nextLine();
                     break;
                 }
@@ -126,29 +152,23 @@ public class QuanLySmartPhone {
                     if (ketquaTimKiem == null) {
                         System.out.println("Khong tim thay smartphone!!!");
 
-                        
                     } else {
                         ketquaTimKiem.getInfo();
                     }
-                    System.out.println("\nNhan Enter de thoat!!!");
+                    System.out.println("\nNhan Enter de quay lai!!!");
                     ma = sc.nextLine();
                     break;
                 }
                 case 6: {
                     // Kiểm tra kết quả trả về của hàm
-                    if (inputData()) {
-                        System.out.println("Tai du lieu thanh cong!");
-                    } else {
-                        System.out.println("Tai du lieu THAT BAI!");
-                    }
-
-                    System.out.println("\nNhan Enter de thoat!!!");
+                    inputData();
+                    System.out.println("\nNhan Enter de quay lai!!!");
                     String ma = sc.nextLine();
                     break;
                 }
                 case 7: {
                     outputData();
-                    System.out.println("\nNhan Enter de thoat!!!");
+                    System.out.println("\nNhan Enter de quay lai!!!");
                     String ma = sc.nextLine();
                     break;
                 }
@@ -156,10 +176,8 @@ public class QuanLySmartPhone {
                     break;
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                    }
+                    System.out.println("Nhan enter de quay lai!!!");
+                    sc.nextLine();
                 }
 
             }

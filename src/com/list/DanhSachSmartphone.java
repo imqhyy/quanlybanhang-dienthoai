@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.model.SmartPhone;
+import java.io.IOException;
 
 public class DanhSachSmartphone {
     SmartPhone[] dsdt; // Mảng lưu SmartPhone
@@ -214,11 +215,9 @@ public class DanhSachSmartphone {
                             break;
                         default:
                             System.out.println("Chuc nang khong hop le!!!");
-                            // Đợi 2 giây
-                            try {
-                                Thread.sleep(2000);
-                            } catch (InterruptedException e) {
-                            }
+
+                            System.out.println("Nhan enter de quay lai!!!");
+                            sc.nextLine();
                     }
                 } while (chucnang != 0);
 
