@@ -12,8 +12,9 @@ public class SmartPhone {
     private String ram;
     private String rom;
     private String manhinh;
-    private String chitiet; //mô tả chi tiết thông số camera và 1 số đặc điểm khác
+    private String chitiet; // mô tả chi tiết thông số camera và 1 số đặc điểm khác
     private static final Scanner sc = new Scanner(System.in);
+
     public SmartPhone() {
         maSP = "null";
         tenSP = "null";
@@ -25,7 +26,9 @@ public class SmartPhone {
         manhinh = "null";
         chitiet = "null";
     }
-    public SmartPhone(String maSP, String tenSP, String thuonghieu, double giaBan, String chipset, String ram, String rom, String manhinh, String chitiet) {
+
+    public SmartPhone(String maSP, String tenSP, String thuonghieu, double giaBan, String chipset, String ram,
+            String rom, String manhinh, String chitiet) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.thuonghieu = thuonghieu;
@@ -36,6 +39,106 @@ public class SmartPhone {
         this.manhinh = manhinh;
         this.chitiet = chitiet;
     }
+
+    // region phương thức get riêng lẻ
+    public String getMaSP() {
+        return maSP;
+    }
+
+    public String getTenSP() {
+        return tenSP;
+    }
+
+    public String getThuongHieu() {
+        return thuonghieu;
+    }
+
+    public double getGiaBan() {
+        return giaBan;
+    }
+
+    public String getChipset() {
+        return chipset;
+    }
+
+    public String getRam() {
+        return ram;
+    }
+
+    public String getRom() {
+        return rom;
+    }
+
+    public String getManHinh() {
+        return manhinh;
+    }
+
+    public String getChiTiet() {
+        return chitiet;
+    }
+    // endregion
+
+    // region phương thức set riêng lẻ
+    public void setMaSP() {
+        System.out.print("Ma san pham: ");
+        maSP = sc.nextLine();
+    }
+
+    public void setTenSP() {
+        System.out.print("Ten san pham: ");
+        tenSP = sc.nextLine();
+    }
+
+    public void setThuongHieu() {
+        System.out.print("Thuong hieu: ");
+        thuonghieu = sc.nextLine();
+    }
+
+    public void setGiaBan() {
+        boolean nhapThanhCong = false;
+        do {
+            System.out.print("Gia ban: ");
+            // bắt lỗi nếu người dùng nhập chữ
+            try {
+                giaBan = sc.nextDouble();
+                nhapThanhCong = true;
+                sc.nextLine();
+            } catch (InputMismatchException e) {
+                System.err.println("Vui long nhap so!!!");
+                sc.nextLine(); // xoá buffer trước khi người dùng nhập lại
+            }
+
+        } while (!nhapThanhCong);
+
+    }
+
+    public void setChipset() {
+        System.out.print("Chipset: ");
+        chipset = sc.nextLine();
+    }
+
+    public void setRam() {
+        System.out.print("Ram: ");
+        ram = sc.nextLine();
+    }
+
+    public void setRom() {
+        System.out.print("Rom: ");
+        rom = sc.nextLine();
+    }
+
+    public void setManHinh() {
+        System.out.print("Man hinh: ");
+        manhinh = sc.nextLine();
+    }
+
+    public void setChiTiet() {
+        System.out.print("Chi tiet: ");
+        chitiet = sc.nextLine();
+    }
+    // endregion
+
+    //phương thức get tất cả thuộc tính
     public void getInfo() {
         System.out.println("------Thong tin dien thoai------");
         System.out.print("Ma san pham: " + maSP);
@@ -49,6 +152,8 @@ public class SmartPhone {
         System.out.println("Man hinh: " + manhinh);
         System.out.println("Chi tiet: " + chitiet);
     }
+
+    //phương thức set tất cả thuộc tính
     public void setInfo() {
         System.out.println("------Nhap thong tin dien thoai------");
         setMaSP();
@@ -61,80 +166,20 @@ public class SmartPhone {
         setRom();
         setChiTiet();
     }
-    public String getMaSP() {
-        return maSP;
-    }
-    public String getTenSP() {
-        return tenSP;
-    }
-    public String getThuongHieu() {
-        return thuonghieu;
-    }
-    public double getGiaBan() {
-        return giaBan;
-    }
-    public String getChipset() {
-        return chipset;
-    }
-    public String getRam() {
-        return ram;
-    }
-    public String getRom() {
-        return rom;
-    }
-    public String getManHinh() {
-        return manhinh;
-    }
-    public String getChiTiet() {
-        return chitiet;
-    }
-    public void setMaSP() {
-        System.out.print("Ma san pham: ");
-        maSP = sc.nextLine();
-    }
-    public void setTenSP() {
-        System.out.print("Ten san pham: ");
-        tenSP = sc.nextLine();
-    }
-    public void setThuongHieu() {
-        System.out.print("Thuong hieu: ");
-        thuonghieu = sc.nextLine();
-    }
-    public void setGiaBan() {
-        boolean nhapThanhCong = false;
-        do {
-            System.out.print("Gia ban: ");
-            //bắt lỗi nếu người dùng nhập chữ
-            try {
-                giaBan = sc.nextDouble();
-                nhapThanhCong = true;
-                sc.nextLine();
-            } catch(InputMismatchException e) {
-                System.err.println("Vui long nhap so!!!");
-                sc.nextLine(); //xoá buffer trước khi người dùng nhập lại
-            }
-            
-        } while(!nhapThanhCong);
-        
-    }
-    public void setChipset() {
-        System.out.print("Chipset: ");
-        chipset = sc.nextLine();
-    }
-    public void setRam() {
-        System.out.print("Ram: ");
-        ram = sc.nextLine();
-    }
-    public void setRom() {
-        System.out.print("Rom: ");
-        rom = sc.nextLine();
-    }
-    public void setManHinh() {
-        System.out.print("Man hinh: ");
-        manhinh = sc.nextLine();
-    }
-    public void setChiTiet() {
-        System.out.print("Chi tiet: ");
-        chitiet = sc.nextLine();
+
+    //phương thức toString 
+    @Override
+    public String toString() {
+        return "------ Thong tin dien thoai ------\n" +
+                "Ma san pham: " + maSP + "\n" +
+                "Ten san pham: " + tenSP + "\n" +
+                "Thuong hieu: " + thuonghieu + "\n" +
+                "Gia ban: "+ giaBan +"\n" +
+                "------ Cau hinh dien thoai ------\n" +
+                "Chipset: " + chipset + "\n" +
+                "Ram: " + ram + "\n" +
+                "Rom: " + rom + "\n" +
+                "Man hinh: " + manhinh + "\n" +
+                "Chi tiet: " + chitiet + "\n";
     }
 }

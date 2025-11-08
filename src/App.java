@@ -1,3 +1,5 @@
+import com.service.QuanLyDonHang;
+import com.service.QuanLyHoaDon;
 import com.service.QuanLyNhanVien;
 import com.service.QuanLySmartPhone;
 import java.util.InputMismatchException;
@@ -9,13 +11,14 @@ public class App {
     public static void main(String[] args) throws Exception {
         QuanLyNhanVien qlnv = new QuanLyNhanVien();
         QuanLySmartPhone qlsp = new QuanLySmartPhone();
-
+        QuanLyDonHang qldh = new QuanLyDonHang();
         int chucnang = 0;
         do {
             clearScreen();
-            System.out.println("--- CHƯƠNG TRÌNH QUẢN LÝ CỬA HÀNG ---");
+            System.out.println("--- Quan ly cua hang dien thoai ---");
             System.out.println("1. Quan ly Nhan Vien");
             System.out.println("2. Quan ly SmartPhone");
+            System.out.println("3. Quan ly don hang");
             System.out.println("0. Thoat chuong trinh");
             System.out.print("Nhap lua chon cua ban: ");
 
@@ -37,6 +40,8 @@ public class App {
                 case 2:
                     qlsp.menu();
                     break;
+                case 3:
+                    qldh.menu();
                 case 0:
                     System.out.println("Da thoat chuong trinh!");
                     break;

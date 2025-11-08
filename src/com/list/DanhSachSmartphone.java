@@ -11,18 +11,18 @@ public class DanhSachSmartphone {
     int n; // Số lượng smartphone hiện có
     protected static final Scanner sc = new Scanner(System.in);
 
-    // Constructor
+    // Constructor ko có tham số
     public DanhSachSmartphone() {
         n = 0;
         dsdt = new SmartPhone[0]; // Khởi tạo mảng rỗng
     }
 
-    // Constructor
+    // Constructor có tham số
     public DanhSachSmartphone(SmartPhone[] dsdt, int n) {
         this.dsdt = dsdt;
         this.n = n;
     }
-
+    
     // Nhập danh sách
     public void nhap() {
         boolean nhapThanhCong = false;
@@ -40,12 +40,12 @@ public class DanhSachSmartphone {
             }
         } while (!nhapThanhCong);
 
-        // Cấp phát mảng với số lượng n
+        // Cấp phát mảng dsdt với số lượng n
         dsdt = new SmartPhone[n];
 
         for (int i = 0; i < n; i++) {
             System.out.println("\nSmartphone " + (i + 1));
-            dsdt[i] = new SmartPhone();
+            dsdt[i] = new SmartPhone(); //gọi hàm thiết lập cho từng phần tử trong dsdt
             dsdt[i].setInfo();
             System.out.println();
         }
@@ -133,7 +133,7 @@ public class DanhSachSmartphone {
             }
         }
         if (!daXoa) {
-            System.err.println("Lỗi: Không tìm thấy smartphone có mã " + ma);
+            System.err.println("Loi: khong tim thay smartphone co ma: " + ma);
         }
     }
 
