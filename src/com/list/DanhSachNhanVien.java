@@ -11,6 +11,7 @@ import java.io.IOException;
 public class DanhSachNhanVien implements listInterface.IList {
     NhanVien[] dsnv;
     int n;
+    int seedID = 1;
     protected static final Scanner sc = new Scanner(System.in);
     public DanhSachNhanVien() {
         n = 0;
@@ -20,7 +21,37 @@ public class DanhSachNhanVien implements listInterface.IList {
         this.dsnv = dsnv;
         this.n = n;
     }
+    public void DanhSachNVmini() {
+        //Hiển thị danh sách khách hàng thu gọn
+        System.out.println("--Danh sach nhan vien--");
+        System.out.println("Ma nhan vien      Ho va ten");
+        //Khoảng cách từ M đến H là 19, đoạn này tính toán để mã KH chiếm 18 ô
+        for(int i = 0; i < n; i++) {
+            System.out.print(dsnv[i].getMaNV());
+            for(int j = 0; j < 18 - dsnv[i].getMaNV().length();j++) {
+                System.out.print(" ");
+            }
+            System.out.println(dsnv[i].getHoVaTen());
+        }
+    }
     @Override public void nhap() {
+        //Kiểm tra xem có dữ liệu cũ nào được lưu không vì nhập sẽ xoá toàn bộ dữ liệu cũ
+        if(n != 0) {
+            String xacnhan;
+            System.out.println("Hanh dong nay se xoa du lieu cu!!!");
+            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
+            do {
+                xacnhan = sc.nextLine();
+                switch (xacnhan) {
+                    case "n":
+                        return;
+                    case "y":
+                        break;
+                    default:
+                        System.out.println("Vui long nhan 'y' hoac 'n'!");
+                }
+            } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
+        }
         boolean nhapThanhCong = false;
         System.out.print("\nNhap so luong nhan vien: ");
         do {
@@ -39,7 +70,8 @@ public class DanhSachNhanVien implements listInterface.IList {
         for(int i = 0; i < n; i++) {
             System.out.print("Nhan vien " + (i+1));
             dsnv[i] = new NhanVien();
-            dsnv[i].setInfo();
+            dsnv[i].setInfo(seedID);
+            seedID++;
             System.out.println();
         }
     }
@@ -53,6 +85,15 @@ public class DanhSachNhanVien implements listInterface.IList {
                 dsnv[i].getInfo();
             }
         }
+    }
+    public int xuatN() {
+        return n;
+    }
+    public int getSeedID() {
+        return seedID;
+    }
+    public void setSeedID(int seedID) {
+        this.seedID = seedID;
     }
     public String xuatChuoi() {
         //Hàm này xuất dữ liệu toàn bộ nhân viên thành chuỗi
@@ -76,7 +117,7 @@ public class DanhSachNhanVien implements listInterface.IList {
     @Override public void them() {
         dsnv = Arrays.copyOf(dsnv, n + 1);
         dsnv[n] = new NhanVien();
-        dsnv[n].setInfo();
+        dsnv[n].setInfo(seedID);
         n++;
     }
     public void them(NhanVien a) {
@@ -173,6 +214,7 @@ public class DanhSachNhanVien implements listInterface.IList {
         } else {
             System.out.println("Sua thanh cong!!!");
         }
+        
     }
 
 

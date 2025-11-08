@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.model.SmartPhone;
-import java.io.IOException;
+
 
 public class DanhSachSmartphone {
     SmartPhone[] dsdt; // Mảng lưu SmartPhone
