@@ -14,16 +14,50 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
     DanhSachNhanVien ds1 = new DanhSachNhanVien();
     protected static final Scanner sc = new Scanner(System.in);
     @Override public void inputData() {
+        if(ds1.xuatN() != 0) {
+            String xacnhan;
+            System.out.println("Hanh dong nay se xoa du lieu cu!!!");
+            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
+            do {
+                xacnhan = sc.nextLine();
+                switch (xacnhan) {
+                    case "n":
+                        return;
+                    case "y":
+                        break;
+                    default:
+                        System.out.println("Vui long nhan 'y' hoac 'n'!");
+                }
+            } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
+        }
         try {
             try (BufferedReader input = new BufferedReader(new FileReader("src/com/repository/dataNhanVien.txt"))) {
                 String line = input.readLine();
+                int maxSeedID = 0;
+                //Tạo ds2, ghi dữ liệu vào ds2 trước, nếu không lỗi mới ghi vào ds1
+                DanhSachNhanVien ds2 = new DanhSachNhanVien();
                 while(line != null) {
                     // chia chuỗi thành các chuỗi con phân cách bởi dấu phẩy
                     String[] arr = line.split(",");
                     NhanVien temp = new NhanVien(arr[0], arr[1], Integer.parseInt(arr[2]), arr[3], arr[4], Double.parseDouble(arr[5]));
-                    ds1.them(temp);
+                    //Kiểm tra xem trong danh sách nhập có mã nhân viên nào bị trùng không
+                    NhanVien checkNV = ds2.timkiem(temp.getMaNV());
+                    if(checkNV != null) {
+                        System.out.println("Ma nhan vien " + temp.getMaNV() + " trong file bi trung lap!");
+                        System.out.println("Vui long kiem tra lai du lieu trong file data!!");
+                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        return;
+                    }
+                    ds2.them(temp);
+                    //Lấy seedID lớn nhất trong mảng để dành cho các thao tác thêm
+                    if(Integer.parseInt(temp.getMaNV().substring(2)) > maxSeedID) {
+                        maxSeedID = Integer.parseInt(temp.getMaNV().substring(2));
+                    }
                     line = input.readLine();
                 }
+                //thêm ++ để tăng seedID hiện tại lên 1 để không trùng
+                ds2.setSeedID(maxSeedID++);
+                ds1 = ds2;
                 System.out.println("Tai du lieu tu file thanh cong!!!");
             }
             
@@ -94,30 +128,46 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                 }
                              
                 case 4: {
-                    System.out.print("Nhap ma nhan vien can xoa: ");
-                    String ma = sc.nextLine();
-                    ds1.xoa(ma);
-                    System.out.println("Xoa thanh cong!!!");
+                    if(ds1.xuatN() == 0) {
+                        System.out.println("Danh sach trong!!!");
+                    } else {
+                        System.out.print("Nhap ma nhan vien can xoa: ");
+                        String ma = sc.nextLine();
+                        ds1.xoa(ma);
+                        System.out.println("Xoa thanh cong!!!");
+                    }
                     System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
                     break;
                 }
                 case 5: {
-                    ds1.sua();
+                    if(ds1.xuatN() == 0) {
+                        System.out.println("Danh sach trong!!!");
+                    } else {
+                        ds1.DanhSachNVmini();
+                        ds1.sua();
+                    }
                     System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
                     break;
                 }
                     
                 case 6: {
-                    System.out.print("Nhap ma nhan vien can tim: ");
-                    String ma = sc.nextLine();
-                    NhanVien ketquaTimKiem = ds1.timkiem(ma);
-                    if(ketquaTimKiem == null) {
-                        System.out.println("Khong tim thay nhan vien!!!");
+                    if(ds1.xuatN() == 0) {
+                        System.out.println("Danh sach trong!!!");
                     } else {
-                        ketquaTimKiem.getInfo();
+                        ds1.DanhSachNVmini();
+                        System.out.print("Nhap ma nhan vien can tim: ");
+                        String ma = sc.nextLine();
+                        NhanVien ketquaTimKiem = ds1.timkiem(ma);
+                        if(ketquaTimKiem == null) {
+                            System.out.println("Khong tim thay nhan vien!!!");
+                        } else {
+                            ketquaTimKiem.getInfo();
+                        }
                     }
+                    System.out.println("Nhan enter de quay lai!!!");
+                    sc.nextLine();
                     break;
                 }
                 case 7: {

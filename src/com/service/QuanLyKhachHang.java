@@ -33,13 +33,31 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
         try {
             try(BufferedReader input = new BufferedReader(new FileReader("src/com/repository/dataKhachHang.txt"))) {
                 String line = input.readLine();
+                int maxSeedID = 0;
+                //Tạo ds2, ghi dữ liệu vào ds2 trước, nếu không lỗi mới ghi vào ds1
+                DanhSachKhachHang ds2 = new DanhSachKhachHang();
                 while(line != null) {
                     //Chia chuỗi thành các chuỗi con phân cách bởi dấu phẩy
                     String[] arr = line.split(",");
                     KhachHang temp = new KhachHang(arr[0], arr[1], Integer.parseInt(arr[2]), arr[3]);
-                    ds1.them(temp);
+                    //Kiểm tra xem trong danh sách nhập có mã khách hàng nào bị trùng không
+                    KhachHang checkKH = ds2.timkiem(temp.getMaKH());
+                    if(checkKH != null) {
+                        System.out.println("Ma khach hang " + temp.getMaKH() + " trong file bi trung lap!");
+                        System.out.println("Vui long kiem tra lai du lieu trong file data!!");
+                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        return;
+                    }
+                    ds2.them(temp);
+                    //Lấy seedID lớn nhất trong mảng để dành cho các thao tác thêm
+                    if(Integer.parseInt(temp.getMaKH().substring(2)) > maxSeedID) {
+                        maxSeedID = Integer.parseInt(temp.getMaKH().substring(2));
+                    }
                     line = input.readLine();
                 }
+                //thêm ++ để tăng seedID hiện tại lên 1 để không trùng
+                ds2.setSeedID(maxSeedID++);
+                ds1 = ds2;
                 System.out.println("Tai du lieu tu file thanh cong!!!");
             }
         } catch (IOException | NumberFormatException e) {
@@ -105,30 +123,43 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                 }
                              
                 case 4: {
-                    System.out.print("Nhap ma nhan vien can xoa: ");
-                    String ma = sc.nextLine();
-                    ds1.xoa(ma);
-                    System.out.println("Xoa thanh cong!!!");
+                    if(ds1.xuatN() == 0) {
+                        System.out.println("Danh sach trong!!!");
+                    } else {
+                        System.out.print("Nhap ma khach hang can xoa: ");
+                        String ma = sc.nextLine();
+                        ds1.xoa(ma);
+                        System.out.println("Xoa thanh cong!!!");
+                    }
                     System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
                     break;
                 }
                 case 5: {
-                    ds1.sua();
+                    if(ds1.xuatN() == 0) {
+                        System.out.println("Danh sach trong!!!");
+                    } else {
+                        ds1.DanhSachKHmini();
+                        ds1.sua();
+                    }                 
                     System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
                     break;
                 }
                     
                 case 6: {
-                    ds1.DanhSachKHmini();
-                    System.out.print("Nhap ma nhan vien can tim: ");
-                    String ma = sc.nextLine();
-                    KhachHang ketquaTimKiem = ds1.timkiem(ma);
-                    if(ketquaTimKiem == null) {
-                        System.out.println("Khong tim thay nhan vien!!!");
+                    if(ds1.xuatN() == 0) {
+                        System.out.println("Danh sach trong!!!");
                     } else {
-                        ketquaTimKiem.getInfo();
+                        ds1.DanhSachKHmini();
+                        System.out.print("Nhap ma khach hang can tim: ");
+                        String ma = sc.nextLine();
+                        KhachHang ketquaTimKiem = ds1.timkiem(ma);
+                        if(ketquaTimKiem == null) {
+                            System.out.println("Khong tim thay khach hang!!!");
+                        } else {
+                            ketquaTimKiem.getInfo();
+                        }
                     }
                     System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
