@@ -28,6 +28,7 @@ public class DonHang {
         this.soLuong = soLuong;
     }
 
+    //region get
     public void getInfo() {
         System.out.println("------Thong tin don hang------");
         System.out.println("Ma don hang: " + this.maDH);
@@ -52,22 +53,15 @@ public class DonHang {
     public String getMaDH() {
         return maDH;
     }
+    //endregion 
 
+    //region Set
     public void setInfo() {
         System.out.println("------Nhap thong tin don hang------");
         setMaDH();
         setMaSP();
         setNgayDat();
         setSoLuong();
-
-    }
-
-    // phương thức toString
-    public String toString() {
-        return "Ma don hang: " + maDH + "\n" +
-                "Ten smartphone: " + maSP + "\n" +
-                "Ngay dat hang: " + ngayDat + "\n" +
-                "So luong: " + soLuong + "\n";
 
     }
 
@@ -91,6 +85,15 @@ public class DonHang {
         this.soLuong = sc.nextInt();
         sc.nextLine();
     }
+    //endregion
+
+    // phương thức toString
+    public String toString() {
+        return "Ma don hang: " + maDH + "\n" +
+                "Ten smartphone: " + maSP + "\n" +
+                "Ngay dat hang: " + ngayDat + "\n" +
+                "So luong: " + soLuong + "\n";
+    }
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -110,7 +113,6 @@ public class DonHang {
                 ngayNhap = null;
             }
         } while (ngayNhap == null);
-
         return null;
     }
 }

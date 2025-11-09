@@ -146,7 +146,7 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
     public static void clearScreen() {
         try {
             final String os = System.getProperty("os.name");
-
+    
             if (os.contains("Windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
