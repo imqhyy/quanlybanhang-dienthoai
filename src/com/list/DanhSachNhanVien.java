@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.model.KhachHang;
 import com.model.NhanVien;
 import java.io.IOException;
 
@@ -22,16 +23,71 @@ public class DanhSachNhanVien implements listInterface.IList {
         this.n = n;
     }
     public void DanhSachNVmini() {
-        //Hiển thị danh sách khách hàng thu gọn
+        //Hiển thị danh sách nhân viên hàng thu gọn
         System.out.println("--Danh sach nhan vien--");
-        System.out.println("Ma nhan vien      Ho va ten");
-        //Khoảng cách từ M đến H là 19, đoạn này tính toán để mã KH chiếm 18 ô
+        System.out.println("Ma nhan vien   Ho va ten           Tuoi   So dien thoai   Chuc vu   Luong");
+        
         for(int i = 0; i < n; i++) {
+            //Khoảng cách từ M đến H là 15, đoạn này tính toán để mã NV chiếm 15 ô
             System.out.print(dsnv[i].getMaNV());
-            for(int j = 0; j < 18 - dsnv[i].getMaNV().length();j++) {
+            for(int j = 0; j < 15 - dsnv[i].getMaNV().length();j++) {
                 System.out.print(" ");
             }
-            System.out.println(dsnv[i].getHoVaTen());
+            //Khoảng cách từ H đến T là 20, đoạn này tính toán để tên KH chiếm 20 ô
+            System.out.print(dsnv[i].getHoVaTen());
+            for(int j = 0; j < 20 - dsnv[i].getHoVaTen().length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ T đến S là 7, đoạn này tính toán để tên KH chiếm 7 ô
+            System.out.print(dsnv[i].getTuoi());
+            for(int j = 0; j < 7 - Integer.toString(dsnv[i].getTuoi()).length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ S đến C là 16, đoạn này tính toán để tên KH chiếm 16 ô
+            System.out.print(dsnv[i].getSDT());
+            for(int j = 0; j < 16 - (dsnv[i].getSDT()).length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ C đến L là 10, đoạn này tính toán để tên KH chiếm 10 ô
+            System.out.print(dsnv[i].getSDT());
+            for(int j = 0; j < 10 - (dsnv[i].getSDT()).length();j++) {
+                System.out.print(" ");
+            }
+            System.out.println(dsnv[i].getLuong());
+        }
+    }
+    public void DanhSachNVmini(NhanVien[] ds2) {
+        //Hiển thị danh sách nhân viên hàng thu gọn
+        System.out.println("--Danh sach nhan vien--");
+        System.out.println("Ma nhan vien   Ho va ten           Tuoi   So dien thoai   Chuc vu   Luong");
+        
+        for(int i = 0; i < n; i++) {
+            //Khoảng cách từ M đến H là 15, đoạn này tính toán để mã NV chiếm 15 ô
+            System.out.print(ds2[i].getMaNV());
+            for(int j = 0; j < 15 - ds2[i].getMaNV().length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ H đến T là 20, đoạn này tính toán để tên KH chiếm 20 ô
+            System.out.print(ds2[i].getHoVaTen());
+            for(int j = 0; j < 20 - ds2[i].getHoVaTen().length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ T đến S là 7, đoạn này tính toán để tên KH chiếm 7 ô
+            System.out.print(ds2[i].getTuoi());
+            for(int j = 0; j < 7 - Integer.toString(ds2[i].getTuoi()).length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ S đến C là 16, đoạn này tính toán để tên KH chiếm 16 ô
+            System.out.print(ds2[i].getSDT());
+            for(int j = 0; j < 16 - (ds2[i].getSDT()).length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ C đến L là 10, đoạn này tính toán để tên KH chiếm 10 ô
+            System.out.print(ds2[i].getSDT());
+            for(int j = 0; j < 10 - (ds2[i].getSDT()).length();j++) {
+                System.out.print(" ");
+            }
+            System.out.println(ds2[i].getLuong());
         }
     }
     @Override public void nhap() {
@@ -80,10 +136,7 @@ public class DanhSachNhanVien implements listInterface.IList {
         if(n == 0) {
             System.out.println("Khong co nhan vien nao!!!");
         } else {
-            for(int i = 0; i < n; i++) {
-                System.out.println("\nNhan vien " + (i + 1));
-                dsnv[i].getInfo();
-            }
+            bolocKetqua(this);
         }
     }
     public int xuatN() {
@@ -138,6 +191,151 @@ public class DanhSachNhanVien implements listInterface.IList {
             }
         }
     }
+    public void bolocKetqua(DanhSachNhanVien ds2) {
+        int chucnang = 0;
+        int bolocTuoi = 0;
+        int sosanhTuoi = 0;
+        int bolocLuong = 0;
+        int sosanhLuong = 0;
+        do {
+            DanhSachNhanVien dsBoLoc = new DanhSachNhanVien();
+            //Sao chép dữ liệu của danh sách truyền vào, những gì thay đổi trong bộ lọc sẽ không ảnh hưởng dữ liệu gốc
+            for(int i = 0; i < ds2.n; i++) {
+                dsBoLoc.them(ds2.dsnv[i]);
+            }
+            //Kiểm tra có bộ lọc nào được sử dụng không
+            if(bolocTuoi != 0) {
+                for(int i = 0; i < dsBoLoc.n; i++) {
+                    if(sosanhTuoi == 1) {
+                        if(dsBoLoc.dsnv[i].getTuoi() < bolocTuoi) {
+                            dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
+                            //Thêm i-- để khi có phần tử bị xoá và dồn lên nó sẽ kiểm tra phần bị dồn đó
+                            i--;
+                        }
+                    }
+                    if(sosanhTuoi == 2) {
+                        if(dsBoLoc.dsnv[i].getTuoi() > bolocTuoi) {
+                            dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
+                            i--;
+                        }
+                    }
+                    if(sosanhTuoi == 3) {
+                        if(dsBoLoc.dsnv[i].getTuoi() != bolocTuoi) {
+                            dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
+                            i--;
+                        }
+                    }
+                }
+            }
+            if(bolocLuong != 0) {
+                for(int i = 0; i < dsBoLoc.n; i++) {
+                    if(sosanhLuong == 1) {
+                        if(dsBoLoc.dsnv[i].getLuong() < bolocTuoi) {
+                            dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
+                            //Thêm i-- để khi có phần tử bị xoá và dồn lên nó sẽ kiểm tra phần bị dồn đó
+                            i--;
+                        }
+                    }
+                    if(sosanhLuong == 2) {
+                        if(dsBoLoc.dsnv[i].getLuong() > bolocTuoi) {
+                            dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
+                            i--;
+                        }
+                    }
+                    if(sosanhLuong == 3) {
+                        if(dsBoLoc.dsnv[i].getLuong() != bolocTuoi) {
+                            dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
+                            i--;
+                        }
+                    }
+                }
+            }
+            dsBoLoc.DanhSachNVmini();
+            System.out.println();
+            System.out.println("-Bo loc-");
+            System.out.println("1. Tuoi");
+            System.out.println("2. Luong");
+            System.out.println("3. Xoa bo loc");
+            System.out.println("0. Thoat");
+            System.out.print("Nhap chuc nang: ");
+            chucnang = sc.nextInt();
+            sc.nextLine();
+            switch (chucnang) {
+                case 1: {
+                    do {
+                        System.out.print("Nhap so tuoi: ");
+                        bolocTuoi = sc.nextInt();
+                        System.out.println("1. Lon hon hoac bang");
+                        System.out.println("2. Be hon hoac bang");
+                        System.out.println("3. Bang");
+                        System.out.println("0. Thoat");
+                        System.out.print("Nhap chuc nang: ");
+                        sosanhTuoi = sc.nextInt();
+                        sc.nextLine();
+                        switch(sosanhTuoi) {
+                            case 1: break;
+                            case 2: break;
+                            case 3: break;
+                            case 0: {
+                                bolocTuoi = 0;
+                                break;
+                            }
+                            default: {
+                                System.out.println("Chuc nang khong hop le!!!");
+                                System.out.println("Nhan enter de quay lai!!!");
+                                sc.nextLine();
+                            }
+                        }
+                    } while(sosanhTuoi > 3);
+                    break;
+                }
+                case 2: {
+                    do {
+                        System.out.print("Nhap luong: ");
+                        bolocLuong = sc.nextInt();
+                        System.out.println("1. Lon hon hoac bang");
+                        System.out.println("2. Be hon hoac bang");
+                        System.out.println("3. Bang");
+                        System.out.println("0. Thoat");
+                        System.out.print("Nhap chuc nang: ");
+                        sosanhLuong = sc.nextInt();
+                        sc.nextLine();
+                        switch(sosanhTuoi) {
+                            case 1: break;
+                            case 2: break;
+                            case 3: break;
+                            case 0: {
+                                bolocLuong = 0;
+                                break;
+                            }
+                            default: {
+                                System.out.println("Chuc nang khong hop le!!!");
+                                System.out.println("Nhan enter de quay lai!!!");
+                                sc.nextLine();
+                            }
+                        }
+                    } while(sosanhLuong > 3);
+                    break;
+                }
+                case 3: {
+                    bolocTuoi = 0;
+                    sosanhTuoi = 0;
+                    bolocLuong = 0;
+                    sosanhLuong = 0;
+                    break;
+                }
+                case 0: {
+                    break;
+                }
+                default: {
+                    System.out.println("Chuc nang khong hop le!!!");
+                    System.out.println("Nhan enter de quay lai!!!");
+                    sc.nextLine();
+                }
+                    
+            }
+        } while (chucnang != 0);
+    }
     public NhanVien timkiem(String ma) {
         for(int i = 0; i < n; i++) {
             if(dsnv[i].getMaNV().equals(ma)) {
@@ -145,6 +343,22 @@ public class DanhSachNhanVien implements listInterface.IList {
             }
         }
         return null;
+    }
+    public DanhSachNhanVien timkiemnangcao(String ma, String hovaten, String sdt, String chucvu) {
+        DanhSachNhanVien kqtimkiem = new DanhSachNhanVien();
+        for(int i = 0; i < n; i++) {
+            if(!dsnv[i].getMaNV().contains(ma) && !ma.equals("\n")) 
+                continue;
+            if(!dsnv[i].getHoVaTen().contains(hovaten) && !hovaten.equals("\n"))
+                continue;
+            if(!dsnv[i].getSDT().contains(sdt) && !sdt.equals("\n"))
+                continue;
+            if(!dsnv[i].getChucVu().contains(chucvu) && !sdt.equals("\n"))
+                continue;
+            kqtimkiem.them(dsnv[i]);
+        }
+        return kqtimkiem;
+        
     }
     @Override public void sua() {
         String ma;

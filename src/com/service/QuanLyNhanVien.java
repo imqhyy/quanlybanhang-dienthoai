@@ -1,5 +1,6 @@
 package com.service;
 
+import com.list.DanhSachKhachHang;
 import com.list.DanhSachNhanVien;
 
 import java.io.BufferedReader;
@@ -157,14 +158,16 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                         System.out.println("Danh sach trong!!!");
                     } else {
                         ds1.DanhSachNVmini();
-                        System.out.print("Nhap ma nhan vien can tim: ");
+                        System.out.print("Nhap ma nhan vien can tim(nhan enter de bo qua): ");
                         String ma = sc.nextLine();
-                        NhanVien ketquaTimKiem = ds1.timkiem(ma);
-                        if(ketquaTimKiem == null) {
-                            System.out.println("Khong tim thay nhan vien!!!");
-                        } else {
-                            ketquaTimKiem.getInfo();
-                        }
+                        System.out.print("Nhap ho va ten nhan vien can tim(nhan enter de bo qua): ");
+                        String hovaten = sc.nextLine();
+                        System.out.print("Nhap so dien thoai nhan vien can tim(nhan enter de bo qua): ");
+                        String sdt = sc.nextLine();
+                        System.out.print("Nhap chuc vu nhan vien can tim(nhan enter de bo qua): ");
+                        String chucvu = sc.nextLine();
+                        DanhSachNhanVien kqtimkiem = ds1.timkiemnangcao(ma, hovaten, sdt, chucvu);
+                        kqtimkiem.bolocKetqua(kqtimkiem);
                     }
                     System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
