@@ -141,7 +141,7 @@ public class SmartPhone {
     //phương thức get tất cả thuộc tính
     public void getInfo() {
         System.out.println("------Thong tin dien thoai------");
-        System.out.print("Ma san pham: " + maSP);
+        System.out.println("Ma san pham: " + maSP);
         System.out.println("Ten san pham: " + tenSP);
         System.out.println("Thuong hieu: " + thuonghieu);
         System.out.println("Gia ban: " + giaBan);
@@ -157,6 +157,21 @@ public class SmartPhone {
     public void setInfo() {
         System.out.println("------Nhap thong tin dien thoai------");
         setMaSP();
+        setTenSP();
+        setThuongHieu();
+        setGiaBan();
+        System.out.println("------Nhap cau hinh san pham------");
+        setChipset();
+        setRam();
+        setRom();
+        setChiTiet();
+    }
+    public void setInfo(int seedID) {
+        System.out.println("------Nhap thong tin dien thoai------");
+        String ma = "SP";
+        ma = ma + Integer.toString(seedID);
+        maSP = ma;
+        System.out.println("Ma san pham: " + maSP);
         setTenSP();
         setThuongHieu();
         setGiaBan();

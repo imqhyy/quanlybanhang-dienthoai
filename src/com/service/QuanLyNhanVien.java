@@ -1,6 +1,6 @@
 package com.service;
 
-import com.list.DanhSachKhachHang;
+
 import com.list.DanhSachNhanVien;
 
 import java.io.BufferedReader;
@@ -135,7 +135,7 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                         System.out.print("Nhap ma nhan vien can xoa: ");
                         String ma = sc.nextLine();
                         ds1.xoa(ma);
-                        System.out.println("Xoa thanh cong!!!");
+                        
                     }
                     System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();

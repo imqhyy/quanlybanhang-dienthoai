@@ -13,13 +13,11 @@ import java.util.Scanner;
 public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.ILoadSaveData {
     DanhSachDonHang dsDH = new DanhSachDonHang();
     protected static final Scanner sc = new Scanner(System.in);
-    private static final String FILE_PATH = "src/com/repository/dataDonHang.txt";
-
     @Override
     // Tra ve void inputData() nhu ban dau
     public void inputData() {
         try {
-            try (BufferedReader input = new BufferedReader(new FileReader(FILE_PATH))) {
+            try (BufferedReader input = new BufferedReader(new FileReader("src/com/repository/dataDonHang.txt"))) {
                 String line = input.readLine();
                 while (line != null) {
                     String[] arr = line.split(",");
@@ -40,7 +38,7 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
     @Override
     public void outputData() {
         try {
-            try (FileWriter fw = new FileWriter(FILE_PATH)) {
+            try (FileWriter fw = new FileWriter("src/com/repository/dataDonHang.txt")) {
                 String data = dsDH.xuatChuoi();
                 if (data == null) {
                     System.out.println("Khong co gi de ghi vao file!!!");

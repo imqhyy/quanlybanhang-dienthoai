@@ -160,6 +160,7 @@ public class DanhSachKhachHang implements listInterface.IList {
         n++;
     }
     @Override public void xoa(String ma) {
+        boolean daXoa = false;
         for(int i = 0; i < n; i++) {
             if(dskh[i].getMaKH().equals(ma)) {
                 for(int j = i; j < n - 1; j++) {
@@ -167,8 +168,14 @@ public class DanhSachKhachHang implements listInterface.IList {
                 }
                 dskh = Arrays.copyOf(dskh, n - 1);
                 n--;
+                daXoa = true;
                 break;
             }
+        }
+        if(daXoa) {
+            System.out.println("Xoa thanh cong!");
+        } else {
+            System.out.println("Khong tim thay khach hang nay!");
         }
     }
     public void bolocKetqua(DanhSachKhachHang ds2) {

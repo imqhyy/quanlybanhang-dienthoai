@@ -1,9 +1,7 @@
 package com.model;
 
-import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DonHang {
@@ -12,7 +10,8 @@ public class DonHang {
     private String maSP;
     private int soLuong;
     private static final Scanner sc = new Scanner(System.in);
-
+    //Định dạng ngày nhập
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     // Hàm khởi tạo ko tham số
     public DonHang() {
         this.maDH = "null";
@@ -63,7 +62,7 @@ public class DonHang {
     }
 
     // phương thức toString
-    public String toString() {
+    @Override public String toString() {
         return "Ma don hang: " + maDH + "\n" +
                 "Ten smartphone: " + maSP + "\n" +
                 "Ngay dat hang: " + ngayDat + "\n" +
@@ -92,7 +91,7 @@ public class DonHang {
         sc.nextLine();
     }
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    
 
     // Hàm này dùng để nhập ngày tháng năm
     public static LocalDate nhapNgayThangNam(Scanner sc) {

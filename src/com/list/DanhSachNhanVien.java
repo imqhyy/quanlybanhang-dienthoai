@@ -180,6 +180,7 @@ public class DanhSachNhanVien implements listInterface.IList {
         n++;
     }
     @Override public void xoa(String ma) {
+        boolean daXoa = false;
         for(int i = 0; i < n; i++) {
             if(dsnv[i].getMaNV().equals(ma)) {
                 for(int j = i; j < n - 1; j++) {
@@ -187,15 +188,21 @@ public class DanhSachNhanVien implements listInterface.IList {
                 }
                 dsnv = Arrays.copyOf(dsnv, n - 1);
                 n--;
+                daXoa = true;
                 break;
             }
+        }
+        if(daXoa) {
+            System.out.println("Xoa thanh cong!");
+        } else {
+            System.out.println("Khong tim thay nhan vien nay!");
         }
     }
     public void bolocKetqua(DanhSachNhanVien ds2) {
         int chucnang = 0;
         int bolocTuoi = 0;
         int sosanhTuoi = 0;
-        int bolocLuong = 0;
+        double bolocLuong = 0;
         int sosanhLuong = 0;
         do {
             DanhSachNhanVien dsBoLoc = new DanhSachNhanVien();
@@ -292,7 +299,7 @@ public class DanhSachNhanVien implements listInterface.IList {
                 case 2: {
                     do {
                         System.out.print("Nhap luong: ");
-                        bolocLuong = sc.nextInt();
+                        bolocLuong = sc.nextDouble();
                         System.out.println("1. Lon hon hoac bang");
                         System.out.println("2. Be hon hoac bang");
                         System.out.println("3. Bang");

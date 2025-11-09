@@ -162,7 +162,7 @@ public class DanhSachDonHang implements listInterface.IList {
             }
         }
         if (!suaThanhCong) {
-            System.out.println("Khong co khach hang nay!!!");
+            System.out.println("Khong co don hang nay!!!");
         } else {
             System.out.println("Sua thanh cong!!!");
         }
