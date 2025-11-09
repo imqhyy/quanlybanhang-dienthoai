@@ -152,14 +152,15 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                         System.out.println("Danh sach trong!!!");
                     } else {
                         ds1.DanhSachKHmini();
-                        System.out.print("Nhap ma khach hang can tim: ");
+                        System.out.print("Nhap ma khach hang can tim(nhan enter de bo qua): ");
                         String ma = sc.nextLine();
-                        KhachHang ketquaTimKiem = ds1.timkiem(ma);
-                        if(ketquaTimKiem == null) {
-                            System.out.println("Khong tim thay khach hang!!!");
-                        } else {
-                            ketquaTimKiem.getInfo();
-                        }
+                        System.out.print("Nhap ho va ten khach hang can tim(nhan enter de bo qua): ");
+                        String hovaten = sc.nextLine();
+                        System.out.print("Nhap so dien thoai khach hang can tim(nhan enter de bo qua): ");
+                        String sdt = sc.nextLine();
+                        DanhSachKhachHang kqtimkiem = ds1.timkiemnangcao(ma, hovaten, sdt);
+                        kqtimkiem.bolocKetqua(kqtimkiem);
+                        
                     }
                     System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
