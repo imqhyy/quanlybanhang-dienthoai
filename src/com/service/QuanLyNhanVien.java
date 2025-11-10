@@ -57,7 +57,7 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                     line = input.readLine();
                 }
                 //thêm ++ để tăng seedID hiện tại lên 1 để không trùng
-                ds2.setSeedID(maxSeedID++);
+                ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
                 System.out.println("Tai du lieu tu file thanh cong!!!");
             }

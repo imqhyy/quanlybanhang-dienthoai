@@ -30,6 +30,7 @@ public class NhanVien extends ConNguoi {
     }
     @Override public void setInfo() {
         System.out.println("\n------Nhap thong tin nhan vien------");
+        System.out.println("Ma nhan vien: " + maNV);
         super.setHoVaTen();
         super.setTuoi();
         super.setSDT();

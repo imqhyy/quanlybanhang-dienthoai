@@ -22,6 +22,7 @@ public class KhachHang extends ConNguoi {
     }
     @Override public void setInfo() {
         System.out.println("\n------Sua thong tin khach hang------");
+        System.out.println("Ma khach hang: " + maKH);
         super.setHoVaTen();
         super.setTuoi();
         super.setSDT();

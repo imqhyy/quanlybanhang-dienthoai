@@ -14,14 +14,17 @@ public class DanhSachNhanVien implements listInterface.IList {
     int n;
     int seedID = 1;
     protected static final Scanner sc = new Scanner(System.in);
+    
     public DanhSachNhanVien() {
         n = 0;
         dsnv = new NhanVien[0];
     }
+    
     public DanhSachNhanVien(NhanVien[] dsnv, int n) {
         this.dsnv = dsnv;
         this.n = n;
     }
+    
     public void DanhSachNVmini() {
         //Hiển thị danh sách nhân viên hàng thu gọn
         System.out.println("--Danh sach nhan vien--");
@@ -56,6 +59,7 @@ public class DanhSachNhanVien implements listInterface.IList {
             System.out.println(dsnv[i].getLuong());
         }
     }
+    
     public void DanhSachNVmini(NhanVien[] ds2) {
         //Hiển thị danh sách nhân viên hàng thu gọn
         System.out.println("--Danh sach nhan vien--");
@@ -90,6 +94,7 @@ public class DanhSachNhanVien implements listInterface.IList {
             System.out.println(ds2[i].getLuong());
         }
     }
+    
     @Override public void nhap() {
         //Kiểm tra xem có dữ liệu cũ nào được lưu không vì nhập sẽ xoá toàn bộ dữ liệu cũ
         if(n != 0) {
@@ -131,6 +136,7 @@ public class DanhSachNhanVien implements listInterface.IList {
             System.out.println();
         }
     }
+    
     @Override public void xuat() {
         System.out.println("\nDanh sach nhan vien");
         if(n == 0) {
@@ -139,15 +145,19 @@ public class DanhSachNhanVien implements listInterface.IList {
             bolocKetqua(this);
         }
     }
+    
     public int xuatN() {
         return n;
     }
+    
     public int getSeedID() {
         return seedID;
     }
+    
     public void setSeedID(int seedID) {
         this.seedID = seedID;
     }
+    
     public String xuatChuoi() {
         //Hàm này xuất dữ liệu toàn bộ nhân viên thành chuỗi
         String xuatChuoi = null;
@@ -167,18 +177,21 @@ public class DanhSachNhanVien implements listInterface.IList {
         }
         return xuatChuoi;
     }
+    
     @Override public void them() {
         dsnv = Arrays.copyOf(dsnv, n + 1);
         dsnv[n] = new NhanVien();
         dsnv[n].setInfo(seedID);
         n++;
     }
+    
     public void them(NhanVien a) {
         dsnv = Arrays.copyOf(dsnv, n + 1);
         dsnv[n] = new NhanVien();
         dsnv[n] = a;
         n++;
     }
+    
     @Override public void xoa(String ma) {
         boolean daXoa = false;
         for(int i = 0; i < n; i++) {
@@ -198,6 +211,7 @@ public class DanhSachNhanVien implements listInterface.IList {
             System.out.println("Khong tim thay nhan vien nay!");
         }
     }
+    
     public void bolocKetqua(DanhSachNhanVien ds2) {
         int chucnang = 0;
         int bolocTuoi = 0;
@@ -343,6 +357,7 @@ public class DanhSachNhanVien implements listInterface.IList {
             }
         } while (chucnang != 0);
     }
+    
     public NhanVien timkiem(String ma) {
         for(int i = 0; i < n; i++) {
             if(dsnv[i].getMaNV().equals(ma)) {
@@ -351,6 +366,7 @@ public class DanhSachNhanVien implements listInterface.IList {
         }
         return null;
     }
+    
     public DanhSachNhanVien timkiemnangcao(String ma, String hovaten, String sdt, String chucvu) {
         DanhSachNhanVien kqtimkiem = new DanhSachNhanVien();
         for(int i = 0; i < n; i++) {
@@ -367,6 +383,7 @@ public class DanhSachNhanVien implements listInterface.IList {
         return kqtimkiem;
         
     }
+    
     @Override public void sua() {
         String ma;
         System.out.print("Nhap ma nhan vien can sua: ");

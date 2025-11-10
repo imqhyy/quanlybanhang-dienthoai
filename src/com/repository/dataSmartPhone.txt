@@ -1,4 +1,4 @@
-SP001,iPhone 15 Pro,Apple,2.799,Apple A17 Pro,8GB,256GB,OLED 6.1 inch,Camera chinh 48MP va 2 camera phu 12MP
-SP002,Samsung Galaxy S24 Ultra,Samsung,3.349,Snapdragon 8 Gen 3,12GB,512GB,Dynamic AMOLED 6.8 inch,Camera chinh 200MP va 3 camera phu
-SP003,Xiaomi 14,Xiaomi,2.299,Snapdragon 8 Gen 3,12GB,256GB,AMOLED 6.36 inch,Hop tac Leica
-SP004,Oppo Find N3,Oppo,4.499,Snapdragon 8 Gen 2,16GB,512GB,Man hinh gap 7.82 inch,Ban le Hasselblad
+SP1,iPhone 15 Pro,Apple,2.799,Apple A17 Pro,8GB,256GB,OLED 6.1 inch,Camera chinh 48MP va 2 camera phu 12MP
+SP2,Samsung Galaxy S24 Ultra,Samsung,3.349,Snapdragon 8 Gen 3,12GB,512GB,Dynamic AMOLED 6.8 inch,Camera chinh 200MP va 3 camera phu
+SP3,Xiaomi 14,Xiaomi,2.299,Snapdragon 8 Gen 3,12GB,256GB,AMOLED 6.36 inch,Hop tac Leica
+SP4,Oppo Find N3,Oppo,4.499,Snapdragon 8 Gen 2,16GB,512GB,Man hinh gap 7.82 inch,Ban le Hasselblad

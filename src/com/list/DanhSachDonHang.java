@@ -1,172 +1,430 @@
 package com.list;
 
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.model.DonHang;
-import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.InputMismatchException;
-
-public class DanhSachDonHang implements listInterface.IList {
-    DonHang[] donHang;
+public class DanhSachDonHang {
+    DonHang[] dsdh;
     int n;
+    int seedID = 1;
     protected static final Scanner sc = new Scanner(System.in);
 
+    //Constructor không tham số
     public DanhSachDonHang() {
         n = 0;
-        donHang = new DonHang[0];
+        dsdh = new DonHang[n];
     }
 
-    public DanhSachDonHang(DonHang[] donHang, int n) {
+    //Constructor có tham số
+    public DanhSachDonHang(DonHang[] dsdh, int n) {
+        this.dsdh = dsdh;
         this.n = n;
-        this.donHang = donHang;
     }
 
-    @Override
+    public void DanhSachDHmini() {
+        //Hiển thị danh sách khách hàng thu gọn
+        System.out.println("--Danh sach dong hang--");
+        System.out.println("Ma don hang   Ngay dat       Ma khach hang   Ma nhan vien   Tong san pham");
+        if(n == 0) {
+            System.out.println("Khong co ket qua phu hop");
+            return;
+        }
+        for(int i = 0; i < n; i++) {
+            //Khoảng cách từ M đến T là 14, đoạn này tính toán để mã Đơn hàng chiếm 14 ô
+            System.out.print(dsdh[i].getMaDH());
+            for(int j = 0; j < 14 - dsdh[i].getMaDH().length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ N đến M là 15, đoạn này tính toán để Ngày đặt chiếm 15 ô
+            System.out.print(dsdh[i].getNgayDat());
+            for(int j = 0; j < 15 - dsdh[i].getNgayDat().length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ M đến M là 16, đoạn này tính toán để Mã khách hàng hiệu chiếm 16 ô
+            System.out.print(dsdh[i].getKH().getMaKH());
+            for(int j = 0; j < 16 - dsdh[i].getKH().getMaKH().length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ M đến M là 15, đoạn này tính toán để Mã nhân viên hiệu chiếm 15 ô
+            System.out.print(dsdh[i].getNV().getMaNV());
+            for(int j = 0; j < 15 - dsdh[i].getNV().getMaNV().length();j++) {
+                System.out.print(" ");
+            }
+            System.out.println(dsdh[i].getTongSP());
+        }
+    }
+
+    public void DanhSachDHmini(DonHang[] ds2) {
+        //Hiển thị danh sách khách hàng thu gọn
+        System.out.println("--Danh sach dong hang--");
+        System.out.println("Ma don hang   Ngay dat       Ma khach hang   Ma nhan vien   Tong san pham");
+        if(n == 0) {
+            System.out.println("Khong co ket qua phu hop");
+            return;
+        }
+        for(int i = 0; i < n; i++) {
+            //Khoảng cách từ M đến T là 14, đoạn này tính toán để mã Đơn hàng chiếm 14 ô
+            System.out.print(ds2[i].getMaDH());
+            for(int j = 0; j < 14 - ds2[i].getMaDH().length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ N đến M là 11, đoạn này tính toán để Ngày đặt chiếm 11 ô
+            System.out.print(ds2[i].getNgayDat());
+            for(int j = 0; j < 15 - ds2[i].getNgayDat().length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ M đến M là 16, đoạn này tính toán để Mã khách hàng chiếm 16 ô
+            System.out.print(ds2[i].getKH().getMaKH());
+            for(int j = 0; j < 16 - ds2[i].getKH().getMaKH().length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ M đến M là 15, đoạn này tính toán để Mã nhân viên chiếm 15 ô
+            System.out.print(ds2[i].getNV().getMaNV());
+            for(int j = 0; j < 15 - ds2[i].getNV().getMaNV().length();j++) {
+                System.out.print(" ");
+            }
+        }
+    }
+
     public void nhap() {
+        //Kiểm tra xem có dữ liệu cũ nào được lưu không vì nhập sẽ xoá toàn bộ dữ liệu cũ
+        if(n != 0) {
+            String xacnhan;
+            System.out.println("Hanh dong nay se xoa du lieu cu!!!");
+            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
+            do {
+                xacnhan = sc.nextLine();
+                switch (xacnhan) {
+                    case "n":
+                        return;
+                    case "y":
+                        break;
+                    default:
+                        System.out.println("Vui long nhan 'y' hoac 'n'!");
+                }
+            } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
+        }
         boolean nhapThanhCong = false;
-        System.out.println("Nhap so luong don hang: ");
+        System.out.print("Nhap so luong don hang: ");
         do {
+            //bắt lỗi người dùng nhập chữ
             try {
                 n = sc.nextInt();
                 nhapThanhCong = true;
-                sc.nextLine();
+                sc.nextLine(); //Xoá kí tự enter trong buffer
             } catch (InputMismatchException e) {
-                System.out.println("Vui long nhap so!!!");
-                sc.nextLine();
+                System.err.println("Vui long nhap so!!!");
+                sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
             }
-        } while (!nhapThanhCong);
-        donHang = new DonHang[n];
-        for (int i = 0; i < n; i++) {
-            System.out.println("Nhap don hang " + (i + 1));
-            donHang[i] = new DonHang();
-            donHang[i].setInfo();
+        } while(!nhapThanhCong);
+        dsdh = new DonHang[n];
+        for(int i = 0; i < n; i++) {
+            System.out.print("Don hang " + (i + 1));
+            dsdh[i] = new DonHang();
+            dsdh[i].setInfo(seedID);
+            seedID++;
             System.out.println();
         }
     }
 
-    @Override
+    // Xuất danh sách
     public void xuat() {
-        if (n == 0) {
-            System.out.println("Khong co don hang nao!!!");
+        System.out.println("\nDanh sach don hang");
+        //Kiểm tra xem danh sách nhân viên có rỗng không
+        if(n == 0) {
+            System.out.println("Khong co don hang nao nao!!!");
         } else {
-            for (int i = 0; i < n; i++) {
-                System.out.println("\nDon hang " + (i + 1));
-                System.out.println(donHang[i]);
-            }
+            bolocKetqua(this);
         }
     }
 
-    @Override
-    public void them() {
-        donHang = Arrays.copyOf(donHang, n + 1);
-        donHang[n] = new DonHang();
-        donHang[n].setInfo();
-        ++n;
+    public int xuatN() {
+        return n;
     }
 
-    public void them(DonHang a) {
-        donHang = Arrays.copyOf(donHang, n + 1);
-        donHang[n] = new DonHang();
-        donHang[n] = a;
-        n++;
+    public int getSeedID() {
+        return seedID;
     }
 
-    @Override
-    public void xoa(String maDH) {
-        for (int i = 0; i < n; i++) {
-            if (donHang[i].getMaDH().equals(maDH)) {
-                for (int j = i; j < n - 1; j++) {
-                    donHang[j] = donHang[j + 1];
-                }
-                donHang = Arrays.copyOf(donHang, n - 1);
-                n--;
-                break;
-            }
-        }
+    public void setSeedID(int seedID) {
+        this.seedID = seedID;
     }
-
+    
+    // Xuất ra chuỗi để ghi file
     public String xuatChuoi() {
+        // Hàm này xuất dữ liệu toàn bộ đơn hàng thành chuỗi
         String xuatChuoi = null;
         for (int i = 0; i < n; i++) {
-            String temp = String.join(",", donHang[i].getMaDH(), donHang[i].getMaSP(),
-                    donHang[i].getNgayDat().toString(), Integer.toString(donHang[i].getSoLuong()));
-            if (i == 0) {
+            // Nối tất cả thuộc tính lại, cách nhau bởi dấu phẩy
+            String temp = String.join(",",
+                dsdh[i].getMaDH(),
+                dsdh[i].getNgayDat(),
+                dsdh[i].getKH().getMaKH(),
+                dsdh[i].getNV().getMaNV(),
+                Integer.toString(dsdh[i].getN()),
+                dsdh[i].getDataSP()
+            );
+
+            
+
+            if (i == 0)
                 xuatChuoi = temp;
-            } else {
+            else {
                 xuatChuoi = xuatChuoi + temp;
             }
+
+            // Xuống dòng với mỗi dữ liệu đơn hàng mới
             xuatChuoi = xuatChuoi + "\n";
         }
-        // xoá kí tự enter cuối chuỗi
+        // Xoá ký tự enter cuối chuỗi
         if (xuatChuoi != null && xuatChuoi.length() > 0) {
-            xuatChuoi = xuatChuoi.substring(0, xuatChuoi.length());
+            xuatChuoi = xuatChuoi.substring(0, xuatChuoi.length() - 1);
         }
         return xuatChuoi;
     }
+    
+    // Thêm (Tự nhập)
+    public void them() {
+        // Nới rộng mảng
+        dsdh = Arrays.copyOf(dsdh, n + 1);
 
-    @Override
+        // Tạo đối tượng mới và nhập thông tin
+        dsdh[n] = new DonHang();
+        dsdh[n].setInfo(seedID);
+
+        // Tăng số lượng
+        n++;
+    }
+
+    // Thêm (Đối tượng có sẵn), hàm này được dùng trong quản lý, hãy cẩn thận vì bạn phải tự set lại seedID
+    public void them(DonHang a) {
+        dsdh = Arrays.copyOf(dsdh, n + 1);
+        dsdh[n] = new DonHang();
+        dsdh[n] = a;
+        n++;
+    }
+
+    // Xóa
+    public void xoa(String ma) {
+        boolean daXoa = false;
+        for (int i = 0; i < n; i++) {
+            if (dsdh[i].getMaDH().equals(ma)) {
+                for (int j = i; j < n - 1; j++) {
+                    dsdh[j] = dsdh[j + 1];
+                }
+                dsdh = Arrays.copyOf(dsdh, n - 1);
+                n--;
+                daXoa = true;
+                break;
+            }
+        }
+        if(daXoa) {
+            System.out.println("Xoa thanh cong!");
+        } else {
+            System.out.println("Khong tim thay san pham nay!");
+        }
+    }
+
+    public void bolocKetqua(DanhSachDonHang ds2) {
+        int chucnang = 0;
+        double bolocGia = 0;
+        int sosanhGia = 0;
+        do {
+            DanhSachDonHang dsBoLoc = new DanhSachDonHang();
+            //Sao chép dữ liệu của danh sách truyền vào, những gì thay đổi trong bộ lọc sẽ không ảnh hưởng dữ liệu gốc
+            for(int i = 0; i < ds2.n; i++) {
+                dsBoLoc.them(ds2.dsdh[i]);
+            }
+            //Kiểm tra có bộ lọc nào được sử dụng không
+            if(bolocGia != 0) {
+                for(int i = 0; i < dsBoLoc.n; i++) {
+                    if(sosanhGia == 1) {
+                        if(dsBoLoc.dsdh[i].getTongSP() < bolocGia) {
+                            dsBoLoc.xoa(dsBoLoc.dsdh[i].getMaDH());
+                            //Thêm i-- để khi có phần tử bị xoá và dồn lên nó sẽ kiểm tra phần bị dồn đó
+                            i--;
+                        }
+                    }
+                    if(sosanhGia == 2) {
+                        if(dsBoLoc.dsdh[i].getTongSP() > bolocGia) {
+                            dsBoLoc.xoa(dsBoLoc.dsdh[i].getMaDH());
+                            i--;
+                        }
+                    }
+                    if(sosanhGia == 3) {
+                        if(dsBoLoc.dsdh[i].getTongSP() != bolocGia) {
+                            dsBoLoc.xoa(dsBoLoc.dsdh[i].getMaDH());
+                            i--;
+                        }
+                    }
+                }
+            }
+            dsBoLoc.DanhSachDHmini();
+            System.out.println();
+            System.out.println("-Bo loc-");
+            System.out.println("1. Gia ban");
+            System.out.println("2. Xoa bo loc");
+            System.out.println("3. Xem chi tiet san pham");
+            System.out.println("0. Thoat");
+            System.out.print("Nhap chuc nang: ");
+            chucnang = sc.nextInt();
+            sc.nextLine();
+            switch (chucnang) {
+                case 1: {
+                    do {
+                        System.out.print("Nhap gia ban: ");
+                        bolocGia = sc.nextDouble();
+                        System.out.println("1. Lon hon hoac bang");
+                        System.out.println("2. Be hon hoac bang");
+                        System.out.println("3. Bang");
+                        System.out.println("0. Thoat");
+                        System.out.print("Nhap chuc nang: ");
+                        sosanhGia = sc.nextInt();
+                        sc.nextLine();
+                        switch(sosanhGia) {
+                            case 1: break;
+                            case 2: break;
+                            case 3: break;
+                            case 0: {
+                                bolocGia = 0;
+                                break;
+                            }
+                            default: {
+                                System.out.println("Chuc nang khong hop le!!!");
+                                System.out.println("Nhan enter de quay lai!!!");
+                                sc.nextLine();
+                            }
+                        }
+                    } while(sosanhGia > 3);
+                    break;
+                }
+                case 2: {
+                    bolocGia = 0;
+                    sosanhGia = 0;
+                    break;
+                }
+                case 3: {
+                    System.out.print("Nhap ma san pham muon xem chi tiet: ");
+                    String ma = sc.nextLine();
+                    boolean xemThanhCong = false;
+                    for(int i = 0; i < n; i++) {
+                        if(dsdh[i].getMaDH().equals(ma)) {
+                            dsdh[i].getInfo();
+                            xemThanhCong = true;
+                            break;
+                        }
+                    }
+                    if(!xemThanhCong) {
+                        System.out.println("Khong tim thay san pham!");
+                    }
+                    System.out.println("Nhan enter de quay lai!!!");
+                    sc.nextLine();
+                    break;
+                }
+                case 0: {
+                    break;
+                }
+                default: {
+                    System.out.println("Chuc nang khong hop le!!!");
+                    System.out.println("Nhan enter de quay lai!!!");
+                    sc.nextLine();
+                }
+                    
+            }
+        } while (chucnang != 0);
+    }
+
+    // tÌm kiếm
+    public DonHang timkiem(String ma) {
+        for (int i = 0; i < n; i++) {
+            if (dsdh[i].getMaDH().equals(ma)) {
+                return dsdh[i];
+            }
+        }
+        return null;
+    }
+
+    public DanhSachDonHang timkiemnangcao(String maDH, String maKH, String maNV) {
+        DanhSachDonHang kqtimkiem = new DanhSachDonHang();
+        for(int i = 0; i < n; i++) {
+            if(!dsdh[i].getMaDH().contains(maDH) && !maDH.equals("\n")) 
+                continue;
+            if(!dsdh[i].getKH().getMaKH().contains(maKH) && !maKH.equals("\n"))
+                continue;
+            if(!dsdh[i].getNV().getMaNV().contains(maNV) && !maNV.equals("\n"))
+                continue;
+            kqtimkiem.them(dsdh[i]);
+        }
+        return kqtimkiem;
+    }
     public void sua() {
         String ma;
         System.out.print("Nhap ma don hang can sua: ");
         ma = sc.nextLine();
         boolean suaThanhCong = false;
+
         for (int i = 0; i < n; i++) {
-            if (donHang[i].getMaDH().equals(ma)) {
+            if (dsdh[i].getMaDH().equals(ma)) {
                 int chucnang = 0;
                 do {
                     clearScreen();
-                    System.out.println("1. Sua ma don hang");
-                    System.out.println("2. Sua ma san pham");
-                    System.out.println("3. Sua ngay dat hang");
-                    System.out.println("4. Sua so luong");
+                    System.out.println("--- Sua thong tin don hang (" + dsdh[i].getMaDH() + ") ---");
+                    System.out.println("1. Sua ngay dat");
+                    System.out.println("2. Sua ma khach hang");
+                    System.out.println("3. Sua nhan vien");
+                    System.out.println("4. Sua san pham");
                     System.out.println("5. Sua tat ca");
                     System.out.println("0. Thoat");
                     System.out.print("Nhap tinh nang: ");
+
                     try {
                         chucnang = sc.nextInt();
-                        sc.nextLine();
+                        sc.nextLine(); // Xóa buffer
                     } catch (InputMismatchException e) {
                         System.err.println("Vui long nhap so!!!");
-                        sc.nextLine(); // Xoá buffer bàn phím trước khi người dùng nhập lại
+                        sc.nextLine(); // Xoá buffer trước khi người dùng nhập lại
                     }
+
                     switch (chucnang) {
                         case 1:
-                            donHang[i].setMaDH();
+                            dsdh[i].setNgayDat();
                             break;
                         case 2:
-                            donHang[i].setMaSP();
+                            dsdh[i].setKH();
                             break;
                         case 3:
-                            donHang[i].setNgayDat();
-                            ;
+                            dsdh[i].setNV();
                             break;
                         case 4:
-                            donHang[i].setSoLuong();
+                            dsdh[i].setSP();
                             break;
                         case 5:
-                            donHang[i].setInfo();
+                            dsdh[i].setInfo();
                             break;
                         case 0:
                             break;
-                        default: {
+                        default:
                             System.out.println("Chuc nang khong hop le!!!");
                             System.out.println("Nhan enter de quay lai!!!");
                             sc.nextLine();
-                            break;
-                        }
                     }
                 } while (chucnang != 0);
+
                 suaThanhCong = true;
-                break;
+                break; // Thoát vòng lặp for
             }
         }
+
         if (!suaThanhCong) {
-            System.out.println("Khong co don hang nay!!!");
+            System.err.println("Khong co don hang nay!!!");
         } else {
-            System.out.println("Sua thanh cong!!!");
+            System.out.println("Sua thong tin thanh cong!!!");
         }
     }
+
+
 
     // lệnh clear console
     public static void clearScreen() {

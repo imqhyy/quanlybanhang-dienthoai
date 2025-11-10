@@ -12,7 +12,7 @@ import java.io.IOException;
 public class DanhSachSmartphone {
     SmartPhone[] dsdt; // Mảng lưu SmartPhone
     int n; // Số lượng smartphone hiện có
-    int seedID = 0;
+    int seedID = 1;
     protected static final Scanner sc = new Scanner(System.in);
 
     // Constructor ko có tham số
@@ -138,6 +138,7 @@ public class DanhSachSmartphone {
     public int xuatN() {
         return n;
     }
+    
     public int getSeedID() {
         return seedID;
     }
@@ -145,6 +146,7 @@ public class DanhSachSmartphone {
     public void setSeedID(int seedID) {
         this.seedID = seedID;
     }
+    
     // Xuất ra chuỗi để ghi file
     public String xuatChuoi() {
         // Hàm này xuất dữ liệu toàn bộ smartphone thành chuỗi
@@ -185,7 +187,7 @@ public class DanhSachSmartphone {
 
         // Tạo đối tượng mới và nhập thông tin
         dsdt[n] = new SmartPhone();
-        dsdt[n].setInfo();
+        dsdt[n].setInfo(seedID);
 
         // Tăng số lượng
         n++;
@@ -363,7 +365,7 @@ public class DanhSachSmartphone {
                 int chucnang = 0;
                 do {
                     clearScreen();
-                    System.out.println("--- SỬA THÔNG TIN SMARTPHONE (" + dsdt[i].getTenSP() + ") ---");
+                    System.out.println("--- Sua thong tin Smartphone (" + dsdt[i].getTenSP() + ") ---");
                     System.out.println("1. Sua ten san pham");
                     System.out.println("2. Sua thuong hieu");
                     System.out.println("3. Sua gia ban");

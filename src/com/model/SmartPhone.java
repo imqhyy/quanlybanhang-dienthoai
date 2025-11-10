@@ -156,7 +156,7 @@ public class SmartPhone {
     //phương thức set tất cả thuộc tính
     public void setInfo() {
         System.out.println("------Nhap thong tin dien thoai------");
-        setMaSP();
+        System.out.println("Ma san pham: " + maSP);
         setTenSP();
         setThuongHieu();
         setGiaBan();
