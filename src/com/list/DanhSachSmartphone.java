@@ -89,7 +89,7 @@ public class DanhSachSmartphone {
         if(n != 0) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
+            System.out.print("Nhan 'y' de xac nhan, 'n' de huy lai: ");
             do {
                 xacnhan = sc.nextLine();
                 switch (xacnhan) {
