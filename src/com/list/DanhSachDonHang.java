@@ -193,7 +193,7 @@ public class DanhSachDonHang implements listInterface.IList {
         // Tạo đối tượng mới và nhập thông tin
         dsdh[n] = new DonHang();
         dsdh[n].setInfo(seedID);
-
+        seedID++;
         // Tăng số lượng
         n++;
     }
@@ -204,6 +204,7 @@ public class DanhSachDonHang implements listInterface.IList {
         dsdh[n] = new DonHang();
         dsdh[n] = a;
         n++;
+        seedID++;
     }
 
     // Xóa

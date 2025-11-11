@@ -189,7 +189,7 @@ public class DanhSachSmartphone {
         // Tạo đối tượng mới và nhập thông tin
         dsdt[n] = new SmartPhone();
         dsdt[n].setInfo(seedID);
-
+        seedID++;
         // Tăng số lượng
         n++;
     }
@@ -200,6 +200,7 @@ public class DanhSachSmartphone {
         dsdt[n] = new SmartPhone();
         dsdt[n] = a;
         n++;
+        seedID++;
     }
 
     // Xóa

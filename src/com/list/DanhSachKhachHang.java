@@ -162,6 +162,7 @@ public class DanhSachKhachHang implements listInterface.IList {
         dskh = Arrays.copyOf(dskh, n + 1);
         dskh[n] = new KhachHang();
         dskh[n].setInfo(seedID);
+        seedID++;
         n++;
     }
     
@@ -170,6 +171,7 @@ public class DanhSachKhachHang implements listInterface.IList {
         dskh[n] = new KhachHang();
         dskh[n] = a;
         n++;
+        seedID++;
     }
     
     @Override public void xoa(String ma) {

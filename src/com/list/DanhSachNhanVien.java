@@ -181,6 +181,7 @@ public class DanhSachNhanVien implements listInterface.IList {
         dsnv = Arrays.copyOf(dsnv, n + 1);
         dsnv[n] = new NhanVien();
         dsnv[n].setInfo(seedID);
+        seedID++;
         n++;
     }
     
@@ -189,6 +190,7 @@ public class DanhSachNhanVien implements listInterface.IList {
         dsnv[n] = new NhanVien();
         dsnv[n] = a;
         n++;
+        seedID++;
     }
     
     @Override public void xoa(String ma) {
