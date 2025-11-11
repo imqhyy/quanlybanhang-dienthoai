@@ -14,6 +14,10 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
     DanhSachDonHang ds1 = new DanhSachDonHang();
     protected static final Scanner sc = new Scanner(System.in);
 
+    public QuanLyDonHang() {
+        inputData();
+    }
+
     @Override public void inputData() {
         if(ds1.xuatN() != 0) {
             String xacnhan;
@@ -58,7 +62,6 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                 //thêm ++ để tăng seedID hiện tại lên 1 để không trùng
                 ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
-                System.out.println("Tai du lieu tu file thanh cong!!!");
             }
         } catch (IOException | NumberFormatException e) {
             System.err.println("Khong tim thay file!!!");
@@ -185,6 +188,7 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                     break;
                 }
                 case 0:
+                    outputData();
                     break;
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");

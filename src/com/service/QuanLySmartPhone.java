@@ -15,6 +15,10 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
     DanhSachSmartphone ds1 = new DanhSachSmartphone();
     protected static final Scanner sc = new Scanner(System.in);
 
+    public QuanLySmartPhone() {
+        inputData();
+    }
+
     @Override public void inputData() {
         if(ds1.xuatN() != 0) {
             String xacnhan;
@@ -62,7 +66,6 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                 //thêm ++ để tăng seedID hiện tại lên 1 để không trùng
                 ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
-                System.out.println("Tai du lieu tu file thanh cong!!!");
             }
         } catch (IOException | NumberFormatException e) {
             System.err.println("Khong tim thay file!!!");
@@ -98,7 +101,7 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
             System.out.println("6. Tim kiem smartphone");
             System.out.println("7. Tai danh sach tu file");
             System.out.println("8. Xuat danh sach ra file");
-            System.out.println("0. Thoat");
+            System.out.println("0. Luu va thoat");
             System.out.print("Nhap chuc nang: ");
             try {
                 chucnang = sc.nextInt();
@@ -188,6 +191,7 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                     break;
                 }
                 case 0:
+                    outputData();
                     break;
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");

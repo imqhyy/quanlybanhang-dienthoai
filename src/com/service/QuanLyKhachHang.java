@@ -13,6 +13,12 @@ import java.util.Scanner;
 public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface.ILoadSaveData{
     DanhSachKhachHang ds1 = new DanhSachKhachHang();
     protected static final Scanner sc = new Scanner(System.in);
+
+    public QuanLyKhachHang() {
+        inputData();
+    }
+
+
     @Override public void inputData() {
         if(ds1.xuatN() != 0) {
             String xacnhan;
@@ -58,7 +64,6 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                 //thêm ++ để tăng seedID hiện tại lên 1 để không trùng
                 ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
-                System.out.println("Tai du lieu tu file thanh cong!!!");
             }
         } catch (IOException | NumberFormatException e) {
             System.err.println("Khong tim thay file!!!");
@@ -91,7 +96,7 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
             System.out.println("6. Tim kiem");
             System.out.println("7. Tai danh sach tu file");
             System.out.println("8. Xuat danh sach ra file");
-            System.out.println("0. Thoat");
+            System.out.println("0. Luu va thoat");
             System.out.print("Nhap chuc nang: ");
             try {
                 chucnang = sc.nextInt();
@@ -179,6 +184,7 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                     break;
                 }
                 case 0:
+                    outputData();
                     break;
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");

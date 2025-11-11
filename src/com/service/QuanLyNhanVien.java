@@ -14,6 +14,11 @@ import java.util.InputMismatchException;
 public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.ILoadSaveData {
     DanhSachNhanVien ds1 = new DanhSachNhanVien();
     protected static final Scanner sc = new Scanner(System.in);
+
+    public QuanLyNhanVien() {
+        inputData();
+    }
+
     @Override public void inputData() {
         if(ds1.xuatN() != 0) {
             String xacnhan;
@@ -77,7 +82,6 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                     System.out.println("Khong co du lieu de ghi vao file!!!");
                 } else {
                     fw.write(dulieu);
-                    System.out.println("Ghi du lieu vao file thanh cong!!!");
                 }
             }
 
@@ -97,7 +101,7 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
             System.out.println("6. Tim kiem");
             System.out.println("7. Tai danh sach tu file");
             System.out.println("8. Xuat danh sach ra file");
-            System.out.println("0. Thoat");
+            System.out.println("0. Luu va thoat");
             System.out.print("Nhap chuc nang: ");
             try {
                 chucnang = sc.nextInt();
@@ -186,6 +190,7 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                     break;
                 }
                 case 0:
+                    outputData();
                     break;
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");
