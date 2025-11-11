@@ -1,6 +1,5 @@
 package com.service;
 
-import com.list.DanhSachKhachHang;
 import com.list.DanhSachSmartphone;
 import java.io.BufferedReader;
 import java.io.FileReader;
