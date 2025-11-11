@@ -58,6 +58,11 @@ abstract public class ConNguoi {
         do {
             sdt = sc.nextLine();
             if(sdt.matches("\\d+")) {
+                /**phương thức matches() của lớp String sẽ kiểm tra xem toàn bộ chuỗi
+                    có khớp với biểu thức chính quy đã cho hay không, biểu thức "\\d+"
+                    đảm bảo rằng chuỗi phải chứa ít nhất một ký tự, và tất cả các ký 
+                    tự đều là chữ số(0-9)
+                */
                 nhapThanhCong = true;
             }
             else {
