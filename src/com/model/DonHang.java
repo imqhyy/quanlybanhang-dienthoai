@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public final class DonHang {
@@ -53,9 +54,10 @@ public final class DonHang {
         this.dsMua = new SmartPhone[n];
         this.soluongSP = new int[n];
         //Xử lí chuỗi sản phảm
-        String[] arr = dataSP.split("\\|");
+        //data ban đầu: SP1&3|SP2&2
+        String[] arr = dataSP.split("\\|"); //tách thành cụm String[] arr = {"SP1&3", "SP2&2"}
         for(int i = 0; i < n; i++) {
-            String[] arr2 = arr[i].split("&");
+            String[] arr2 = arr[i].split("&"); //tách thành mã sản phẩm và số luọng String[] arr2 = {"SP1", "3"}
             dsMua[i] = dssp.timkiem(arr2[0]);
             soluongSP[i] = Integer.parseInt(arr2[1]);
         }
@@ -213,16 +215,36 @@ public final class DonHang {
             } while(dsMua[i] == null);
             
             System.out.print("So luong: ");
-            soluongSP[i] = sc.nextInt();
-            sc.nextLine();
+            boolean nhapThanhCong = false;
+            do {
+                //bắt lỗi người dùng nhập chữ
+                try {
+                    soluongSP[i] = sc.nextInt();
+                    nhapThanhCong = true;
+                    sc.nextLine(); //Xoá kí tự enter trong buffer
+                } catch (InputMismatchException e) {
+                    System.err.println("Vui long nhap so!!!");
+                    sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                }
+            } while(!nhapThanhCong);
         }
         setTongSP();
     }
 
     public void setN() {
         System.out.print("Nhap so san pham: ");
-        n = sc.nextInt();
-        sc.nextLine();
+        boolean nhapThanhCong = false;
+        do {
+            //bắt lỗi người dùng nhập chữ
+            try {
+                n = sc.nextInt();
+                nhapThanhCong = true;
+                sc.nextLine(); //Xoá kí tự enter trong buffer
+            } catch (InputMismatchException e) {
+                System.err.println("Vui long nhap so!!!");
+                sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+            }
+        } while(!nhapThanhCong);
         dsMua = new SmartPhone[n];
         soluongSP = new int[n];
     }

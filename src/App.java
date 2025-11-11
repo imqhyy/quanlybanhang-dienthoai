@@ -3,6 +3,8 @@ import com.service.QuanLyDonHang;
 import com.service.QuanLyKhachHang;
 import com.service.QuanLyNhanVien;
 import com.service.QuanLySmartPhone;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
@@ -14,7 +16,7 @@ public class App {
         QuanLyNhanVien dsnv = new QuanLyNhanVien();
         QuanLyKhachHang dskh = new QuanLyKhachHang();
         QuanLySmartPhone dssp = new QuanLySmartPhone();
-        int chucnang;
+        int chucnang = 0;
         do {
             clearScreen();
             System.out.println("1. Quan ly nhan vien");
@@ -23,8 +25,18 @@ public class App {
             System.out.println("4. Quan ly don hang");
             System.out.println("4. Thoat");
             System.out.print("Nhap chuc nang: ");
-            chucnang = sc.nextInt();
-            sc.nextLine();
+            boolean nhapThanhCong = false;
+            do {
+                //bắt lỗi người dùng nhập chữ
+                try {
+                    chucnang = sc.nextInt();
+                    nhapThanhCong = true;
+                    sc.nextLine(); //Xoá kí tự enter trong buffer
+                } catch (InputMismatchException e) {
+                    System.err.println("Vui long nhap so!!!");
+                    sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                }
+            } while(!nhapThanhCong);
             switch (chucnang) {
                 case 1:
                     dsnv.menu();

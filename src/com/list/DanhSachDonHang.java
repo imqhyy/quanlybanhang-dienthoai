@@ -106,8 +106,8 @@ public class DanhSachDonHang {
                 }
             } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
         }
-        boolean nhapThanhCong = false;
         System.out.print("Nhap so luong don hang: ");
+        boolean nhapThanhCong = false;
         do {
             //bắt lỗi người dùng nhập chữ
             try {
@@ -269,20 +269,51 @@ public class DanhSachDonHang {
             System.out.println("3. Xem chi tiet san pham");
             System.out.println("0. Thoat");
             System.out.print("Nhap chuc nang: ");
-            chucnang = sc.nextInt();
-            sc.nextLine();
+            boolean nhapThanhCong = false;
+            do {
+                //bắt lỗi người dùng nhập chữ
+                try {
+                    chucnang = sc.nextInt();
+                    nhapThanhCong = true;
+                    sc.nextLine(); //Xoá kí tự enter trong buffer
+                } catch (InputMismatchException e) {
+                    System.err.println("Vui long nhap so!!!");
+                    sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                }
+            } while(!nhapThanhCong);
             switch (chucnang) {
                 case 1: {
                     do {
                         System.out.print("Nhap gia ban: ");
-                        bolocGia = sc.nextDouble();
+                        nhapThanhCong = false;
+                        do {
+                            //bắt lỗi người dùng nhập chữ
+                            try {
+                                bolocGia = sc.nextDouble();
+                                nhapThanhCong = true;
+                                sc.nextLine(); //Xoá kí tự enter trong buffer
+                            } catch (InputMismatchException e) {
+                                System.err.println("Vui long nhap so!!!");
+                                sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                            }
+                        } while(!nhapThanhCong);
                         System.out.println("1. Lon hon hoac bang");
                         System.out.println("2. Be hon hoac bang");
                         System.out.println("3. Bang");
                         System.out.println("0. Thoat");
                         System.out.print("Nhap chuc nang: ");
-                        sosanhGia = sc.nextInt();
-                        sc.nextLine();
+                        nhapThanhCong = false;
+                        do {
+                            //bắt lỗi người dùng nhập chữ
+                            try {
+                                sosanhGia = sc.nextInt();
+                                nhapThanhCong = true;
+                                sc.nextLine(); //Xoá kí tự enter trong buffer
+                            } catch (InputMismatchException e) {
+                                System.err.println("Vui long nhap so!!!");
+                                sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                            }
+                        } while(!nhapThanhCong);
                         switch(sosanhGia) {
                             case 1: break;
                             case 2: break;
@@ -379,13 +410,18 @@ public class DanhSachDonHang {
                     System.out.println("0. Thoat");
                     System.out.print("Nhap tinh nang: ");
 
-                    try {
-                        chucnang = sc.nextInt();
-                        sc.nextLine(); // Xóa buffer
-                    } catch (InputMismatchException e) {
-                        System.err.println("Vui long nhap so!!!");
-                        sc.nextLine(); // Xoá buffer trước khi người dùng nhập lại
-                    }
+                    boolean nhapThanhCong = false;
+                    do {
+                        //bắt lỗi người dùng nhập chữ
+                        try {
+                            chucnang = sc.nextInt();
+                            nhapThanhCong = true;
+                            sc.nextLine(); //Xoá kí tự enter trong buffer
+                        } catch (InputMismatchException e) {
+                            System.err.println("Vui long nhap so!!!");
+                            sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                        }
+                    } while(!nhapThanhCong);
 
                     switch (chucnang) {
                         case 1:

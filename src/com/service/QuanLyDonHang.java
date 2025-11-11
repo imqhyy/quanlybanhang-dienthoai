@@ -50,7 +50,7 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                             arr[2], //mã khách hàng
                             arr[3], //mã nhân viên
                             Integer.parseInt(arr[4]), //số lượng sản phẩm
-                            arr[5] //data sản phẩm
+                            arr[5] //data sản phẩm VD: SP1&3|SP2&2
                     );
                     ds2.them(temp);
                     //Lấy seedID lớn nhất trong mảng để dành cho các thao tác thêm
@@ -99,14 +99,18 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
             System.out.println("8. Xuat danh sach ra file");
             System.out.println("0. Thoat");
             System.out.print("Nhap chuc nang: ");
-            try {
-                chucnang = sc.nextInt();
-                sc.nextLine();
-            } catch (InputMismatchException e) {
-                System.err.println("Vui long nhap so!!!");
-                // Xoá buffer trước khi người dùng nhập lại
-                sc.nextLine();
-            }
+            boolean nhapThanhCong = false;
+            do {
+                //bắt lỗi người dùng nhập chữ
+                try {
+                    chucnang = sc.nextInt();
+                    nhapThanhCong = true;
+                    sc.nextLine(); //Xoá kí tự enter trong buffer
+                } catch (InputMismatchException e) {
+                    System.err.println("Vui long nhap so!!!");
+                    sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                }
+            } while(!nhapThanhCong);
 
             switch (chucnang) {
                 case 1: {

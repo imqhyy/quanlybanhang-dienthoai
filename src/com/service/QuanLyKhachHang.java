@@ -98,14 +98,18 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
             System.out.println("8. Xuat danh sach ra file");
             System.out.println("0. Luu va thoat");
             System.out.print("Nhap chuc nang: ");
-            try {
-                chucnang = sc.nextInt();
-                sc.nextLine();
-            } catch(InputMismatchException e) {
-                System.err.println("Vui long nhap so!!!");
-                //Xoá buffer trước khi người dùng nhập lại
-                sc.nextLine();
-            }
+            boolean nhapThanhCong = false;
+            do {
+                //bắt lỗi người dùng nhập chữ
+                try {
+                    chucnang = sc.nextInt();
+                    nhapThanhCong = true;
+                    sc.nextLine(); //Xoá kí tự enter trong buffer
+                } catch (InputMismatchException e) {
+                    System.err.println("Vui long nhap so!!!");
+                    sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                }
+            } while(!nhapThanhCong);
             switch (chucnang) {
                 case 1: {
                     ds1.xuat();

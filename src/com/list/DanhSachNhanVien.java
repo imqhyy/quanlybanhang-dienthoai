@@ -279,20 +279,51 @@ public class DanhSachNhanVien implements listInterface.IList {
             System.out.println("3. Xoa bo loc");
             System.out.println("0. Thoat");
             System.out.print("Nhap chuc nang: ");
-            chucnang = sc.nextInt();
-            sc.nextLine();
+            boolean nhapThanhCong = false;
+            do {
+                //bắt lỗi người dùng nhập chữ
+                try {
+                    chucnang = sc.nextInt();
+                    nhapThanhCong = true;
+                    sc.nextLine(); //Xoá kí tự enter trong buffer
+                } catch (InputMismatchException e) {
+                    System.err.println("Vui long nhap so!!!");
+                    sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                }
+            } while(!nhapThanhCong);
             switch (chucnang) {
                 case 1: {
                     do {
                         System.out.print("Nhap so tuoi: ");
-                        bolocTuoi = sc.nextInt();
+                        nhapThanhCong = false;
+                        do {
+                            //bắt lỗi người dùng nhập chữ
+                            try {
+                                bolocTuoi = sc.nextInt();
+                                nhapThanhCong = true;
+                                sc.nextLine(); //Xoá kí tự enter trong buffer
+                            } catch (InputMismatchException e) {
+                                System.err.println("Vui long nhap so!!!");
+                                sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                            }
+                        } while(!nhapThanhCong);
                         System.out.println("1. Lon hon hoac bang");
                         System.out.println("2. Be hon hoac bang");
                         System.out.println("3. Bang");
                         System.out.println("0. Thoat");
                         System.out.print("Nhap chuc nang: ");
-                        sosanhTuoi = sc.nextInt();
-                        sc.nextLine();
+                        nhapThanhCong = false;
+                        do {
+                            //bắt lỗi người dùng nhập chữ
+                            try {
+                                sosanhTuoi = sc.nextInt();
+                                nhapThanhCong = true;
+                                sc.nextLine(); //Xoá kí tự enter trong buffer
+                            } catch (InputMismatchException e) {
+                                System.err.println("Vui long nhap so!!!");
+                                sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                            }
+                        } while(!nhapThanhCong);
                         switch(sosanhTuoi) {
                             case 1: break;
                             case 2: break;
@@ -313,15 +344,36 @@ public class DanhSachNhanVien implements listInterface.IList {
                 case 2: {
                     do {
                         System.out.print("Nhap luong: ");
-                        bolocLuong = sc.nextDouble();
+                        nhapThanhCong = false;
+                        do {
+                            //bắt lỗi người dùng nhập chữ
+                            try {
+                                bolocLuong = sc.nextDouble();
+                                nhapThanhCong = true;
+                                sc.nextLine(); //Xoá kí tự enter trong buffer
+                            } catch (InputMismatchException e) {
+                                System.err.println("Vui long nhap so!!!");
+                                sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                            }
+                        } while(!nhapThanhCong);
                         System.out.println("1. Lon hon hoac bang");
                         System.out.println("2. Be hon hoac bang");
                         System.out.println("3. Bang");
                         System.out.println("0. Thoat");
                         System.out.print("Nhap chuc nang: ");
-                        sosanhLuong = sc.nextInt();
-                        sc.nextLine();
-                        switch(sosanhTuoi) {
+                        nhapThanhCong = false;
+                        do {
+                            //bắt lỗi người dùng nhập chữ
+                            try {
+                                sosanhLuong = sc.nextInt();
+                                nhapThanhCong = true;
+                                sc.nextLine(); //Xoá kí tự enter trong buffer
+                            } catch (InputMismatchException e) {
+                                System.err.println("Vui long nhap so!!!");
+                                sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                            }
+                        } while(!nhapThanhCong);
+                        switch(sosanhLuong) {
                             case 1: break;
                             case 2: break;
                             case 3: break;
@@ -403,14 +455,18 @@ public class DanhSachNhanVien implements listInterface.IList {
                     System.out.println("7. Sua tat ca");
                     System.out.println("0. Thoat");
                     System.out.print("Nhap tinh nang: ");
-                    try{
-                        chucnang = sc.nextInt();
-                        sc.nextLine();
-                    } catch(InputMismatchException e) {
-                        System.err.println("Vui long nhap so!!!");
-                        //Xoá buffer trước khi người dùng nhập lại
-                        sc.nextLine();
-                    }
+                    boolean nhapThanhCong = false;
+                    do {
+                        //bắt lỗi người dùng nhập chữ
+                        try {
+                            chucnang = sc.nextInt();
+                            nhapThanhCong = true;
+                            sc.nextLine(); //Xoá kí tự enter trong buffer
+                        } catch (InputMismatchException e) {
+                            System.err.println("Vui long nhap so!!!");
+                            sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                        }
+                    } while(!nhapThanhCong);
                     switch (chucnang) {
                         case 1:
                             dsnv[i].setMaNV();
