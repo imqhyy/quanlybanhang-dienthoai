@@ -24,7 +24,6 @@ public class DanhSachKhachHang implements listInterface.IList {
     
     public void DanhSachKHmini() {
         //Hiển thị danh sách khách hàng thu gọn
-        System.out.println("--Danh sach khach hang--");
         System.out.println("Ma khach hang   Ho va ten           Tuoi   So dien thoai");
         if(n == 0) {
             System.out.println("Khong co ket qua phu hop");
@@ -48,11 +47,11 @@ public class DanhSachKhachHang implements listInterface.IList {
             }
             System.out.println(dskh[i].getSDT());
         }
+        System.out.println("SL: " + n);
     }
     
     public void DanhSachKHmini(KhachHang[] ds2) {
         //Hiển thị danh sách khách hàng thu gọn
-        System.out.println("--Danh sach khach hang--");
         System.out.println("Ma khach hang   Ho va ten           Tuoi   So dien thoai");
         
         for(int i = 0; i < n; i++) {
@@ -73,6 +72,7 @@ public class DanhSachKhachHang implements listInterface.IList {
             }
             System.out.println(ds2[i].getSDT());
         }
+        System.out.println("SL: " + n);
     }
     
     @Override public void nhap() {
@@ -117,7 +117,7 @@ public class DanhSachKhachHang implements listInterface.IList {
     }
     
     @Override public void xuat() {
-        System.out.println("\nDanh sach khach hang");
+        System.out.println("\n--Danh sach khach hang--");
         //Kiểm tra xem danh sách nhân viên có rỗng không
         if(n == 0) {
             System.out.println("Khong co khach hang nao!!!");
@@ -288,7 +288,7 @@ public class DanhSachKhachHang implements listInterface.IList {
                             }
                             default: {
                                 System.out.println("Chuc nang khong hop le!!!");
-                                System.out.println("Nhan enter de quay lai!!!");
+                                System.out.println("Nhan enter de nhap lai!!!");
                                 sc.nextLine();
                             }
                         }
@@ -327,7 +327,7 @@ public class DanhSachKhachHang implements listInterface.IList {
         for(int i = 0; i < n; i++) {
             if(!dskh[i].getMaKH().contains(ma) && !ma.equals("\n")) 
                 continue;
-            if(!dskh[i].getHoVaTen().contains(hovaten) && !hovaten.equals("\n"))
+            if(!dskh[i].getHoVaTen().toLowerCase().contains(hovaten.toLowerCase()) && !hovaten.equals("\n"))
                 continue;
             if(!dskh[i].getSDT().contains(sdt) && !sdt.equals("\n"))
                 continue;
@@ -382,7 +382,7 @@ public class DanhSachKhachHang implements listInterface.IList {
                             break;
                         default: {
                             System.out.println("Chuc nang khong hop le!!!");
-                            System.out.println("Nhan enter de quay lai!!!");
+                            System.out.println("Nhan enter de nhap lai!!!");
                             sc.nextLine();
                             break;
                         }

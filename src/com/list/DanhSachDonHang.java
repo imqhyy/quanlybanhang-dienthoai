@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.model.DonHang;
 import java.util.Arrays;
-public class DanhSachDonHang {
+public class DanhSachDonHang implements listInterface.IList {
     DonHang[] dsdh;
     int n;
     int seedID = 1;
@@ -25,7 +25,6 @@ public class DanhSachDonHang {
 
     public void DanhSachDHmini() {
         //Hiển thị danh sách khách hàng thu gọn
-        System.out.println("--Danh sach dong hang--");
         System.out.println("Ma don hang   Ngay dat       Ma khach hang   Ma nhan vien   Tong san pham");
         if(n == 0) {
             System.out.println("Khong co ket qua phu hop");
@@ -54,11 +53,11 @@ public class DanhSachDonHang {
             }
             System.out.println(dsdh[i].getTongSP());
         }
+        System.out.println("SL: " + n);
     }
 
     public void DanhSachDHmini(DonHang[] ds2) {
         //Hiển thị danh sách khách hàng thu gọn
-        System.out.println("--Danh sach dong hang--");
         System.out.println("Ma don hang   Ngay dat       Ma khach hang   Ma nhan vien   Tong san pham");
         if(n == 0) {
             System.out.println("Khong co ket qua phu hop");
@@ -86,9 +85,10 @@ public class DanhSachDonHang {
                 System.out.print(" ");
             }
         }
+        System.out.println("SL: " + n);
     }
 
-    public void nhap() {
+    @Override public void nhap() {
         //Kiểm tra xem có dữ liệu cũ nào được lưu không vì nhập sẽ xoá toàn bộ dữ liệu cũ
         if(n != 0) {
             String xacnhan;
@@ -130,8 +130,8 @@ public class DanhSachDonHang {
     }
 
     // Xuất danh sách
-    public void xuat() {
-        System.out.println("\nDanh sach don hang");
+    @Override public void xuat() {
+        System.out.println("\n--Danh sach don hang--");
         //Kiểm tra xem danh sách nhân viên có rỗng không
         if(n == 0) {
             System.out.println("Khong co don hang nao nao!!!");
@@ -186,7 +186,7 @@ public class DanhSachDonHang {
     }
     
     // Thêm (Tự nhập)
-    public void them() {
+    @Override public void them() {
         // Nới rộng mảng
         dsdh = Arrays.copyOf(dsdh, n + 1);
 
@@ -207,7 +207,7 @@ public class DanhSachDonHang {
     }
 
     // Xóa
-    public void xoa(String ma) {
+    @Override public void xoa(String ma) {
         boolean daXoa = false;
         for (int i = 0; i < n; i++) {
             if (dsdh[i].getMaDH().equals(ma)) {
@@ -316,15 +316,17 @@ public class DanhSachDonHang {
                         } while(!nhapThanhCong);
                         switch(sosanhGia) {
                             case 1: break;
-                            case 2: break;
-                            case 3: break;
-                            case 0: {
+                            case 2:{
                                 bolocGia = 0;
+                                sosanhGia = 0;
                                 break;
                             }
+                            case 3: break;
+                            case 0:
+                                break;
                             default: {
                                 System.out.println("Chuc nang khong hop le!!!");
-                                System.out.println("Nhan enter de quay lai!!!");
+                                System.out.println("Nhan enter de nhap lai!!!");
                                 sc.nextLine();
                             }
                         }
@@ -390,7 +392,7 @@ public class DanhSachDonHang {
         }
         return kqtimkiem;
     }
-    public void sua() {
+    @Override public void sua() {
         String ma;
         System.out.print("Nhap ma don hang can sua: ");
         ma = sc.nextLine();
@@ -443,7 +445,7 @@ public class DanhSachDonHang {
                             break;
                         default:
                             System.out.println("Chuc nang khong hop le!!!");
-                            System.out.println("Nhan enter de quay lai!!!");
+                            System.out.println("Nhan enter de nhap lai!!!");
                             sc.nextLine();
                     }
                 } while (chucnang != 0);

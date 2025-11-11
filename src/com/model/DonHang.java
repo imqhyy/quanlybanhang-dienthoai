@@ -148,7 +148,6 @@ public final class DonHang {
         NV = setNV();
         setSP();
     }
-
     public void setInfo() {
         System.out.println("\n------Nhap thong tin don hang------");
         System.out.println("Ma don hang: " + maDH);

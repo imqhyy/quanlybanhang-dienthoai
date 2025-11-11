@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import com.model.KhachHang;
 import com.model.NhanVien;
 import java.io.IOException;
 
@@ -27,8 +26,7 @@ public class DanhSachNhanVien implements listInterface.IList {
     
     public void DanhSachNVmini() {
         //Hiển thị danh sách nhân viên hàng thu gọn
-        System.out.println("--Danh sach nhan vien--");
-        System.out.println("Ma nhan vien   Ho va ten           Tuoi   So dien thoai   Chuc vu   Luong");
+        System.out.println("Ma nhan vien   Ho va ten           Tuoi   So dien thoai   Chuc vu      Luong");
         
         for(int i = 0; i < n; i++) {
             //Khoảng cách từ M đến H là 15, đoạn này tính toán để mã NV chiếm 15 ô
@@ -51,18 +49,18 @@ public class DanhSachNhanVien implements listInterface.IList {
             for(int j = 0; j < 16 - (dsnv[i].getSDT()).length();j++) {
                 System.out.print(" ");
             }
-            //Khoảng cách từ C đến L là 10, đoạn này tính toán để tên KH chiếm 10 ô
-            System.out.print(dsnv[i].getSDT());
-            for(int j = 0; j < 10 - (dsnv[i].getSDT()).length();j++) {
+            //Khoảng cách từ C đến L là 13, đoạn này tính toán để tên KH chiếm 13 ô
+            System.out.print(dsnv[i].getChucVu());
+            for(int j = 0; j < 13 - (dsnv[i].getSDT()).length();j++) {
                 System.out.print(" ");
             }
             System.out.println(dsnv[i].getLuong());
         }
+        System.out.println("SL: " + n);
     }
     
     public void DanhSachNVmini(NhanVien[] ds2) {
         //Hiển thị danh sách nhân viên hàng thu gọn
-        System.out.println("--Danh sach nhan vien--");
         System.out.println("Ma nhan vien   Ho va ten           Tuoi   So dien thoai   Chuc vu   Luong");
         
         for(int i = 0; i < n; i++) {
@@ -86,13 +84,14 @@ public class DanhSachNhanVien implements listInterface.IList {
             for(int j = 0; j < 16 - (ds2[i].getSDT()).length();j++) {
                 System.out.print(" ");
             }
-            //Khoảng cách từ C đến L là 10, đoạn này tính toán để tên KH chiếm 10 ô
-            System.out.print(ds2[i].getSDT());
-            for(int j = 0; j < 10 - (ds2[i].getSDT()).length();j++) {
+            //Khoảng cách từ C đến L là 13, đoạn này tính toán để tên KH chiếm 13 ô
+            System.out.print(ds2[i].getChucVu());
+            for(int j = 0; j < 13 - (ds2[i].getSDT()).length();j++) {
                 System.out.print(" ");
             }
             System.out.println(ds2[i].getLuong());
         }
+        System.out.println("SL: " + n);
     }
     
     @Override public void nhap() {
@@ -138,7 +137,7 @@ public class DanhSachNhanVien implements listInterface.IList {
     }
     
     @Override public void xuat() {
-        System.out.println("\nDanh sach nhan vien");
+        System.out.println("\n--Danh sach nhan vien--");
         if(n == 0) {
             System.out.println("Khong co nhan vien nao!!!");
         } else {
@@ -251,20 +250,20 @@ public class DanhSachNhanVien implements listInterface.IList {
             if(bolocLuong != 0) {
                 for(int i = 0; i < dsBoLoc.n; i++) {
                     if(sosanhLuong == 1) {
-                        if(dsBoLoc.dsnv[i].getLuong() < bolocTuoi) {
+                        if(dsBoLoc.dsnv[i].getLuong() < bolocLuong) {
                             dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
                             //Thêm i-- để khi có phần tử bị xoá và dồn lên nó sẽ kiểm tra phần bị dồn đó
                             i--;
                         }
                     }
                     if(sosanhLuong == 2) {
-                        if(dsBoLoc.dsnv[i].getLuong() > bolocTuoi) {
+                        if(dsBoLoc.dsnv[i].getLuong() > bolocLuong) {
                             dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
                             i--;
                         }
                     }
                     if(sosanhLuong == 3) {
-                        if(dsBoLoc.dsnv[i].getLuong() != bolocTuoi) {
+                        if(dsBoLoc.dsnv[i].getLuong() != bolocLuong) {
                             dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
                             i--;
                         }
@@ -326,15 +325,20 @@ public class DanhSachNhanVien implements listInterface.IList {
                         } while(!nhapThanhCong);
                         switch(sosanhTuoi) {
                             case 1: break;
-                            case 2: break;
+                            case 2: {
+                                bolocTuoi = 0;
+                                sosanhTuoi = 0;
+                                bolocLuong = 0;
+                                sosanhLuong = 0;
+                                break;
+                            }
                             case 3: break;
                             case 0: {
-                                bolocTuoi = 0;
                                 break;
                             }
                             default: {
                                 System.out.println("Chuc nang khong hop le!!!");
-                                System.out.println("Nhan enter de quay lai!!!");
+                                System.out.println("Nhan enter de nhap lai!!!");
                                 sc.nextLine();
                             }
                         }
@@ -383,7 +387,7 @@ public class DanhSachNhanVien implements listInterface.IList {
                             }
                             default: {
                                 System.out.println("Chuc nang khong hop le!!!");
-                                System.out.println("Nhan enter de quay lai!!!");
+                                System.out.println("Nhan enter de nhap lai!!!");
                                 sc.nextLine();
                             }
                         }
@@ -424,11 +428,11 @@ public class DanhSachNhanVien implements listInterface.IList {
         for(int i = 0; i < n; i++) {
             if(!dsnv[i].getMaNV().contains(ma) && !ma.equals("\n")) 
                 continue;
-            if(!dsnv[i].getHoVaTen().contains(hovaten) && !hovaten.equals("\n"))
+            if(!dsnv[i].getHoVaTen().toLowerCase().contains(hovaten.toLowerCase()) && !hovaten.equals("\n"))
                 continue;
             if(!dsnv[i].getSDT().contains(sdt) && !sdt.equals("\n"))
                 continue;
-            if(!dsnv[i].getChucVu().contains(chucvu) && !sdt.equals("\n"))
+            if(!dsnv[i].getChucVu().toLowerCase().contains(chucvu.toLowerCase()) && !sdt.equals("\n"))
                 continue;
             kqtimkiem.them(dsnv[i]);
         }
@@ -493,7 +497,7 @@ public class DanhSachNhanVien implements listInterface.IList {
                             break;
                         default: {
                             System.out.println("Chuc nang khong hop le!!!");
-                            System.out.println("Nhan enter de quay lai!!!");
+                            System.out.println("Nhan enter de nhap lai!!!");
                             sc.nextLine();
                         }
                             

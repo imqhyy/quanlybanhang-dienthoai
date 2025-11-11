@@ -1,4 +1,10 @@
-SP1,iPhone 15 Pro,Apple,2.799,Apple A17 Pro,8GB,256GB,OLED 6.1 inch,Camera chinh 48MP va 2 camera phu 12MP
+SP1,IPhone 15 Pro,Apple,2.799,Apple A17 Pro,8GB,256GB,OLED 6.1 inch,Camera chinh 48MP va 2 camera phu 12MP
 SP2,Samsung Galaxy S24 Ultra,Samsung,3.349,Snapdragon 8 Gen 3,12GB,512GB,Dynamic AMOLED 6.8 inch,Camera chinh 200MP va 3 camera phu
 SP3,Xiaomi 14,Xiaomi,2.299,Snapdragon 8 Gen 3,12GB,256GB,AMOLED 6.36 inch,Hop tac Leica
-SP4,Oppo Find N3,Oppo,4.499,Snapdragon 8 Gen 2,16GB,512GB,Man hinh gap 7.82 inch,Ban le Hasselblad
+SP4,IPhone 16,Apple,4.499,Apple A18,16GB,512GB,OLED 6.8,Camera chinh 48MP va 2 camera phu 12MP
+SP5,Samsung Galaxy S24,Samsung,3.499,Exynos 1080,16GB,512GB,Dynamic 7.82 inch,Khong co gi noi bat
+SP6,Samsung Galaxy Fold X,Samsung,6.499,Snapdragon 8 Gen 3,16GB,512GB,Man hinh gap 7.82 inch,Khong co gi noi bat
+SP7,Oppo Find N5,Oppo,4.499,Snapdragon 8 Gen 3,16GB,512GB,Man hinh gap 7.82 inch,Ban le Hasselblad
+SP8,Oppo Find N2,Oppo,2.499,Snapdragon 8 Gen 1,16GB,512GB,Man hinh gap 7.82 inch,Ban le Hasselblad
+SP9,Oppo Find N6,Oppo,5.499,Snapdragon 8 Gen 2 plus,16GB,512GB,Man hinh gap 7.82 inch,Ban le Hasselblad
+SP10,IPhone 15 plus,Apple,4.499,Apple A17,16GB,512GB,Man hinh gap 7.82 inch,Qua dang cap

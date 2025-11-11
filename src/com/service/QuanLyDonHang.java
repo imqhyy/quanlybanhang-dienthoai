@@ -22,7 +22,7 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
         if(ds1.xuatN() != 0) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
+            System.out.print("Nhan 'y' de xac nhan, 'n' de huy: ");
             do {
                 xacnhan = sc.nextLine();
                 switch (xacnhan) {
@@ -196,7 +196,7 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                     break;
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");
-                    System.out.println("Nhan enter de quay lai!!!");
+                    System.out.println("Nhan enter de nhap lai!!!");
                     sc.nextLine();
                 }
 

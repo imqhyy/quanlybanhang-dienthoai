@@ -29,7 +29,6 @@ public class DanhSachSmartphone {
     
     public void DanhSachSPmini() {
         //Hiển thị danh sách khách hàng thu gọn
-        System.out.println("--Danh sach smartphone--");
         System.out.println("Ma san pham   Ten san pham                  Thuong hieu   Gia ban");
         if(n == 0) {
             System.out.println("Khong co ket qua phu hop");
@@ -53,6 +52,7 @@ public class DanhSachSmartphone {
             }
             System.out.println(dsdt[i].getGiaBan());
         }
+        System.out.println("SL: " + n);
     }
 
     public void DanhSachSPmini(SmartPhone[] ds2) {
@@ -81,6 +81,7 @@ public class DanhSachSmartphone {
             }
             System.out.println(ds2[i].getGiaBan());
         }
+        System.out.println("SL: " + n);
     }
 
     public void nhap() {
@@ -126,7 +127,7 @@ public class DanhSachSmartphone {
 
     // Xuất danh sách
     public void xuat() {
-        System.out.println("\nDanh sach smartphone");
+        System.out.println("\n--Danh sach smartphone--");
         //Kiểm tra xem danh sách nhân viên có rỗng không
         if(n == 0) {
             System.out.println("Khong co smartphone nao nao!!!");
@@ -319,7 +320,7 @@ public class DanhSachSmartphone {
                             }
                             default: {
                                 System.out.println("Chuc nang khong hop le!!!");
-                                System.out.println("Nhan enter de quay lai!!!");
+                                System.out.println("Nhan enter de nhap lai!!!");
                                 sc.nextLine();
                             }
                         }
@@ -377,9 +378,9 @@ public class DanhSachSmartphone {
         for(int i = 0; i < n; i++) {
             if(!dsdt[i].getMaSP().contains(maSP) && !maSP.equals("\n")) 
                 continue;
-            if(!dsdt[i].getTenSP().contains(tenSP) && !tenSP.equals("\n"))
+            if(!dsdt[i].getTenSP().toLowerCase().contains(tenSP.toLowerCase()) && !tenSP.equals("\n"))
                 continue;
-            if(!dsdt[i].getThuongHieu().contains(thuonghieu) && !thuonghieu.equals("\n"))
+            if(!dsdt[i].getThuongHieu().toLowerCase().contains(thuonghieu.toLowerCase()) && !thuonghieu.equals("\n"))
                 continue;
             kqtimkiem.them(dsdt[i]);
         }

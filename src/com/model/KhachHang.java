@@ -2,16 +2,13 @@ package com.model;
 
 public class KhachHang extends ConNguoi {
     private String maKH;
-    private static int soLuongKH = 0;
     public KhachHang() {
         super();
         maKH = "null";
-        soLuongKH++;
     }
     public KhachHang(String maKH, String hovaten, int tuoi, String sdt) {
         super(hovaten, tuoi, sdt);
         this.maKH = maKH;
-        soLuongKH++;
     }
     @Override public void getInfo() {
         System.out.println("\n------Thong tin khach hang------");
@@ -43,8 +40,5 @@ public class KhachHang extends ConNguoi {
     public void setMaKH() {
         System.out.print("Ma khach hang: ");
         maKH = sc.nextLine();
-    }
-    public static void HowManyKhachHang() {
-        System.out.println("Co " + soLuongKH + " khach hang");
     }
 }

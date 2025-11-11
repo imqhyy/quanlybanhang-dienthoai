@@ -28,7 +28,7 @@ public class SmartPhone {
     }
 
     public SmartPhone(String maSP, String tenSP, String thuonghieu, double giaBan, String chipset, String ram,
-            String rom, String manhinh, String chitiet) {
+        String rom, String manhinh, String chitiet) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.thuonghieu = thuonghieu;
@@ -182,19 +182,4 @@ public class SmartPhone {
         setChiTiet();
     }
 
-    //phương thức toString 
-    @Override
-    public String toString() {
-        return "------ Thong tin dien thoai ------\n" +
-                "Ma san pham: " + maSP + "\n" +
-                "Ten san pham: " + tenSP + "\n" +
-                "Thuong hieu: " + thuonghieu + "\n" +
-                "Gia ban: "+ giaBan +"\n" +
-                "------ Cau hinh dien thoai ------\n" +
-                "Chipset: " + chipset + "\n" +
-                "Ram: " + ram + "\n" +
-                "Rom: " + rom + "\n" +
-                "Man hinh: " + manhinh + "\n" +
-                "Chi tiet: " + chitiet + "\n";
-    }
 }

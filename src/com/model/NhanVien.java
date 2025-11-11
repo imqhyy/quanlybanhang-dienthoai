@@ -6,7 +6,6 @@ public class NhanVien extends ConNguoi {
     private String maNV;
     private String chucvu;
     private double luong;
-    private static int soLuongNV = 0;
     public NhanVien() {
         super();
         maNV = "null";
@@ -16,7 +15,7 @@ public class NhanVien extends ConNguoi {
     public NhanVien(String maNV, String hovaten, int tuoi, String sdt, String chucvu, double luong) {
         super(hovaten, tuoi, sdt);
         this.maNV = maNV;
-        this.chucvu = chucvu;
+        this.chucvu = chucvu.toLowerCase();
         this.luong = luong;
     }
     @Override public void getInfo() {
@@ -64,7 +63,7 @@ public class NhanVien extends ConNguoi {
     }
     public void setChucVu() {
         System.out.print("Chuc vu: ");
-        chucvu = sc.nextLine();
+        chucvu = sc.nextLine().toLowerCase();
     }
     public void setLuong() {
         boolean nhapThanhCong = false;
@@ -82,8 +81,5 @@ public class NhanVien extends ConNguoi {
             }
         } while(!nhapThanhCong);
         
-    }
-    public static void HowManyNhanVien() {
-        System.out.println("Co " + soLuongNV + " nhan vien");
     }
 }

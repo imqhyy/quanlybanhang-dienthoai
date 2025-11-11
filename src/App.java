@@ -69,7 +69,7 @@ public class App {
                 }
                 default: {
                     System.out.println("Chuc nang khong hop le!!!");
-                    System.out.println("Nhan enter de quay lai");
+                    System.out.println("Nhan enter de nhap lai");
                     sc.nextLine();
                 }
             }
