@@ -140,6 +140,7 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                     if(ds1.xuatN() == 0) {
                         System.out.println("Danh sach trong!!!");
                     } else {
+                        ds1.DanhSachNVmini();
                         System.out.print("Nhap ma nhan vien can xoa: ");
                         String ma = sc.nextLine();
                         ds1.xoa(ma);

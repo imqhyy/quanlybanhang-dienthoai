@@ -141,6 +141,7 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                     if(ds1.xuatN() == 0) {
                         System.out.println("Danh sach trong!!!");
                     } else {
+                        ds1.DanhSachSPmini();
                         System.out.print("Nhap ma san pham can xoa: ");
                         String ma = sc.nextLine();
                         ds1.xoa(ma);

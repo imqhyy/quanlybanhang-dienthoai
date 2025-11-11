@@ -54,7 +54,17 @@ abstract public class ConNguoi {
     }
     public void setSDT() {
         System.out.print("So dien thoai: ");
-        sdt = sc.nextLine(); 
+        boolean nhapThanhCong = false;
+        do {
+            sdt = sc.nextLine();
+            if(sdt.matches("\\d+")) {
+                nhapThanhCong = true;
+            }
+            else {
+                System.out.println("Chi nhap so!!!");
+                System.out.print("So dien thoai: ");
+            }
+        } while(!nhapThanhCong);
     }
     
 }

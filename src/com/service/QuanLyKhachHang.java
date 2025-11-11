@@ -135,6 +135,7 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                     if(ds1.xuatN() == 0) {
                         System.out.println("Danh sach trong!!!");
                     } else {
+                        ds1.DanhSachKHmini();
                         System.out.print("Nhap ma khach hang can xoa: ");
                         String ma = sc.nextLine();
                         ds1.xoa(ma);
