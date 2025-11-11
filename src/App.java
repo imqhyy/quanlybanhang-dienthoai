@@ -23,7 +23,7 @@ public class App {
             System.out.println("2. Quan ly khach hang");
             System.out.println("3. Quan ly smartphone");
             System.out.println("4. Quan ly don hang");
-            System.out.println("4. Thoat");
+            System.out.println("0. Thoat");
             System.out.print("Nhap chuc nang: ");
             boolean nhapThanhCong = false;
             do {
