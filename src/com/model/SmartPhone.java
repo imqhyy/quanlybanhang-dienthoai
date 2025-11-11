@@ -28,7 +28,7 @@ public class SmartPhone {
     }
 
     public SmartPhone(String maSP, String tenSP, String thuonghieu, double giaBan, String chipset, String ram,
-            String rom, String manhinh, String chitiet) {
+        String rom, String manhinh, String chitiet) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.thuonghieu = thuonghieu;
@@ -141,7 +141,7 @@ public class SmartPhone {
     //phương thức get tất cả thuộc tính
     public void getInfo() {
         System.out.println("------Thong tin dien thoai------");
-        System.out.print("Ma san pham: " + maSP);
+        System.out.println("Ma san pham: " + maSP);
         System.out.println("Ten san pham: " + tenSP);
         System.out.println("Thuong hieu: " + thuonghieu);
         System.out.println("Gia ban: " + giaBan);
@@ -156,7 +156,22 @@ public class SmartPhone {
     //phương thức set tất cả thuộc tính
     public void setInfo() {
         System.out.println("------Nhap thong tin dien thoai------");
-        setMaSP();
+        System.out.println("Ma san pham: " + maSP);
+        setTenSP();
+        setThuongHieu();
+        setGiaBan();
+        System.out.println("------Nhap cau hinh san pham------");
+        setChipset();
+        setRam();
+        setRom();
+        setChiTiet();
+    }
+    public void setInfo(int seedID) {
+        System.out.println("------Nhap thong tin dien thoai------");
+        String ma = "SP";
+        ma = ma + Integer.toString(seedID);
+        maSP = ma;
+        System.out.println("Ma san pham: " + maSP);
         setTenSP();
         setThuongHieu();
         setGiaBan();
@@ -167,19 +182,4 @@ public class SmartPhone {
         setChiTiet();
     }
 
-    //phương thức toString 
-    @Override
-    public String toString() {
-        return "------ Thong tin dien thoai ------\n" +
-                "Ma san pham: " + maSP + "\n" +
-                "Ten san pham: " + tenSP + "\n" +
-                "Thuong hieu: " + thuonghieu + "\n" +
-                "Gia ban: "+ giaBan +"\n" +
-                "------ Cau hinh dien thoai ------\n" +
-                "Chipset: " + chipset + "\n" +
-                "Ram: " + ram + "\n" +
-                "Rom: " + rom + "\n" +
-                "Man hinh: " + manhinh + "\n" +
-                "Chi tiet: " + chitiet + "\n";
-    }
 }

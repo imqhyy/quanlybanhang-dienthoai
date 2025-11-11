@@ -54,7 +54,22 @@ abstract public class ConNguoi {
     }
     public void setSDT() {
         System.out.print("So dien thoai: ");
-        sdt = sc.nextLine(); 
+        boolean nhapThanhCong = false;
+        do {
+            sdt = sc.nextLine();
+            if(sdt.matches("\\d+")) {
+                /**phương thức matches() của lớp String sẽ kiểm tra xem toàn bộ chuỗi
+                    có khớp với biểu thức chính quy đã cho hay không, biểu thức "\\d+"
+                    đảm bảo rằng chuỗi phải chứa ít nhất một ký tự, và tất cả các ký 
+                    tự đều là chữ số(0-9)
+                */
+                nhapThanhCong = true;
+            }
+            else {
+                System.out.println("Chi nhap so!!!");
+                System.out.print("So dien thoai: ");
+            }
+        } while(!nhapThanhCong);
     }
     
 }

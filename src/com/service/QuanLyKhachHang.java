@@ -13,11 +13,17 @@ import java.util.Scanner;
 public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface.ILoadSaveData{
     DanhSachKhachHang ds1 = new DanhSachKhachHang();
     protected static final Scanner sc = new Scanner(System.in);
+
+    public QuanLyKhachHang() {
+        inputData();
+    }
+
+
     @Override public void inputData() {
         if(ds1.xuatN() != 0) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
+            System.out.print("Nhan 'y' de xac nhan, 'n' de huy: ");
             do {
                 xacnhan = sc.nextLine();
                 switch (xacnhan) {
@@ -56,9 +62,8 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                     line = input.readLine();
                 }
                 //thêm ++ để tăng seedID hiện tại lên 1 để không trùng
-                ds2.setSeedID(maxSeedID++);
+                ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
-                System.out.println("Tai du lieu tu file thanh cong!!!");
             }
         } catch (IOException | NumberFormatException e) {
             System.err.println("Khong tim thay file!!!");
@@ -91,16 +96,20 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
             System.out.println("6. Tim kiem");
             System.out.println("7. Tai danh sach tu file");
             System.out.println("8. Xuat danh sach ra file");
-            System.out.println("0. Thoat");
+            System.out.println("0. Luu va thoat");
             System.out.print("Nhap chuc nang: ");
-            try {
-                chucnang = sc.nextInt();
-                sc.nextLine();
-            } catch(InputMismatchException e) {
-                System.err.println("Vui long nhap so!!!");
-                //Xoá buffer trước khi người dùng nhập lại
-                sc.nextLine();
-            }
+            boolean nhapThanhCong = false;
+            do {
+                //bắt lỗi người dùng nhập chữ
+                try {
+                    chucnang = sc.nextInt();
+                    nhapThanhCong = true;
+                    sc.nextLine(); //Xoá kí tự enter trong buffer
+                } catch (InputMismatchException e) {
+                    System.err.println("Vui long nhap so!!!");
+                    sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                }
+            } while(!nhapThanhCong);
             switch (chucnang) {
                 case 1: {
                     ds1.xuat();
@@ -126,6 +135,7 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                     if(ds1.xuatN() == 0) {
                         System.out.println("Danh sach trong!!!");
                     } else {
+                        ds1.DanhSachKHmini();
                         System.out.print("Nhap ma khach hang can xoa: ");
                         String ma = sc.nextLine();
                         ds1.xoa(ma);
@@ -179,10 +189,11 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                     break;
                 }
                 case 0:
+                    outputData();
                     break;
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");
-                    System.out.println("Nhan enter de quay lai!!!");
+                    System.out.println("Nhan enter de nhap lai!!!");
                     sc.nextLine();
                 }
                     

@@ -11,17 +11,19 @@ public class DanhSachKhachHang implements listInterface.IList {
     int n;
     int seedID = 1;
     protected static final Scanner sc = new Scanner(System.in);
+    
     public DanhSachKhachHang() {
         n = 0;
         dskh = new KhachHang[0];
     }
+    
     public DanhSachKhachHang(KhachHang[] dskh, int n) {
         this.n = n;
         this.dskh = dskh;
     }
+    
     public void DanhSachKHmini() {
         //Hiển thị danh sách khách hàng thu gọn
-        System.out.println("--Danh sach khach hang--");
         System.out.println("Ma khach hang   Ho va ten           Tuoi   So dien thoai");
         if(n == 0) {
             System.out.println("Khong co ket qua phu hop");
@@ -45,10 +47,11 @@ public class DanhSachKhachHang implements listInterface.IList {
             }
             System.out.println(dskh[i].getSDT());
         }
+        System.out.println("SL: " + n);
     }
+    
     public void DanhSachKHmini(KhachHang[] ds2) {
         //Hiển thị danh sách khách hàng thu gọn
-        System.out.println("--Danh sach khach hang--");
         System.out.println("Ma khach hang   Ho va ten           Tuoi   So dien thoai");
         
         for(int i = 0; i < n; i++) {
@@ -69,13 +72,15 @@ public class DanhSachKhachHang implements listInterface.IList {
             }
             System.out.println(ds2[i].getSDT());
         }
+        System.out.println("SL: " + n);
     }
+    
     @Override public void nhap() {
         //Kiểm tra xem có dữ liệu cũ nào được lưu không vì nhập sẽ xoá toàn bộ dữ liệu cũ
         if(n != 0) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
+            System.out.print("Nhan 'y' de xac nhan, 'n' de huy lai: ");
             do {
                 xacnhan = sc.nextLine();
                 switch (xacnhan) {
@@ -110,8 +115,9 @@ public class DanhSachKhachHang implements listInterface.IList {
             System.out.println();
         }
     }
+    
     @Override public void xuat() {
-        System.out.println("\nDanh sach khach hang");
+        System.out.println("\n--Danh sach khach hang--");
         //Kiểm tra xem danh sách nhân viên có rỗng không
         if(n == 0) {
             System.out.println("Khong co khach hang nao!!!");
@@ -119,15 +125,19 @@ public class DanhSachKhachHang implements listInterface.IList {
             bolocKetqua(this);
         }
     }
+    
     public int xuatN() {
         return n;
     }
+    
     public int getSeedID() {
         return seedID;
     }
+    
     public void setSeedID(int seedID) {
         this.seedID = seedID;
     }
+    
     public String xuatChuoi() {
         //Hàm này xuất toàn bộ dữ liệu nhân viên thành dữ liệu chuỗi
         String xuatChuoi = null;
@@ -147,19 +157,23 @@ public class DanhSachKhachHang implements listInterface.IList {
         }
         return xuatChuoi;
     }
+    
     @Override public void them() {
         dskh = Arrays.copyOf(dskh, n + 1);
         dskh[n] = new KhachHang();
         dskh[n].setInfo(seedID);
         n++;
     }
+    
     public void them(KhachHang a) {
         dskh = Arrays.copyOf(dskh, n + 1);
         dskh[n] = new KhachHang();
         dskh[n] = a;
         n++;
     }
+    
     @Override public void xoa(String ma) {
+        boolean daXoa = false;
         for(int i = 0; i < n; i++) {
             if(dskh[i].getMaKH().equals(ma)) {
                 for(int j = i; j < n - 1; j++) {
@@ -167,10 +181,17 @@ public class DanhSachKhachHang implements listInterface.IList {
                 }
                 dskh = Arrays.copyOf(dskh, n - 1);
                 n--;
+                daXoa = true;
                 break;
             }
         }
+        if(daXoa) {
+            System.out.println("Xoa thanh cong!");
+        } else {
+            System.out.println("Khong tim thay khach hang nay!");
+        }
     }
+    
     public void bolocKetqua(DanhSachKhachHang ds2) {
         int chucnang = 0;
         int bolocTuoi = 0;
@@ -212,20 +233,51 @@ public class DanhSachKhachHang implements listInterface.IList {
             System.out.println("2. Xoa bo loc");
             System.out.println("0. Thoat");
             System.out.print("Nhap chuc nang: ");
-            chucnang = sc.nextInt();
-            sc.nextLine();
+            boolean nhapThanhCong = false;
+            do {
+                //bắt lỗi người dùng nhập chữ
+                try {
+                    chucnang = sc.nextInt();
+                    nhapThanhCong = true;
+                    sc.nextLine(); //Xoá kí tự enter trong buffer
+                } catch (InputMismatchException e) {
+                    System.err.println("Vui long nhap so!!!");
+                    sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                }
+            } while(!nhapThanhCong);
             switch (chucnang) {
                 case 1: {
                     do {
                         System.out.print("Nhap so tuoi: ");
-                        bolocTuoi = sc.nextInt();
+                        nhapThanhCong = false;
+                        do {
+                            //bắt lỗi người dùng nhập chữ
+                            try {
+                                bolocTuoi = sc.nextInt();
+                                nhapThanhCong = true;
+                                sc.nextLine(); //Xoá kí tự enter trong buffer
+                            } catch (InputMismatchException e) {
+                                System.err.println("Vui long nhap so!!!");
+                                sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                            }
+                        } while(!nhapThanhCong);
                         System.out.println("1. Lon hon hoac bang");
                         System.out.println("2. Be hon hoac bang");
                         System.out.println("3. Bang");
                         System.out.println("0. Thoat");
                         System.out.print("Nhap chuc nang: ");
-                        sosanhTuoi = sc.nextInt();
-                        sc.nextLine();
+                        nhapThanhCong = false;
+                        do {
+                            //bắt lỗi người dùng nhập chữ
+                            try {
+                                sosanhTuoi = sc.nextInt();
+                                nhapThanhCong = true;
+                                sc.nextLine(); //Xoá kí tự enter trong buffer
+                            } catch (InputMismatchException e) {
+                                System.err.println("Vui long nhap so!!!");
+                                sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                            }
+                        } while(!nhapThanhCong);
                         switch(sosanhTuoi) {
                             case 1: break;
                             case 2: break;
@@ -236,7 +288,7 @@ public class DanhSachKhachHang implements listInterface.IList {
                             }
                             default: {
                                 System.out.println("Chuc nang khong hop le!!!");
-                                System.out.println("Nhan enter de quay lai!!!");
+                                System.out.println("Nhan enter de nhap lai!!!");
                                 sc.nextLine();
                             }
                         }
@@ -260,6 +312,7 @@ public class DanhSachKhachHang implements listInterface.IList {
             }
         } while (chucnang != 0);
     }
+    
     public KhachHang timkiem(String ma) {
         for(int i = 0; i < n; i++) {
             if(dskh[i].getMaKH().equals(ma)) {
@@ -268,12 +321,13 @@ public class DanhSachKhachHang implements listInterface.IList {
         }
         return null;
     }
+    
     public DanhSachKhachHang timkiemnangcao(String ma, String hovaten, String sdt) {
         DanhSachKhachHang kqtimkiem = new DanhSachKhachHang();
         for(int i = 0; i < n; i++) {
             if(!dskh[i].getMaKH().contains(ma) && !ma.equals("\n")) 
                 continue;
-            if(!dskh[i].getHoVaTen().contains(hovaten) && !hovaten.equals("\n"))
+            if(!dskh[i].getHoVaTen().toLowerCase().contains(hovaten.toLowerCase()) && !hovaten.equals("\n"))
                 continue;
             if(!dskh[i].getSDT().contains(sdt) && !sdt.equals("\n"))
                 continue;
@@ -282,6 +336,7 @@ public class DanhSachKhachHang implements listInterface.IList {
         return kqtimkiem;
         
     }
+    
     @Override public void sua() {
         String ma;
         System.out.print("Nhap ma khach hang can sua: ");
@@ -298,13 +353,18 @@ public class DanhSachKhachHang implements listInterface.IList {
                     System.out.println("4. Sua tat ca");
                     System.out.println("0. Thoat");
                     System.out.print("Nhap tinh nang: ");
-                    try {
-                        chucnang = sc.nextInt();
-                        sc.nextLine();
-                    } catch (InputMismatchException e) {
-                        System.err.println("Vui long nhap so!!!");
-                        sc.nextLine(); //Xoá buffer bàn phím trước khi người dùng nhập lại
-                    }
+                    boolean nhapThanhCong = false;
+                    do {
+                        //bắt lỗi người dùng nhập chữ
+                        try {
+                            chucnang = sc.nextInt();
+                            nhapThanhCong = true;
+                            sc.nextLine(); //Xoá kí tự enter trong buffer
+                        } catch (InputMismatchException e) {
+                            System.err.println("Vui long nhap so!!!");
+                            sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                        }
+                    } while(!nhapThanhCong);
                     switch(chucnang) {
                         case 1:
                             dskh[i].setHoVaTen();
@@ -322,7 +382,7 @@ public class DanhSachKhachHang implements listInterface.IList {
                             break;
                         default: {
                             System.out.println("Chuc nang khong hop le!!!");
-                            System.out.println("Nhan enter de quay lai!!!");
+                            System.out.println("Nhan enter de nhap lai!!!");
                             sc.nextLine();
                             break;
                         }

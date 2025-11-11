@@ -1,7 +1,9 @@
+
 import com.service.QuanLyDonHang;
-import com.service.QuanLyHoaDon;
+import com.service.QuanLyKhachHang;
 import com.service.QuanLyNhanVien;
 import com.service.QuanLySmartPhone;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -9,49 +11,72 @@ public class App {
     protected static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
-        QuanLyNhanVien qlnv = new QuanLyNhanVien();
-        QuanLySmartPhone qlsp = new QuanLySmartPhone();
-        QuanLyDonHang qldh = new QuanLyDonHang();
+        Scanner sc = new Scanner(System.in);
+        QuanLyDonHang dsdh = new QuanLyDonHang();
+        QuanLyNhanVien dsnv = new QuanLyNhanVien();
+        QuanLyKhachHang dskh = new QuanLyKhachHang();
+        QuanLySmartPhone dssp = new QuanLySmartPhone();
         int chucnang = 0;
         do {
             clearScreen();
-            System.out.println("--- Quan ly cua hang dien thoai ---");
-            System.out.println("1. Quan ly Nhan Vien");
-            System.out.println("2. Quan ly SmartPhone");
-            System.out.println("3. Quan ly don hang");
-            System.out.println("0. Thoat chuong trinh");
-            System.out.print("Nhap lua chon cua ban: ");
-
-            // Bắt lỗi nhập chữ
-            try {
-                chucnang = sc.nextInt();
-                sc.nextLine(); // Xoá buffer
-            } catch (InputMismatchException e) {
-                System.err.println("Vui long nhap so!!!");
-                // xoá buffer trước khi người dùng nhập lại
-                sc.nextLine();
-                chucnang = -1; // Đặt là một số không hợp lệ để lặp lại
-            }
-
+            System.out.println("1. Quan ly nhan vien");
+            System.out.println("2. Quan ly khach hang");
+            System.out.println("3. Quan ly smartphone");
+            System.out.println("4. Quan ly don hang");
+            System.out.println("4. Thoat");
+            System.out.print("Nhap chuc nang: ");
+            boolean nhapThanhCong = false;
+            do {
+                //bắt lỗi người dùng nhập chữ
+                try {
+                    chucnang = sc.nextInt();
+                    nhapThanhCong = true;
+                    sc.nextLine(); //Xoá kí tự enter trong buffer
+                } catch (InputMismatchException e) {
+                    System.err.println("Vui long nhap so!!!");
+                    sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                }
+            } while(!nhapThanhCong);
             switch (chucnang) {
                 case 1:
-                    qlnv.menu();
+                    dsnv.menu();
                     break;
                 case 2:
-                    qlsp.menu();
+                    dskh.menu();
                     break;
                 case 3:
-                    qldh.menu();
-                case 0:
-                    System.out.println("Da thoat chuong trinh!");
+                    dssp.menu();
                     break;
-                default:
-                    System.out.println("Chuc nang khong hop le!!!");
-                    System.out.println("Nhan enter de quay lai!!!");
+                case 4:
+                    dsdh.menu();
+                    break;
+                case 5: {
+                    dsdh.inputData();
+                    dsnv.inputData();
+                    dskh.inputData();
+                    dssp.inputData();
+                    System.out.println("Nhan enter de quay lai");
                     sc.nextLine();
+                    break;
+                }
+                case 6: {
+                    dsdh.outputData();
+                    dsnv.outputData();
+                    dskh.outputData();
+                    dssp.outputData();
+                    System.out.println("Nhan enter de quay lai");
+                    sc.nextLine();
+                }
+                default: {
+                    System.out.println("Chuc nang khong hop le!!!");
+                    System.out.println("Nhan enter de nhap lai");
+                    sc.nextLine();
+                }
             }
+        } while(chucnang != 0);
 
-        } while (chucnang != 0);
+
+        sc.close();
     }
 
     // lệnh clear console (copy từ các file service của anh)
