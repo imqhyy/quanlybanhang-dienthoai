@@ -31,9 +31,14 @@ abstract public class ConNguoi {
         return sdt;
     }
 
-    public void setHoVaTen() {
-        System.out.print("Ho va ten: ");
-        hovaten = sc.nextLine();
+    public void setHoVaTen() {     
+        do {
+            System.out.print("Ho va ten: ");
+            hovaten = sc.nextLine();
+            if(hovaten.equals("")) {
+                System.out.println("Hay nhap gi do!!!");
+            }
+        } while(hovaten.equals(""));
     }
     public void setTuoi() {
         boolean nhapThanhCong = false;

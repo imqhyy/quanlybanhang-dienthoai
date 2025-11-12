@@ -100,13 +100,24 @@ public class SmartPhone {
     }
 
     public void setTenSP() {
-        System.out.print("Ten san pham: ");
-        tenSP = sc.nextLine();
+        
+        do {
+            System.out.print("Ten san pham: ");
+            tenSP = sc.nextLine();
+            if(tenSP.equals("")) {
+                System.out.println("Hay nhap gi do!!!");
+            }
+        } while(tenSP.equals(""));
     }
 
     public void setThuongHieu() {
-        System.out.print("Thuong hieu: ");
-        thuonghieu = sc.nextLine();
+        do {
+            System.out.print("Thuong hieu: ");
+            thuonghieu = sc.nextLine();
+            if(thuonghieu.equals("")) {
+                System.out.println("Hay nhap gi do!!!");
+            }
+        } while(thuonghieu.equals(""));
     }
 
     public void setGiaBan() {
@@ -129,8 +140,14 @@ public class SmartPhone {
     }
 
     public void setChipset() {
-        System.out.print("Chipset: ");
+        
+        do {
+            System.out.print("Chipset: ");
         chipset = sc.nextLine();
+            if(chipset.equals("")) {
+                System.out.println("Hay nhap gi do!!!");
+            }
+        } while(chipset.equals(""));
     }
 
     public void setRam() {
@@ -139,18 +156,36 @@ public class SmartPhone {
     }
 
     public void setRom() {
-        System.out.print("Rom: ");
-        rom = sc.nextLine();
+        
+        do {
+            System.out.print("Rom: ");
+            rom = sc.nextLine();
+            if(rom.equals("")) {
+                System.out.println("Hay nhap gi do!!!");
+            }
+        } while(rom.equals(""));
     }
 
     public void setManHinh() {
-        System.out.print("Man hinh: ");
-        manhinh = sc.nextLine();
+        
+        do {
+            System.out.print("Man hinh: ");
+            manhinh = sc.nextLine();
+            if(manhinh.equals("")) {
+                System.out.println("Hay nhap gi do!!!");
+            }
+        } while(manhinh.equals(""));
     }
 
     public void setChiTiet() {
-        System.out.print("Chi tiet: ");
-        chitiet = sc.nextLine();
+        
+        do {
+            System.out.print("Chi tiet: ");
+            chitiet = sc.nextLine();
+            if(chitiet.equals("")) {
+                System.out.println("Hay nhap gi do!!!");
+            }
+        } while(chitiet.equals(""));
     }
     // endregion
 
