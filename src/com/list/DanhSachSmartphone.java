@@ -13,6 +13,7 @@ public class DanhSachSmartphone {
     SmartPhone[] dsdt; // Mảng lưu SmartPhone
     int n; // Số lượng smartphone hiện có
     int seedID = 1;
+    boolean dataChange = false;
     protected static final Scanner sc = new Scanner(System.in);
 
     // Constructor ko có tham số
@@ -29,12 +30,17 @@ public class DanhSachSmartphone {
     
     public void DanhSachSPmini() {
         //Hiển thị danh sách khách hàng thu gọn
-        System.out.println("Ma san pham   Ten san pham                  Thuong hieu   Gia ban");
+        System.out.println("STT   Ma san pham   Ten san pham                  Thuong hieu   Gia ban");
         if(n == 0) {
             System.out.println("Khong co ket qua phu hop");
             return;
         }
         for(int i = 0; i < n; i++) {
+            //Khoảng cách từ S đến M là 6 ô, đoạn này tính toán để stt chiếm 6 ô
+            System.out.print(i + 1);
+            for(int j = 0; j < 6 - Integer.toString(i + 1).length();j++) {
+                System.out.print(" ");
+            }
             //Khoảng cách từ M đến T là 14, đoạn này tính toán để mã Sản phẩm chiếm 14 ô
             System.out.print(dsdt[i].getMaSP());
             for(int j = 0; j < 14 - dsdt[i].getMaSP().length();j++) {
@@ -50,39 +56,11 @@ public class DanhSachSmartphone {
             for(int j = 0; j < 14 - dsdt[i].getThuongHieu().length();j++) {
                 System.out.print(" ");
             }
-            System.out.println(dsdt[i].getGiaBan());
+            System.out.println(dsdt[i].getStringGiaBan());
         }
         System.out.println("SL: " + n);
     }
 
-    public void DanhSachSPmini(SmartPhone[] ds2) {
-        //Hiển thị danh sách khách hàng thu gọn
-        System.out.println("--Danh sach smartphone--");
-        System.out.println("Ma san pham   Ten san pham           Thuong hieu   Gia ban");
-        if(n == 0) {
-            System.out.println("Khong co ket qua phu hop");
-            return;
-        }
-        for(int i = 0; i < n; i++) {
-            //Khoảng cách từ M đến T là 14, đoạn này tính toán để mã Sản phẩm chiếm 14 ô
-            System.out.print(ds2[i].getMaSP());
-            for(int j = 0; j < 14 - ds2[i].getMaSP().length();j++) {
-                System.out.print(" ");
-            }
-            //Khoảng cách từ T đến T là 23, đoạn này tính toán để tên Sản phẩm chiếm 23 ô
-            System.out.print(ds2[i].getTenSP());
-            for(int j = 0; j < 23 - ds2[i].getTenSP().length();j++) {
-                System.out.print(" ");
-            }
-            //Khoảng cách từ T đến G là 14, đoạn này tính toán để tên Thương hiệu chiếm 14 ô
-            System.out.print(ds2[i].getThuongHieu());
-            for(int j = 0; j < 14 - ds2[i].getThuongHieu().length();j++) {
-                System.out.print(" ");
-            }
-            System.out.println(ds2[i].getGiaBan());
-        }
-        System.out.println("SL: " + n);
-    }
 
     public void nhap() {
         //Kiểm tra xem có dữ liệu cũ nào được lưu không vì nhập sẽ xoá toàn bộ dữ liệu cũ
@@ -123,6 +101,7 @@ public class DanhSachSmartphone {
             seedID++;
             System.out.println();
         }
+        dataChange = true;
     }
 
     // Xuất danh sách
@@ -158,7 +137,7 @@ public class DanhSachSmartphone {
                     dsdt[i].getMaSP(),
                     dsdt[i].getTenSP(),
                     dsdt[i].getThuongHieu(),
-                    Double.toString(dsdt[i].getGiaBan()), // Chuyển double sang String
+                    dsdt[i].getGiaBan().toString(), // Chuyển double sang String
                     dsdt[i].getChipset(),
                     dsdt[i].getRam(),
                     dsdt[i].getRom(),
@@ -192,6 +171,7 @@ public class DanhSachSmartphone {
         seedID++;
         // Tăng số lượng
         n++;
+        dataChange = true;
     }
 
     // Thêm (Đối tượng có sẵn)
@@ -201,6 +181,7 @@ public class DanhSachSmartphone {
         dsdt[n] = a;
         n++;
         seedID++;
+        dataChange = true;
     }
 
     // Xóa
@@ -219,6 +200,7 @@ public class DanhSachSmartphone {
         }
         if(daXoa) {
             System.out.println("Xoa thanh cong!");
+            dataChange = true;
         } else {
             System.out.println("Khong tim thay san pham nay!");
         }
@@ -227,6 +209,7 @@ public class DanhSachSmartphone {
     public void bolocKetqua(DanhSachSmartphone ds2) {
         int chucnang = 0;
         double bolocGia = 0;
+        String bolocThuongHieu = "";
         int sosanhGia = 0;
         do {
             DanhSachSmartphone dsBoLoc = new DanhSachSmartphone();
@@ -238,23 +221,31 @@ public class DanhSachSmartphone {
             if(bolocGia != 0) {
                 for(int i = 0; i < dsBoLoc.n; i++) {
                     if(sosanhGia == 1) {
-                        if(dsBoLoc.dsdt[i].getGiaBan() < bolocGia) {
+                        if(dsBoLoc.dsdt[i].getGiaBan().doubleValue() < bolocGia) {
                             dsBoLoc.xoa(dsBoLoc.dsdt[i].getMaSP());
                             //Thêm i-- để khi có phần tử bị xoá và dồn lên nó sẽ kiểm tra phần bị dồn đó
                             i--;
                         }
                     }
                     if(sosanhGia == 2) {
-                        if(dsBoLoc.dsdt[i].getGiaBan() > bolocGia) {
+                        if(dsBoLoc.dsdt[i].getGiaBan().doubleValue() > bolocGia) {
                             dsBoLoc.xoa(dsBoLoc.dsdt[i].getMaSP());
                             i--;
                         }
                     }
                     if(sosanhGia == 3) {
-                        if(dsBoLoc.dsdt[i].getGiaBan() != bolocGia) {
+                        if(dsBoLoc.dsdt[i].getGiaBan().doubleValue() != bolocGia) {
                             dsBoLoc.xoa(dsBoLoc.dsdt[i].getMaSP());
                             i--;
                         }
+                    }
+                }
+            }
+            if(bolocThuongHieu != "") {
+                for(int i = 0; i < dsBoLoc.n; i++) {
+                    if(!dsBoLoc.dsdt[i].getThuongHieu().equals(bolocThuongHieu)) {
+                        dsBoLoc.xoa(dsBoLoc.dsdt[i].getMaSP());
+                        i--;
                     }
                 }
             }
@@ -262,8 +253,9 @@ public class DanhSachSmartphone {
             System.out.println();
             System.out.println("-Bo loc-");
             System.out.println("1. Gia ban");
-            System.out.println("2. Xoa bo loc");
-            System.out.println("3. Xem chi tiet san pham");
+            System.out.println("2. Thuong hieu");
+            System.out.println("3. Xoa bo loc");
+            System.out.println("4. Xem chi tiet san pham");
             System.out.println("0. Thoat");
             System.out.print("Nhap chuc nang: ");
             boolean nhapThanhCong = false;
@@ -329,11 +321,17 @@ public class DanhSachSmartphone {
                     break;
                 }
                 case 2: {
-                    bolocGia = 0;
-                    sosanhGia = 0;
+                    System.out.print("Nhap thuong hieu: ");
+                    bolocThuongHieu = sc.nextLine();
                     break;
                 }
                 case 3: {
+                    bolocGia = 0;
+                    sosanhGia = 0;
+                    bolocThuongHieu = "";
+                    break;
+                }
+                case 4: {
                     System.out.print("Nhap ma san pham muon xem chi tiet: ");
                     String ma = sc.nextLine();
                     boolean xemThanhCong = false;
@@ -470,7 +468,16 @@ public class DanhSachSmartphone {
             System.err.println("Khong co smartphone nay!!!");
         } else {
             System.out.println("Sua thong tin thanh cong!!!");
+            dataChange = true;
         }
+    }
+
+    public boolean getDataChange() {
+        return dataChange;
+    }
+
+    public void setDataChange(boolean x) {
+        dataChange = x;
     }
 
     // lệnh clear console

@@ -8,6 +8,7 @@ import java.util.Scanner;
 import com.model.SmartPhone;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.InputMismatchException;
 
 public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterface.ILoadSaveData {
@@ -20,7 +21,7 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
 
     @Override
     public void inputData() {
-        if (ds1.xuatN() != 0) {
+        if (ds1.getDataChange()) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
             System.out.print("Nhan 'y' de xac nhan, 'n' de huy: ");
@@ -49,7 +50,7 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                             arr[0], // maSP
                             arr[1], // tenSP
                             arr[2], // thuonghieu
-                            Double.parseDouble(arr[3]), // giaBan
+                            new BigDecimal(arr[3]), // giaBan
                             arr[4], // chipset
                             arr[5], // ram
                             arr[6], // rom
@@ -66,6 +67,7 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                 // thêm ++ để tăng seedID hiện tại lên 1 để không trùng
                 ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
+                ds1.setDataChange(false);
             }
         } catch (IOException | NumberFormatException e) {
             System.err.println("Khong tim thay file!!!");
@@ -82,6 +84,7 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                 } else {
                     fw.write(dulieu);
                     System.out.println("Ghi du lieu vao file thanh cong!!!");
+                    ds1.setDataChange(false);
                 }
             }
         } catch (IOException e) {

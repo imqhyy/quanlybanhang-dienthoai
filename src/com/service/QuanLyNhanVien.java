@@ -20,7 +20,7 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
     }
 
     @Override public void inputData() {
-        if(ds1.xuatN() != 0) {
+        if(ds1.getDataChange()) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
             System.out.print("Nhan 'y' de xac nhan, 'n' de huy: ");
@@ -65,6 +65,7 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                 ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
                 System.out.println("Tai du lieu tu file thanh cong!!!");
+                ds1.setDataChange(false);
             }
             
             
@@ -82,6 +83,8 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                     System.out.println("Khong co du lieu de ghi vao file!!!");
                 } else {
                     fw.write(dulieu);
+                    System.out.println("Ghi du lieu vao file thanh cong!!!");
+                    ds1.setDataChange(false);
                 }
             }
 

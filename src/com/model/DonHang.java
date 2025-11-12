@@ -7,9 +7,12 @@ import com.list.DanhSachSmartphone;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public final class DonHang {
@@ -23,7 +26,7 @@ public final class DonHang {
     private int n; //Số sản phẩm
     private SmartPhone[] dsMua;
     private int[] soluongSP;
-    private double tongSP;
+    private BigDecimal tongSP;
     private static final Scanner sc = new Scanner(System.in);
     //Định dạng ngày nhập
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -69,30 +72,40 @@ public final class DonHang {
         System.out.println("------Thong tin don hang------");
         System.out.println("Ma don hang: " + maDH);
         System.out.println("Ngay dat: " + ngayDat.format(DATE_FORMATTER));
-        System.out.println("Ma khach hang: " + KH.getMaKH());
-        System.out.println("Ho ten: " + KH.getHoVaTen());
-        System.out.println("Ma nhan vien: " + NV.getMaNV());
-        System.out.println("Ho ten: " + NV.getHoVaTen());
-        System.out.println("Ma san pham   Ten san pham                  Don gia     SL");
+        System.out.println("Ma khach hang: " + (KH != null ? KH.getMaKH() : "N/A"));
+        System.out.println("Ho ten: " + (KH != null ? KH.getHoVaTen() : "N/A"));
+        System.out.println("Ma nhan vien: " + (NV != null ? NV.getMaNV() : "N/A"));
+        System.out.println("Ho ten: " + (NV != null ? NV.getHoVaTen() : "N/A"));
+        System.out.println("STT   Ma san pham   Ten san pham                  Don gia            SL");
         for(int i = 0; i < n; i++) {
-            //Khoảng cách từ M đến T là 14, đoạn này tính toán để mã Sản phẩm chiếm 14 ô
-            System.out.print(dsMua[i].getMaSP());
-            for(int j = 0; j < 14 - dsMua[i].getMaSP().length();j++) {
+            //Khoảng cách từ S đến M là 6 ô, đoạn này tính toán để stt chiếm 6 ô
+            System.out.print(i + 1);
+            for(int j = 0; j < 6 - Integer.toString(i + 1).length();j++) {
                 System.out.print(" ");
             }
-            //Khoảng cách từ T đến D là 30, đoạn này tính toán để tên Sản phẩm chiếm 30 ô
-            System.out.print(dsMua[i].getTenSP());
-            for(int j = 0; j < 30 - dsMua[i].getTenSP().length();j++) {
-                System.out.print(" ");
+            if(dsMua[i] != null)
+            {
+                //Khoảng cách từ M đến T là 14, đoạn này tính toán để mã Sản phẩm chiếm 14 ô
+                System.out.print(dsMua[i].getMaSP());
+                for(int j = 0; j < 14 - dsMua[i].getMaSP().length();j++) {
+                    System.out.print(" ");
+                }
+                //Khoảng cách từ T đến D là 30, đoạn này tính toán để tên Sản phẩm chiếm 30 ô
+                System.out.print(dsMua[i].getTenSP());
+                for(int j = 0; j < 30 - dsMua[i].getTenSP().length();j++) {
+                    System.out.print(" ");
+                }
+                //Khoảng cách từ D đến S là 19, đoạn này tính toán đơn giá chiếm 19 ô
+                System.out.print(dsMua[i].getStringGiaBan());
+                for(int j = 0; j < 19 - dsMua[i].getStringGiaBan().length();j++) {
+                    System.out.print(" ");
+                }
+                System.out.println(soluongSP[i]);
+            } else {
+                System.out.println("San pham da bi xoa!");
             }
-            //Khoảng cách từ D đến L là 12, đoạn này tính toán để tên Thương hiệu chiếm 12 ô
-            System.out.print(dsMua[i].getGiaBan());
-            for(int j = 0; j < 12 - Double.toString(dsMua[i].getGiaBan()).length();j++) {
-                System.out.print(" ");
-            }
-            System.out.println(soluongSP[i]);
         }
-        System.out.println("Tong san pham: " + tongSP);
+        System.out.println("Tong san pham: " + getStringTongSP());
     }
 
     public String getMaDH() {
@@ -124,10 +137,22 @@ public final class DonHang {
         return n;
     }
 
-    public double getTongSP() {
+    public BigDecimal getTongSP() {
         return tongSP;
     }
 
+    public String getStringTongSP() {
+        // 1. Định nghĩa mẫu định dạng (#,###) và Locale
+        // Locale Việt Nam đảm bảo sử dụng dấu chấm phân cách hàng nghìn.
+        Locale vietNam = new Locale("vi", "VN");
+        DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance(vietNam);
+
+        // 2. Đặt mẫu (Pattern) thủ công:
+        // " VND" là tiền tố/hậu tố.
+        df.applyPattern("#,### VND");
+        return df.format(tongSP);
+    }
+    
     public String getDataSP() {
         String data = "";
         for(int i = 0; i < n; i++) {
@@ -253,9 +278,10 @@ public final class DonHang {
 
     public void setTongSP() {
         //Set giá trị 0 trước mỗi lần tính toán lại
-        tongSP = 0;
+        tongSP = new BigDecimal(0);
         for(int i = 0; i < n; i++) {
-            tongSP = tongSP + dsMua[i].getGiaBan() * soluongSP[i];
+            if(dsMua[i] != null)
+                tongSP = tongSP.add(dsMua[i].getGiaBan().multiply(new BigDecimal(soluongSP[i])));
         }
     }
 
@@ -397,7 +423,7 @@ public final class DonHang {
                             arr[0], // maSP
                             arr[1], // tenSP
                             arr[2], // thuonghieu
-                            Double.parseDouble(arr[3]), // giaBan
+                            new BigDecimal(arr[3]), // giaBan
                             arr[4], // chipset
                             arr[5], // ram
                             arr[6], // rom

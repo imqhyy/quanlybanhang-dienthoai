@@ -12,10 +12,6 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        QuanLyDonHang dsdh = new QuanLyDonHang();
-        QuanLyNhanVien dsnv = new QuanLyNhanVien();
-        QuanLyKhachHang dskh = new QuanLyKhachHang();
-        QuanLySmartPhone dssp = new QuanLySmartPhone();
         int chucnang = 0;
         do {
             clearScreen();
@@ -23,7 +19,7 @@ public class App {
             System.out.println("2. Quan ly khach hang");
             System.out.println("3. Quan ly smartphone");
             System.out.println("4. Quan ly don hang");
-            System.out.println("4. Thoat");
+            System.out.println("0. Thoat");
             System.out.print("Nhap chuc nang: ");
             boolean nhapThanhCong = false;
             do {
@@ -39,34 +35,23 @@ public class App {
             } while(!nhapThanhCong);
             switch (chucnang) {
                 case 1:
+                    QuanLyNhanVien dsnv = new QuanLyNhanVien();
                     dsnv.menu();
                     break;
                 case 2:
+                    QuanLyKhachHang dskh = new QuanLyKhachHang();
                     dskh.menu();
                     break;
                 case 3:
+                    QuanLySmartPhone dssp = new QuanLySmartPhone();
                     dssp.menu();
                     break;
                 case 4:
+                    QuanLyDonHang dsdh = new QuanLyDonHang();
                     dsdh.menu();
                     break;
-                case 5: {
-                    dsdh.inputData();
-                    dsnv.inputData();
-                    dskh.inputData();
-                    dssp.inputData();
-                    System.out.println("Nhan enter de quay lai");
-                    sc.nextLine();
+                case 0:
                     break;
-                }
-                case 6: {
-                    dsdh.outputData();
-                    dsnv.outputData();
-                    dskh.outputData();
-                    dssp.outputData();
-                    System.out.println("Nhan enter de quay lai");
-                    sc.nextLine();
-                }
                 default: {
                     System.out.println("Chuc nang khong hop le!!!");
                     System.out.println("Nhan enter de nhap lai");

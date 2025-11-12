@@ -9,6 +9,7 @@ public class DanhSachDonHang implements listInterface.IList {
     DonHang[] dsdh;
     int n;
     int seedID = 1;
+    boolean dataChange = false; //Kiểm tra dữ liệu có thay đổi không
     protected static final Scanner sc = new Scanner(System.in);
 
     //Constructor không tham số
@@ -25,13 +26,18 @@ public class DanhSachDonHang implements listInterface.IList {
 
     public void DanhSachDHmini() {
         //Hiển thị danh sách khách hàng thu gọn
-        System.out.println("Ma don hang   Ngay dat       Ma khach hang   Ma nhan vien   Tong san pham");
+        System.out.println("STT   Ma don hang   Ngay dat       Ma khach hang      Ma nhan vien       Tong san pham");
         if(n == 0) {
             System.out.println("Khong co ket qua phu hop");
             return;
         }
         for(int i = 0; i < n; i++) {
-            //Khoảng cách từ M đến T là 14, đoạn này tính toán để mã Đơn hàng chiếm 14 ô
+            //Khoảng cách từ S đến M là 6 ô, đoạn này tính toán để stt chiếm 6 ô
+            System.out.print(i + 1);
+            for(int j = 0; j < 6 - Integer.toString(i + 1).length();j++) {
+                System.out.print(" ");
+            }
+            //Khoảng cách từ M đến N là 14, đoạn này tính toán để mã Đơn hàng chiếm 14 ô
             System.out.print(dsdh[i].getMaDH());
             for(int j = 0; j < 14 - dsdh[i].getMaDH().length();j++) {
                 System.out.print(" ");
@@ -41,52 +47,30 @@ public class DanhSachDonHang implements listInterface.IList {
             for(int j = 0; j < 15 - dsdh[i].getNgayDat().length();j++) {
                 System.out.print(" ");
             }
-            //Khoảng cách từ M đến M là 16, đoạn này tính toán để Mã khách hàng hiệu chiếm 16 ô
-            System.out.print(dsdh[i].getKH().getMaKH());
-            for(int j = 0; j < 16 - dsdh[i].getKH().getMaKH().length();j++) {
+            //Khoảng cách từ M đến M là 19, đoạn này tính toán để Mã khách hàng chiếm 19 ô
+            String lineOut;
+            if(dsdh[i].getKH() != null)
+                lineOut = dsdh[i].getKH().getMaKH();
+            else
+                lineOut = "N/A";
+            System.out.print(lineOut);
+            for(int j = 0; j < 19 - lineOut.length();j++) {
                 System.out.print(" ");
             }
-            //Khoảng cách từ M đến M là 15, đoạn này tính toán để Mã nhân viên hiệu chiếm 15 ô
-            System.out.print(dsdh[i].getNV().getMaNV());
-            for(int j = 0; j < 15 - dsdh[i].getNV().getMaNV().length();j++) {
+            //Khoảng cách từ M đến M là 19, đoạn này tính toán để Mã nhân viên chiếm 19 ô
+            if(dsdh[i].getNV() != null)
+                lineOut = dsdh[i].getNV().getMaNV();
+            else
+                lineOut = "N/A";
+            System.out.print(lineOut);
+            for(int j = 0; j < 19 - lineOut.length();j++) {
                 System.out.print(" ");
             }
-            System.out.println(dsdh[i].getTongSP());
+            System.out.println(dsdh[i].getStringTongSP());
         }
         System.out.println("SL: " + n);
     }
 
-    public void DanhSachDHmini(DonHang[] ds2) {
-        //Hiển thị danh sách khách hàng thu gọn
-        System.out.println("Ma don hang   Ngay dat       Ma khach hang   Ma nhan vien   Tong san pham");
-        if(n == 0) {
-            System.out.println("Khong co ket qua phu hop");
-            return;
-        }
-        for(int i = 0; i < n; i++) {
-            //Khoảng cách từ M đến T là 14, đoạn này tính toán để mã Đơn hàng chiếm 14 ô
-            System.out.print(ds2[i].getMaDH());
-            for(int j = 0; j < 14 - ds2[i].getMaDH().length();j++) {
-                System.out.print(" ");
-            }
-            //Khoảng cách từ N đến M là 11, đoạn này tính toán để Ngày đặt chiếm 11 ô
-            System.out.print(ds2[i].getNgayDat());
-            for(int j = 0; j < 15 - ds2[i].getNgayDat().length();j++) {
-                System.out.print(" ");
-            }
-            //Khoảng cách từ M đến M là 16, đoạn này tính toán để Mã khách hàng chiếm 16 ô
-            System.out.print(ds2[i].getKH().getMaKH());
-            for(int j = 0; j < 16 - ds2[i].getKH().getMaKH().length();j++) {
-                System.out.print(" ");
-            }
-            //Khoảng cách từ M đến M là 15, đoạn này tính toán để Mã nhân viên chiếm 15 ô
-            System.out.print(ds2[i].getNV().getMaNV());
-            for(int j = 0; j < 15 - ds2[i].getNV().getMaNV().length();j++) {
-                System.out.print(" ");
-            }
-        }
-        System.out.println("SL: " + n);
-    }
 
     @Override public void nhap() {
         //Kiểm tra xem có dữ liệu cũ nào được lưu không vì nhập sẽ xoá toàn bộ dữ liệu cũ
@@ -196,6 +180,7 @@ public class DanhSachDonHang implements listInterface.IList {
         seedID++;
         // Tăng số lượng
         n++;
+        dataChange = true;
     }
 
     // Thêm (Đối tượng có sẵn), hàm này được dùng trong quản lý, hãy cẩn thận vì bạn phải tự set lại seedID
@@ -205,6 +190,7 @@ public class DanhSachDonHang implements listInterface.IList {
         dsdh[n] = a;
         n++;
         seedID++;
+        dataChange = true;
     }
 
     // Xóa
@@ -223,8 +209,9 @@ public class DanhSachDonHang implements listInterface.IList {
         }
         if(daXoa) {
             System.out.println("Xoa thanh cong!");
+            dataChange = true;
         } else {
-            System.out.println("Khong tim thay san pham nay!");
+            System.out.println("Khong tim thay don hang nay!");
         }
     }
 
@@ -242,20 +229,20 @@ public class DanhSachDonHang implements listInterface.IList {
             if(bolocGia != 0) {
                 for(int i = 0; i < dsBoLoc.n; i++) {
                     if(sosanhGia == 1) {
-                        if(dsBoLoc.dsdh[i].getTongSP() < bolocGia) {
+                        if(dsBoLoc.dsdh[i].getTongSP().doubleValue() < bolocGia) {
                             dsBoLoc.xoa(dsBoLoc.dsdh[i].getMaDH());
                             //Thêm i-- để khi có phần tử bị xoá và dồn lên nó sẽ kiểm tra phần bị dồn đó
                             i--;
                         }
                     }
                     if(sosanhGia == 2) {
-                        if(dsBoLoc.dsdh[i].getTongSP() > bolocGia) {
+                        if(dsBoLoc.dsdh[i].getTongSP().doubleValue() > bolocGia) {
                             dsBoLoc.xoa(dsBoLoc.dsdh[i].getMaDH());
                             i--;
                         }
                     }
                     if(sosanhGia == 3) {
-                        if(dsBoLoc.dsdh[i].getTongSP() != bolocGia) {
+                        if(dsBoLoc.dsdh[i].getTongSP().doubleValue() != bolocGia) {
                             dsBoLoc.xoa(dsBoLoc.dsdh[i].getMaDH());
                             i--;
                         }
@@ -267,7 +254,7 @@ public class DanhSachDonHang implements listInterface.IList {
             System.out.println("-Bo loc-");
             System.out.println("1. Gia ban");
             System.out.println("2. Xoa bo loc");
-            System.out.println("3. Xem chi tiet san pham");
+            System.out.println("3. Xem chi tiet don hang");
             System.out.println("0. Thoat");
             System.out.print("Nhap chuc nang: ");
             boolean nhapThanhCong = false;
@@ -340,7 +327,7 @@ public class DanhSachDonHang implements listInterface.IList {
                     break;
                 }
                 case 3: {
-                    System.out.print("Nhap ma san pham muon xem chi tiet: ");
+                    System.out.print("Nhap ma don hang muon xem chi tiet: ");
                     String ma = sc.nextLine();
                     boolean xemThanhCong = false;
                     for(int i = 0; i < n; i++) {
@@ -351,7 +338,7 @@ public class DanhSachDonHang implements listInterface.IList {
                         }
                     }
                     if(!xemThanhCong) {
-                        System.out.println("Khong tim thay san pham!");
+                        System.out.println("Khong tim thay don hang!!!");
                     }
                     System.out.println("Nhan enter de quay lai!!!");
                     sc.nextLine();
@@ -460,10 +447,17 @@ public class DanhSachDonHang implements listInterface.IList {
             System.err.println("Khong co don hang nay!!!");
         } else {
             System.out.println("Sua thong tin thanh cong!!!");
+            dataChange = true;
         }
     }
 
+    public boolean getDataChange() {
+        return dataChange;
+    }
 
+    public void setDataChange(boolean x) {
+        x = dataChange;
+    }
 
     // lệnh clear console
     public static void clearScreen() {

@@ -12,6 +12,7 @@ public class DanhSachNhanVien implements listInterface.IList {
     NhanVien[] dsnv;
     int n;
     int seedID = 1;
+    boolean dataChange = false;
     protected static final Scanner sc = new Scanner(System.in);
     
     public DanhSachNhanVien() {
@@ -26,9 +27,14 @@ public class DanhSachNhanVien implements listInterface.IList {
     
     public void DanhSachNVmini() {
         //Hiển thị danh sách nhân viên hàng thu gọn
-        System.out.println("Ma nhan vien   Ho va ten           Tuoi   So dien thoai   Chuc vu      Luong");
+        System.out.println("STT   Ma nhan vien   Ho va ten           Tuoi   So dien thoai   Chuc vu      Luong");
         
         for(int i = 0; i < n; i++) {
+            //Khoảng cách từ S đến M là 6 ô, đoạn này tính toán để stt chiếm 6 ô
+            System.out.print(i + 1);
+            for(int j = 0; j < 6 - Integer.toString(i + 1).length();j++) {
+                System.out.print(" ");
+            }
             //Khoảng cách từ M đến H là 15, đoạn này tính toán để mã NV chiếm 15 ô
             System.out.print(dsnv[i].getMaNV());
             for(int j = 0; j < 15 - dsnv[i].getMaNV().length();j++) {
@@ -55,41 +61,6 @@ public class DanhSachNhanVien implements listInterface.IList {
                 System.out.print(" ");
             }
             System.out.println(dsnv[i].getLuong());
-        }
-        System.out.println("SL: " + n);
-    }
-    
-    public void DanhSachNVmini(NhanVien[] ds2) {
-        //Hiển thị danh sách nhân viên hàng thu gọn
-        System.out.println("Ma nhan vien   Ho va ten           Tuoi   So dien thoai   Chuc vu   Luong");
-        
-        for(int i = 0; i < n; i++) {
-            //Khoảng cách từ M đến H là 15, đoạn này tính toán để mã NV chiếm 15 ô
-            System.out.print(ds2[i].getMaNV());
-            for(int j = 0; j < 15 - ds2[i].getMaNV().length();j++) {
-                System.out.print(" ");
-            }
-            //Khoảng cách từ H đến T là 20, đoạn này tính toán để tên KH chiếm 20 ô
-            System.out.print(ds2[i].getHoVaTen());
-            for(int j = 0; j < 20 - ds2[i].getHoVaTen().length();j++) {
-                System.out.print(" ");
-            }
-            //Khoảng cách từ T đến S là 7, đoạn này tính toán để tên KH chiếm 7 ô
-            System.out.print(ds2[i].getTuoi());
-            for(int j = 0; j < 7 - Integer.toString(ds2[i].getTuoi()).length();j++) {
-                System.out.print(" ");
-            }
-            //Khoảng cách từ S đến C là 16, đoạn này tính toán để tên KH chiếm 16 ô
-            System.out.print(ds2[i].getSDT());
-            for(int j = 0; j < 16 - (ds2[i].getSDT()).length();j++) {
-                System.out.print(" ");
-            }
-            //Khoảng cách từ C đến L là 13, đoạn này tính toán để tên KH chiếm 13 ô
-            System.out.print(ds2[i].getChucVu());
-            for(int j = 0; j < 13 - (ds2[i].getSDT()).length();j++) {
-                System.out.print(" ");
-            }
-            System.out.println(ds2[i].getLuong());
         }
         System.out.println("SL: " + n);
     }
@@ -134,6 +105,7 @@ public class DanhSachNhanVien implements listInterface.IList {
             seedID++;
             System.out.println();
         }
+        dataChange = true;
     }
     
     @Override public void xuat() {
@@ -183,6 +155,7 @@ public class DanhSachNhanVien implements listInterface.IList {
         dsnv[n].setInfo(seedID);
         seedID++;
         n++;
+        dataChange = true;
     }
     
     public void them(NhanVien a) {
@@ -191,6 +164,7 @@ public class DanhSachNhanVien implements listInterface.IList {
         dsnv[n] = a;
         n++;
         seedID++;
+        dataChange = true;
     }
     
     @Override public void xoa(String ma) {
@@ -208,6 +182,7 @@ public class DanhSachNhanVien implements listInterface.IList {
         }
         if(daXoa) {
             System.out.println("Xoa thanh cong!");
+            dataChange = true;
         } else {
             System.out.println("Khong tim thay nhan vien nay!");
         }
@@ -513,10 +488,18 @@ public class DanhSachNhanVien implements listInterface.IList {
             System.out.println("Khong co nhan vien nay!!!");
         } else {
             System.out.println("Sua thanh cong!!!");
+            dataChange = true;
         }
         
     }
 
+    public boolean getDataChange() {
+        return dataChange;
+    }
+
+    public void setDataChange(boolean x) {
+        dataChange = x;
+    }
 
     //lệnh clear console
     public static void clearScreen() {

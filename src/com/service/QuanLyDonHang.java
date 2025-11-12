@@ -19,7 +19,8 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
     }
 
     @Override public void inputData() {
-        if(ds1.xuatN() != 0) {
+        //Kiểm tra dữ liệu có bị thay đổi không trước khi tải lên 1 dữ liệu mới
+        if(ds1.getDataChange()) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
             System.out.print("Nhan 'y' de xac nhan, 'n' de huy: ");
@@ -62,6 +63,7 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                 //thêm ++ để tăng seedID hiện tại lên 1 để không trùng
                 ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
+                ds1.setDataChange(false); //Vì dữ liệu đã được làm mới nên chuyển nó về thành false, tức là chưa qua chỉnh sửa
             }
         } catch (IOException | NumberFormatException e) {
             System.err.println("Khong tim thay file!!!");
@@ -77,6 +79,7 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                 } else {
                     fw.write(dulieu);
                     System.out.println("Ghi du lieu vao file thanh cong!!!");
+                    ds1.setDataChange(false); //Vì dữ liệu được sao lưu nên chuyển về thành change, tức là hiện tại không có gì thay đổi
                 }
             }
         } catch(IOException e) {

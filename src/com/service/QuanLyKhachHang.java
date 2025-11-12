@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.function.IntPredicate;
 
 public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface.ILoadSaveData {
     DanhSachKhachHang ds1 = new DanhSachKhachHang();
@@ -21,7 +22,7 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
 
     @Override
     public void inputData() {
-        if (ds1.xuatN() != 0) {
+        if (ds1.getDataChange()) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
             System.out.print("Nhan 'y' de xac nhan, 'n' de huy: ");
@@ -65,6 +66,7 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                 // thêm ++ để tăng seedID hiện tại lên 1 để không trùng
                 ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
+                ds1.setDataChange(false);
             }
         } catch (IOException | NumberFormatException e) {
             System.err.println("Khong tim thay file!!!");
@@ -81,6 +83,7 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                 } else {
                     fw.write(dulieu);
                     System.out.println("Ghi du lieu vao file thanh cong!!!");
+                    ds1.setDataChange(false);
                 }
             }
         } catch (IOException e) {
@@ -194,6 +197,7 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                 }
                 case 0:
                     outputData();
+                    inputData();
                     break;
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");

@@ -1,13 +1,16 @@
 package com.model;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class SmartPhone {
     private String maSP;
     private String tenSP;
     private String thuonghieu;
-    private double giaBan;
+    private BigDecimal giaBan;
     private String chipset;
     private String ram;
     private String rom;
@@ -19,7 +22,7 @@ public class SmartPhone {
         maSP = "null";
         tenSP = "null";
         thuonghieu = "null";
-        giaBan = 0;
+        giaBan = new BigDecimal(0);
         chipset = "null";
         ram = "null";
         rom = "null";
@@ -27,7 +30,7 @@ public class SmartPhone {
         chitiet = "null";
     }
 
-    public SmartPhone(String maSP, String tenSP, String thuonghieu, double giaBan, String chipset, String ram,
+    public SmartPhone(String maSP, String tenSP, String thuonghieu, BigDecimal giaBan, String chipset, String ram,
         String rom, String manhinh, String chitiet) {
         this.maSP = maSP;
         this.tenSP = tenSP;
@@ -53,8 +56,20 @@ public class SmartPhone {
         return thuonghieu;
     }
 
-    public double getGiaBan() {
+    public BigDecimal getGiaBan() {
         return giaBan;
+    }
+
+    public String getStringGiaBan() {
+        // 1. Định nghĩa mẫu định dạng (#,###) và Locale
+        // Locale Việt Nam đảm bảo sử dụng dấu chấm phân cách hàng nghìn.
+        Locale vietNam = new Locale("vi", "VN");
+        DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance(vietNam);
+
+        // 2. Đặt mẫu (Pattern) thủ công:
+        // " VND" là tiền tố/hậu tố.
+        df.applyPattern("#,### VND");
+        return df.format(giaBan);
     }
 
     public String getChipset() {
@@ -100,9 +115,10 @@ public class SmartPhone {
             System.out.print("Gia ban: ");
             // bắt lỗi nếu người dùng nhập chữ
             try {
-                giaBan = sc.nextDouble();
-                nhapThanhCong = true;
+                int inputGiaban = sc.nextInt();
                 sc.nextLine();
+                giaBan = new BigDecimal(inputGiaban);
+                nhapThanhCong = true;
             } catch (InputMismatchException e) {
                 System.err.println("Vui long nhap so!!!");
                 sc.nextLine(); // xoá buffer trước khi người dùng nhập lại
@@ -140,11 +156,20 @@ public class SmartPhone {
 
     //phương thức get tất cả thuộc tính
     public void getInfo() {
+        // 1. Định nghĩa mẫu định dạng (#,###) và Locale
+        // Locale Việt Nam đảm bảo sử dụng dấu chấm phân cách hàng nghìn.
+        Locale vietNam = new Locale("vi", "VN");
+        DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance(vietNam);
+
+        // 2. Đặt mẫu (Pattern) thủ công:
+        // " VND" là tiền tố/hậu tố.
+        df.applyPattern("#,### VND");
+
         System.out.println("------Thong tin dien thoai------");
         System.out.println("Ma san pham: " + maSP);
         System.out.println("Ten san pham: " + tenSP);
         System.out.println("Thuong hieu: " + thuonghieu);
-        System.out.println("Gia ban: " + giaBan);
+        System.out.println("Gia ban: " + getStringGiaBan());
         System.out.println("------Cau hinh dien thoai------");
         System.out.println("Chipset: " + chipset);
         System.out.println("Ram: " + ram);
