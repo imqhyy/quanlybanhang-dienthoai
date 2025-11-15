@@ -34,7 +34,7 @@ public class NhanVien extends ConNguoi {
         System.out.println("\n------Nhap thong tin nhan vien------");
         System.out.println("Ma nhan vien: " + maNV);
         super.setHoVaTen();
-        super.setTuoi();
+        this.setTuoi();
         super.setSDT();
         setChucVu();
         setLuong();
@@ -46,7 +46,7 @@ public class NhanVien extends ConNguoi {
         maNV = ma;
         System.out.println("Ma nhan vien: " + maNV);
         super.setHoVaTen();
-        super.setTuoi();
+        setTuoi();
         super.setSDT();
         setChucVu();
         setLuong();
