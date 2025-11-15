@@ -13,8 +13,8 @@ import java.math.BigDecimal;
 import java.util.InputMismatchException;
 
 public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.ILoadSaveData {
-    DanhSachNhanVien ds1 = new DanhSachNhanVien();
-    protected static final Scanner sc = new Scanner(System.in);
+    private DanhSachNhanVien ds1 = new DanhSachNhanVien();
+    private static final Scanner sc = new Scanner(System.in);
 
     public QuanLyNhanVien() {
         inputData();

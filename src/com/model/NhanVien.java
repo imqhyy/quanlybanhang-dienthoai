@@ -71,10 +71,7 @@ public class NhanVien extends ConNguoi {
         df.applyPattern("#,### VND");
         return df.format(luong);
     }
-    public void setMaNV() {
-        System.out.print("Ma nhan vien: ");
-        maNV = sc.nextLine();
-    }
+
     
     @Override public void setTuoi() {
         boolean nhapThanhCong = false;

@@ -10,11 +10,11 @@ import java.io.IOException;
 
 
 public class DanhSachSmartphone implements listInterface.IList {
-    SmartPhone[] dsdt; // Mảng lưu SmartPhone
-    int n; // Số lượng smartphone hiện có
-    int seedID = 1;
-    boolean dataChange = false;
-    protected static final Scanner sc = new Scanner(System.in);
+    private SmartPhone[] dsdt; // Mảng lưu SmartPhone
+    private int n; // Số lượng smartphone hiện có
+    private int seedID = 1;
+    private boolean dataChange = false;
+    private static final Scanner sc = new Scanner(System.in);
 
     // Constructor ko có tham số
     public DanhSachSmartphone() {

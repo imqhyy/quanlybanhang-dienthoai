@@ -37,8 +37,5 @@ public class KhachHang extends ConNguoi {
     public String getMaKH() {
         return maKH;
     }
-    public void setMaKH() {
-        System.out.print("Ma khach hang: ");
-        maKH = sc.nextLine();
-    }
+    
 }

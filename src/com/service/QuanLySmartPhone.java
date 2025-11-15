@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 import java.util.InputMismatchException;
 
 public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterface.ILoadSaveData {
-    DanhSachSmartphone ds1 = new DanhSachSmartphone();
-    protected static final Scanner sc = new Scanner(System.in);
+    private DanhSachSmartphone ds1 = new DanhSachSmartphone();
+    private static final Scanner sc = new Scanner(System.in);
 
     public QuanLySmartPhone() {
         inputData();

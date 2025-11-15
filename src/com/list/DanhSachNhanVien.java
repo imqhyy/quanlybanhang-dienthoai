@@ -9,11 +9,11 @@ import java.io.IOException;
 
 
 public class DanhSachNhanVien implements listInterface.IList {
-    NhanVien[] dsnv;
-    int n;
-    int seedID = 1;
-    boolean dataChange = false;
-    protected static final Scanner sc = new Scanner(System.in);
+    private NhanVien[] dsnv;
+    private int n;
+    private int seedID = 1;
+    private boolean dataChange = false;
+    private  static final Scanner sc = new Scanner(System.in);
     
     public DanhSachNhanVien() {
         n = 0;

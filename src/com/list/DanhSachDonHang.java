@@ -6,11 +6,11 @@ import java.util.Scanner;
 import com.model.DonHang;
 import java.util.Arrays;
 public class DanhSachDonHang implements listInterface.IList {
-    DonHang[] dsdh;
-    int n;
-    int seedID = 1;
-    boolean dataChange = false; //Kiểm tra dữ liệu có thay đổi không
-    protected static final Scanner sc = new Scanner(System.in);
+    private DonHang[] dsdh;
+    private int n;
+    private int seedID = 1;
+    private boolean dataChange = false; //Kiểm tra dữ liệu có thay đổi không
+    private static final Scanner sc = new Scanner(System.in);
 
     //Constructor không tham số
     public DanhSachDonHang() {

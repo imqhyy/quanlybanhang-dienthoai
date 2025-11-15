@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 public class DanhSachKhachHang implements listInterface.IList {
-    KhachHang[] dskh;
-    int n;
-    int seedID = 1;
-    boolean dataChange = false;
-    protected static final Scanner sc = new Scanner(System.in);
+    private KhachHang[] dskh;
+    private int n;
+    private int seedID = 1;
+    private boolean dataChange = false;
+    private static final Scanner sc = new Scanner(System.in);
     
     public DanhSachKhachHang() {
         n = 0;

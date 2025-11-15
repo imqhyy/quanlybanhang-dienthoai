@@ -185,7 +185,7 @@ public final class DonHang {
         setSP();
     }
 
-    //Đảm bảo tính duy nhất của mã sản phẩm sẽ không có hàm setMaSP
+    //Đảm bảo tính duy nhất của mã sản phẩm sẽ không có hàm setMaDH
     public void setNgayDat() {
         System.out.print("Nhap ngay dat hang");
         this.ngayDat = nhapNgayThangNam(sc);

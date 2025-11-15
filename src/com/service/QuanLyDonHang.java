@@ -12,8 +12,8 @@ import java.util.Scanner;
 
 
 public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.ILoadSaveData {
-    DanhSachDonHang ds1 = new DanhSachDonHang();
-    protected static final Scanner sc = new Scanner(System.in);
+    private DanhSachDonHang ds1 = new DanhSachDonHang();
+    private static final Scanner sc = new Scanner(System.in);
 
     public QuanLyDonHang() {
         inputData();

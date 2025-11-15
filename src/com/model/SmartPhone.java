@@ -92,11 +92,6 @@ public class SmartPhone {
     }
     // endregion
 
-    // region phương thức set riêng lẻ
-    public void setMaSP() {
-        System.out.print("Ma san pham: ");
-        maSP = sc.nextLine();
-    }
 
     public void setTenSP() {
         

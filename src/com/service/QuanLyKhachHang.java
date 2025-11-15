@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface.ILoadSaveData {
     DanhSachKhachHang ds1 = new DanhSachKhachHang();
-    protected static final Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     public QuanLyKhachHang() {
         inputData();
