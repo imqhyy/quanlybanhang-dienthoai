@@ -345,6 +345,11 @@ public final class DonHang {
                 dskh = ds2;
                 dskh.setDataChange(false);
             }
+            /** Ở đây có 3 lỗi có thể xảy ra
+             * IOException 
+             * NumberFormatException 
+             * ArrayIndexOutOfBoundsException
+             */
         } catch (Exception e) {
             return false;
         }
@@ -399,9 +404,11 @@ public final class DonHang {
                 dsnv = ds2;
                 dsnv.setDataChange(false);
             }
-            
-            
-            
+            /** Ở đây có 3 lỗi có thể xảy ra
+             * IOException 
+             * NumberFormatException 
+             * ArrayIndexOutOfBoundsException
+             */
         } catch (Exception e) {
             return false;
         }
@@ -452,6 +459,11 @@ public final class DonHang {
                 dssp = ds2;
                 dssp.setDataChange(false);
             }
+            /** Ở đây có 3 lỗi có thể xảy ra
+             * IOException 
+             * NumberFormatException 
+             * ArrayIndexOutOfBoundsException
+             */
         } catch (Exception e) {
             return false;
         }

@@ -98,6 +98,11 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                 System.out.println("Nhan enter de dong thong bao nay!!!");
                 sc.nextLine();
             }
+            /** Ở đây có 3 lỗi có thể xảy ra
+             * IOException 
+             * NumberFormatException 
+             * ArrayIndexOutOfBoundsException
+             */
         } catch (Exception e) {
             System.err.println("File data co the da bi loi!");
             System.out.println("Vui long kiem tra lai file data!!");
