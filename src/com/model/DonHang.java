@@ -346,7 +346,7 @@ public final class DonHang {
                 dskh = ds2;
                 dskh.setDataChange(false);
             }
-        } catch (IOException | NumberFormatException e) {
+        } catch (Exception e) {
             return false;
         }
         return true;
@@ -403,7 +403,7 @@ public final class DonHang {
             
             
             
-        } catch (IOException | NumberFormatException e) {
+        } catch (Exception e) {
             return false;
         }
         return true;
@@ -453,7 +453,7 @@ public final class DonHang {
                 dssp = ds2;
                 dssp.setDataChange(false);
             }
-        } catch (IOException | NumberFormatException e) {
+        } catch (Exception e) {
             return false;
         }
         return true;

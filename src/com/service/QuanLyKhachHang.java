@@ -64,8 +64,9 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                         return;
                     }
                     //Kiểm tra xem khách hàng temp có tuổi bé hơn hoặc bằng 0 không
-                    if(temp.getTuoi() <= 0) {
-                        System.out.println("Ma khach hang " + temp.getMaKH() + " co tuoi be hon hoac bang 0!");
+                    if(temp.getTuoi() <= 0 || temp.getTuoi() >= 100) {
+                        System.out.println("Ma khach hang " + temp.getMaKH() + " co tuoi khong hop le!");
+                        System.out.println("Khach hang phai co tuoi lon hon 0 va be hon 100!");
                         System.out.println("Vui long kiem tra lai file data!!");
                         System.out.println("Du lieu cu se duoc khoi phuc!!!");
                         System.out.println("Nhan enter de dong thong bao nay!!!");
@@ -97,8 +98,8 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                 System.out.println("Nhan enter de dong thong bao nay!!!");
                 sc.nextLine();
             }
-        } catch (IOException | NumberFormatException e) {
-            System.err.println("File data co the bi loi!");
+        } catch (Exception e) {
+            System.err.println("File data co the da bi loi!");
             System.out.println("Vui long kiem tra lai file data!!");
             System.out.println("Nhan enter de dong thong bao nay!!!");
             sc.nextLine();

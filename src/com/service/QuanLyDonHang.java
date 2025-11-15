@@ -124,8 +124,8 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                 System.out.println("Nhan enter de dong thong bao nay!!!");
                 sc.nextLine();
             }
-        } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.err.println("File data co the bi loi!");
+        } catch (Exception e) {
+            System.err.println("File data co the da bi loi!");
             System.out.println("Vui long kiem tra lai file data!!");
             System.out.println("Nhan enter de dong thong bao nay!!!");
             sc.nextLine();

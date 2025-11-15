@@ -3,9 +3,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 abstract public class ConNguoi {
-    private String hovaten;
-    private int tuoi;
-    private String sdt;
+    protected String hovaten;
+    protected int tuoi;
+    protected  String sdt;
     public ConNguoi() {
         hovaten = "null";
         tuoi = 0;
@@ -48,8 +48,9 @@ abstract public class ConNguoi {
             try {
                 tuoi = sc.nextInt();
                 sc.nextLine();
-                if(tuoi <= 0 ) {
-                    System.out.println("Tuoi phai lon hon 0!!!");
+                if(tuoi <= 0 || tuoi >= 100 ) {
+                    System.out.println("Tuoi khong hop le!!!");
+                    System.out.println("Tuoi phai lon hon 0 va be hon 100");
                     System.out.println("Vui long nhap lai!!!");
                 } else
                     nhapThanhCong = true;

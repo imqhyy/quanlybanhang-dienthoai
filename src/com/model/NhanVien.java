@@ -2,6 +2,7 @@ package com.model;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.InputMismatchException;
 import java.util.Locale;
 
 public class NhanVien extends ConNguoi {
@@ -74,6 +75,30 @@ public class NhanVien extends ConNguoi {
         System.out.print("Ma nhan vien: ");
         maNV = sc.nextLine();
     }
+    
+    @Override public void setTuoi() {
+        boolean nhapThanhCong = false;
+        do {
+            System.out.print("Tuoi: ");
+            //tránh người dùng nhập chữ vào trường nhập liệu số
+            try {
+                tuoi = sc.nextInt();
+                sc.nextLine();
+                if(tuoi < 18 || tuoi > 32 ) {
+                    System.out.println("Tuoi khong hop le!!!");
+                    System.out.println("Nhan vien phai co do tuoi tu 18 den 32 tuoi!!!");
+                    System.out.println("Vui long nhap lai!!!");
+                } else
+                    nhapThanhCong = true;
+            } catch(InputMismatchException e) {
+                System.err.println("Vui long nhap so!!!");
+                //Xoá hết những ký tự còn lại trong buffer trước khi nhập liệu mới
+                sc.nextLine();
+            }
+        } while(!nhapThanhCong);
+        
+    }
+
     public void setChucVu() {
         System.out.print("Chuc vu: ");
         chucvu = sc.nextLine().toLowerCase();

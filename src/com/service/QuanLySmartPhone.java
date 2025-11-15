@@ -92,8 +92,8 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                 System.out.println("Nhan enter de dong thong bao nay!!!");
                 sc.nextLine();
             }
-        } catch (IOException | NumberFormatException e) {
-            System.err.println("File data co the bi loi!");
+        } catch (Exception e) {
+            System.err.println("File data co the da bi loi!");
             System.out.println("Vui long kiem tra lai file data!!");
             System.out.println("Nhan enter de dong thong bao nay!!!");
             sc.nextLine();
