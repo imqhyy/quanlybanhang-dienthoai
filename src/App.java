@@ -3,65 +3,63 @@ import com.service.QuanLyDonHang;
 import com.service.QuanLyKhachHang;
 import com.service.QuanLyNhanVien;
 import com.service.QuanLySmartPhone;
+import java.io.IOException;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
-    protected static final Scanner sc = new Scanner(System.in);
-
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
-        int chucnang = 0;
-        do {
-            clearScreen();
-            System.out.println("1. Quan ly nhan vien");
-            System.out.println("2. Quan ly khach hang");
-            System.out.println("3. Quan ly smartphone");
-            System.out.println("4. Quan ly don hang");
-            System.out.println("0. Thoat");
-            System.out.print("Nhap chuc nang: ");
-            boolean nhapThanhCong = false;
+        try (Scanner sc = new Scanner(System.in)) {
+            int chucnang = 0;
             do {
-                //bắt lỗi người dùng nhập chữ
-                try {
-                    chucnang = sc.nextInt();
-                    nhapThanhCong = true;
-                    sc.nextLine(); //Xoá kí tự enter trong buffer
-                } catch (InputMismatchException e) {
-                    System.err.println("Vui long nhap so!!!");
-                    sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                clearScreen();
+                System.out.println("1. Quan ly nhan vien");
+                System.out.println("2. Quan ly khach hang");
+                System.out.println("3. Quan ly smartphone");
+                System.out.println("4. Quan ly don hang");
+                System.out.println("0. Thoat");
+                
+                boolean nhapThanhCong = false;
+                do {
+                    System.out.print("Nhap chuc nang: ");
+                    //bắt lỗi người dùng nhập chữ
+                    try {
+                        chucnang = sc.nextInt();
+                        nhapThanhCong = true;
+                        sc.nextLine(); //Xoá kí tự enter trong buffer
+                    } catch (InputMismatchException e) {
+                        System.err.println("Vui long nhap so!!!");
+                        sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                    }
+                } while(!nhapThanhCong);
+                switch (chucnang) {
+                    case 1:
+                        QuanLyNhanVien dsnv = new QuanLyNhanVien();
+                        dsnv.menu();
+                        break;
+                    case 2:
+                        QuanLyKhachHang dskh = new QuanLyKhachHang();
+                        dskh.menu();
+                        break;
+                    case 3:
+                        QuanLySmartPhone dssp = new QuanLySmartPhone();
+                        dssp.menu();
+                        break;
+                    case 4:
+                        QuanLyDonHang dsdh = new QuanLyDonHang();
+                        dsdh.menu();
+                        break;
+                    case 0:
+                        break;
+                    default: {
+                        System.out.println("Chuc nang khong hop le!!!");
+                        System.out.println("Nhan enter de nhap lai!!!");
+                        sc.nextLine();
+                    }
                 }
-            } while(!nhapThanhCong);
-            switch (chucnang) {
-                case 1:
-                    QuanLyNhanVien dsnv = new QuanLyNhanVien();
-                    dsnv.menu();
-                    break;
-                case 2:
-                    QuanLyKhachHang dskh = new QuanLyKhachHang();
-                    dskh.menu();
-                    break;
-                case 3:
-                    QuanLySmartPhone dssp = new QuanLySmartPhone();
-                    dssp.menu();
-                    break;
-                case 4:
-                    QuanLyDonHang dsdh = new QuanLyDonHang();
-                    dsdh.menu();
-                    break;
-                case 0:
-                    break;
-                default: {
-                    System.out.println("Chuc nang khong hop le!!!");
-                    System.out.println("Nhan enter de nhap lai");
-                    sc.nextLine();
-                }
-            }
-        } while(chucnang != 0);
-
-
-        sc.close();
+            } while(chucnang != 0);
+        }
     }
 
     // lệnh clear console (copy từ các file service của anh)
@@ -79,7 +77,7 @@ public class App {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
             }
-        } catch (final Exception e) {
+        } catch (final IOException | InterruptedException e) {
             // Xử lý lỗi nếu không thể chạy lệnh (ví dụ: bị hạn chế quyền)
             System.out.println("\n(Không thể xóa màn hình)\n");
         }

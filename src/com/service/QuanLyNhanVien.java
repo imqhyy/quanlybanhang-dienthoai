@@ -9,6 +9,7 @@ import java.util.Scanner;
 import com.model.NhanVien;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.InputMismatchException;
 
 public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.ILoadSaveData {
@@ -19,12 +20,12 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
         inputData();
     }
 
-    @Override public void inputData() {
+    @Override public final void inputData() {
         if(ds1.getDataChange()) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de huy: ");
             do {
+                System.out.print("Nhan 'y' de xac nhan, 'n' de huy: ");
                 xacnhan = sc.nextLine();
                 switch (xacnhan) {
                     case "n":
@@ -45,15 +46,52 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                 while(line != null) {
                     // chia chuỗi thành các chuỗi con phân cách bởi dấu phẩy
                     String[] arr = line.split(",");
-                    NhanVien temp = new NhanVien(arr[0], arr[1], Integer.parseInt(arr[2]), arr[3], arr[4], Double.parseDouble(arr[5]));
+                    NhanVien temp = new NhanVien(
+                                arr[0], //mã nhân viên
+                                arr[1], //họ tên
+                                Integer.parseInt(arr[2]), //tuổi
+                                arr[3], //số điện thoại
+                                arr[4], //chức vụ
+                                new BigDecimal(arr[5])   //lương
+                    ); 
                     //Kiểm tra xem trong danh sách nhập có mã nhân viên nào bị trùng không
                     NhanVien checkNV = ds2.timkiem(temp.getMaNV());
                     if(checkNV != null) {
                         System.out.println("Ma nhan vien " + temp.getMaNV() + " trong file bi trung lap!");
                         System.out.println("Vui long kiem tra lai du lieu trong file data!!");
                         System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        System.out.println("Nhan enter de dong thong bao nay!!!");
+                        sc.nextLine();
+                        return;
+                    }            
+                    //Kiểm tra xem khách hàng temp có tuổi bé hơn hoặc bằng 0 không
+                    if(temp.getTuoi() <= 0) {
+                        System.out.println("Ma nhan vien " + temp.getMaNV() + " co tuoi be hon hoac bang 0!");
+                        System.out.println("Vui long kiem tra lai file data!!");
+                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        System.out.println("Nhan enter de dong thong bao nay!!!");
+                        sc.nextLine();
                         return;
                     }
+                    //Kiểm tra xem số điện thoại có hợp lệ không
+                    if(!temp.getSDT().matches("\\d+")) {
+                        System.out.println("Ma nhan vien " + temp.getMaNV() + " co so dien thoai khong hop le!");
+                        System.out.println("Vui long kiem tra lai file data!!!");
+                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        System.out.println("Nhan enter de dong thong bao nay!!!");
+                        sc.nextLine();
+                        return;
+                    }
+                    //Kiểm tra lương
+                    if((temp.getLuong().doubleValue() <= 0)) {
+                        System.out.println("Ma nhan vien " + temp.getMaNV() + " co luong be hon hoac bang 0!");
+                        System.out.println("Vui long kiem tra lai file data!!!");
+                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        System.out.println("Nhan enter de dong thong bao nay!!!");
+                        sc.nextLine();
+                        return;
+                    }
+                    
                     ds2.them(temp);
                     //Lấy seedID lớn nhất trong mảng để dành cho các thao tác thêm
                     if(Integer.parseInt(temp.getMaNV().substring(2)) > maxSeedID) {
@@ -64,14 +102,19 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                 //thêm ++ để tăng seedID hiện tại lên 1 để không trùng
                 ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
-                System.out.println("Tai du lieu tu file thanh cong!!!");
                 ds1.setDataChange(false);
+                System.out.println("Tai du lieu tu file thanh cong!!!");
+                System.out.println("Nhan enter de dong thong bao nay!!!");
+                sc.nextLine();
             }
             
             
             
         } catch (IOException | NumberFormatException e) {
-            System.err.println("Khong tim thay file!!!");
+            System.err.println("File data co the bi loi!");
+            System.out.println("Vui long kiem tra lai file data!!");
+            System.out.println("Nhan enter de dong thong bao nay!!!");
+            sc.nextLine();
         }
     }
     
@@ -89,7 +132,7 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
             }
 
         } catch(IOException e) {
-            System.err.println("Khong tim thay file de ghi vao file!!!");
+            System.err.println("Khong tim thay file de ghi!!!");
         }
     }
     @Override public void menu() {
@@ -104,10 +147,10 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
             System.out.println("6. Tim kiem");
             System.out.println("7. Tai danh sach tu file");
             System.out.println("8. Xuat danh sach ra file");
-            System.out.println("0. Luu va thoat");
-            System.out.print("Nhap chuc nang: ");
+            System.out.println("0. Thoat");
             boolean nhapThanhCong = false;
             do {
+                System.out.print("Nhap chuc nang: ");
                 //bắt lỗi người dùng nhập chữ
                 try {
                     chucnang = sc.nextInt();
@@ -121,8 +164,6 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
             switch (chucnang) {
                 case 1: {
                     ds1.xuat();
-                    System.out.println("Nhan enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                 case 2: {
@@ -160,8 +201,6 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                         ds1.DanhSachNVmini();
                         ds1.sua();
                     }
-                    System.out.println("Nhan enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                     
@@ -170,25 +209,27 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                         System.out.println("Danh sach trong!!!");
                     } else {
                         ds1.DanhSachNVmini();
+                        DanhSachNhanVien kqtimkiem;
                         System.out.print("Nhap ma nhan vien can tim(nhan enter de bo qua): ");
                         String ma = sc.nextLine();
-                        System.out.print("Nhap ho va ten nhan vien can tim(nhan enter de bo qua): ");
-                        String hovaten = sc.nextLine();
-                        System.out.print("Nhap so dien thoai nhan vien can tim(nhan enter de bo qua): ");
-                        String sdt = sc.nextLine();
-                        System.out.print("Nhap chuc vu nhan vien can tim(nhan enter de bo qua): ");
-                        String chucvu = sc.nextLine();
-                        DanhSachNhanVien kqtimkiem = ds1.timkiemnangcao(ma, hovaten, sdt, chucvu);
-                        kqtimkiem.bolocKetqua(kqtimkiem);
+                        if(!ma.equals("")) {
+                            kqtimkiem = ds1.timkiemnangcao(ma, "", "", "");
+                        } else {
+                            System.out.print("Nhap ho va ten nhan vien can tim(nhan enter de bo qua): ");
+                            String hovaten = sc.nextLine();
+                            System.out.print("Nhap so dien thoai nhan vien can tim(nhan enter de bo qua): ");
+                            String sdt = sc.nextLine();
+                            System.out.print("Nhap chuc vu nhan vien can tim(nhan enter de bo qua): ");
+                            String chucvu = sc.nextLine();
+                            kqtimkiem = ds1.timkiemnangcao(ma, hovaten, sdt, chucvu);
+                        }
+                        
+                        kqtimkiem.bolocKetqua();
                     }
-                    System.out.println("Nhan enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                 case 7: {
                     inputData();
-                    System.out.println("Nhan enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                 case 8: {
@@ -198,7 +239,6 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                     break;
                 }
                 case 0:
-                    outputData();
                     break;
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");
@@ -225,7 +265,7 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                 System.out.print("\033[H\033[2J");
                 System.out.flush(); 
             }
-        } catch (final Exception e) {
+        } catch (final IOException | InterruptedException e) {
             // Xử lý lỗi nếu không thể chạy lệnh (ví dụ: bị hạn chế quyền)
             System.out.println("\n(Không thể xóa màn hình)\n"); 
         }

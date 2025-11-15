@@ -2,7 +2,6 @@ package com.model;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -63,7 +62,7 @@ public class SmartPhone {
     public String getStringGiaBan() {
         // 1. Định nghĩa mẫu định dạng (#,###) và Locale
         // Locale Việt Nam đảm bảo sử dụng dấu chấm phân cách hàng nghìn.
-        Locale vietNam = new Locale("vi", "VN");
+        Locale vietNam = Locale.of("vi", "VN");
         DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance(vietNam);
 
         // 2. Đặt mẫu (Pattern) thủ công:
@@ -126,15 +125,16 @@ public class SmartPhone {
             System.out.print("Gia ban: ");
             // bắt lỗi nếu người dùng nhập chữ
             try {
-                int inputGiaban = sc.nextInt();
-                sc.nextLine();
-                giaBan = new BigDecimal(inputGiaban);
-                nhapThanhCong = true;
-            } catch (InputMismatchException e) {
+                giaBan = new BigDecimal(sc.nextLine());
+                if(giaBan.doubleValue() <= 0) {
+                    System.out.println("Gia ban phai lon hon 0!!!");
+                    System.out.println("Vui long nhap lai!!!");
+                } else
+                    nhapThanhCong = true;
+            } catch (NumberFormatException e) {
                 System.err.println("Vui long nhap so!!!");
-                sc.nextLine(); // xoá buffer trước khi người dùng nhập lại
             }
-
+            
         } while (!nhapThanhCong);
 
     }
@@ -193,7 +193,7 @@ public class SmartPhone {
     public void getInfo() {
         // 1. Định nghĩa mẫu định dạng (#,###) và Locale
         // Locale Việt Nam đảm bảo sử dụng dấu chấm phân cách hàng nghìn.
-        Locale vietNam = new Locale("vi", "VN");
+        Locale vietNam = Locale.of("vi", "VN");
         DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance(vietNam);
 
         // 2. Đặt mẫu (Pattern) thủ công:

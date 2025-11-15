@@ -76,13 +76,17 @@ public class DanhSachKhachHang implements listInterface.IList {
             } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
         }
         boolean nhapThanhCong = false;
-        System.out.print("Nhap so luong khach hang: ");
         do {
+            System.out.print("Nhap so luong khach hang: ");
             //bắt lỗi người dùng nhập chữ
             try {
                 n = sc.nextInt();
-                nhapThanhCong = true;
-                sc.nextLine(); //Xoá kí tự enter trong buffer
+                sc.nextLine();
+                if(n > 0) {
+                    nhapThanhCong = true;
+                } else {
+                    System.out.println("So luong khach hang phai lon hon 0!");
+                }
             } catch (InputMismatchException e) {
                 System.err.println("Vui long nhap so!!!");
                 sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
@@ -96,7 +100,10 @@ public class DanhSachKhachHang implements listInterface.IList {
             seedID++;
             System.out.println();
         }
+        System.out.println("Nhap thanh cong!");
         dataChange = true;
+        System.out.println("Nhan enter de quay lai!!!");
+        sc.nextLine();
     }
     
     @Override public void xuat() {
@@ -105,7 +112,7 @@ public class DanhSachKhachHang implements listInterface.IList {
         if(n == 0) {
             System.out.println("Khong co khach hang nao!!!");
         } else {
-            bolocKetqua(this);
+            bolocKetqua();
         }
     }
     
@@ -179,36 +186,51 @@ public class DanhSachKhachHang implements listInterface.IList {
             System.out.println("Khong tim thay khach hang nay!");
         }
     }
+
+    public void xoaKhongOutput(String ma) {
+        boolean daXoa = false;
+        for(int i = 0; i < n; i++) {
+            if(dskh[i].getMaKH().equals(ma)) {
+                for(int j = i; j < n - 1; j++) {
+                    dskh[j] = dskh[j + 1];
+                }
+                dskh = Arrays.copyOf(dskh, n - 1);
+                n--;
+                daXoa = true;
+                break;
+            }
+        }
+    }
     
-    public void bolocKetqua(DanhSachKhachHang ds2) {
+    public void bolocKetqua() {
         int chucnang = 0;
         int bolocTuoi = 0;
         int sosanhTuoi = 0;
         do {
             DanhSachKhachHang dsBoLoc = new DanhSachKhachHang();
             //Sao chép dữ liệu của danh sách truyền vào, những gì thay đổi trong bộ lọc sẽ không ảnh hưởng dữ liệu gốc
-            for(int i = 0; i < ds2.n; i++) {
-                dsBoLoc.them(ds2.dskh[i]);
+            for(int i = 0; i < this.n; i++) {
+                dsBoLoc.them(this.dskh[i]);
             }
             //Kiểm tra có bộ lọc nào được sử dụng không
             if(bolocTuoi != 0) {
                 for(int i = 0; i < dsBoLoc.n; i++) {
                     if(sosanhTuoi == 1) {
                         if(dsBoLoc.dskh[i].getTuoi() < bolocTuoi) {
-                            dsBoLoc.xoa(dsBoLoc.dskh[i].getMaKH());
+                            dsBoLoc.xoaKhongOutput(dsBoLoc.dskh[i].getMaKH());
                             //Thêm i-- để khi có phần tử bị xoá và dồn lên nó sẽ kiểm tra phần bị dồn đó
                             i--;
                         }
                     }
                     if(sosanhTuoi == 2) {
                         if(dsBoLoc.dskh[i].getTuoi() > bolocTuoi) {
-                            dsBoLoc.xoa(dsBoLoc.dskh[i].getMaKH());
+                            dsBoLoc.xoaKhongOutput(dsBoLoc.dskh[i].getMaKH());
                             i--;
                         }
                     }
                     if(sosanhTuoi == 3) {
                         if(dsBoLoc.dskh[i].getTuoi() != bolocTuoi) {
-                            dsBoLoc.xoa(dsBoLoc.dskh[i].getMaKH());
+                            dsBoLoc.xoaKhongOutput(dsBoLoc.dskh[i].getMaKH());
                             i--;
                         }
                     }
@@ -313,11 +335,11 @@ public class DanhSachKhachHang implements listInterface.IList {
     public DanhSachKhachHang timkiemnangcao(String ma, String hovaten, String sdt) {
         DanhSachKhachHang kqtimkiem = new DanhSachKhachHang();
         for(int i = 0; i < n; i++) {
-            if(!dskh[i].getMaKH().contains(ma) && !ma.equals("\n")) 
+            if(!dskh[i].getMaKH().equals(ma) && !ma.equals("")) 
                 continue;
-            if(!dskh[i].getHoVaTen().toLowerCase().contains(hovaten.toLowerCase()) && !hovaten.equals("\n"))
+            if(!dskh[i].getHoVaTen().toLowerCase().contains(hovaten.toLowerCase()) && !hovaten.equals(""))
                 continue;
-            if(!dskh[i].getSDT().contains(sdt) && !sdt.equals("\n"))
+            if(!dskh[i].getSDT().contains(sdt) && !hovaten.equals(""))
                 continue;
             kqtimkiem.them(dskh[i]);
         }
@@ -330,8 +352,10 @@ public class DanhSachKhachHang implements listInterface.IList {
         System.out.print("Nhap ma khach hang can sua: ");
         ma = sc.nextLine();
         boolean suaThanhCong = false;
+        boolean timKH = false;
         for(int i = 0; i < n; i++) {
             if(dskh[i].getMaKH().equals(ma)) {
+                timKH = true;
                 int chucnang = 0;
                 do { 
                     clearScreen();
@@ -356,15 +380,19 @@ public class DanhSachKhachHang implements listInterface.IList {
                     switch(chucnang) {
                         case 1:
                             dskh[i].setHoVaTen();
+                            suaThanhCong = true;
                             break;
                         case 2:
                             dskh[i].setTuoi();
+                            suaThanhCong = true;
                             break;
                         case 3:
                             dskh[i].setSDT();
+                            suaThanhCong = true;
                             break;
                         case 4:
                             dskh[i].setInfo();
+                            suaThanhCong = true;
                             break;
                         case 0:
                             break;
@@ -376,19 +404,21 @@ public class DanhSachKhachHang implements listInterface.IList {
                         }
                     }
                 } while (chucnang != 0);
-                suaThanhCong = true;
+                if(suaThanhCong) {
+                    dataChange = true;
+                    System.out.println("Sua thanh cong!!!");
+                    System.out.println("Nhan enter de quay lai!!!");
+                    sc.nextLine();
+                }
                 break;
             }
         }
-        if(!suaThanhCong) {
-            System.out.println("Khong co khach hang nay!!!");
-        }
-        else {
-            System.out.println("Sua thanh cong!!!");
-            dataChange = true;
+        if(!timKH) {
+            System.out.println("Khong tim thay khach hang nay!!!");
+            System.out.println("Nhan enter de quay lai!!!");
+            sc.nextLine();
         }
 
-        
     }
 
     public boolean getDataChange() {

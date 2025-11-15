@@ -47,8 +47,12 @@ abstract public class ConNguoi {
             //tránh người dùng nhập chữ vào trường nhập liệu số
             try {
                 tuoi = sc.nextInt();
-                nhapThanhCong = true;
                 sc.nextLine();
+                if(tuoi <= 0 ) {
+                    System.out.println("Tuoi phai lon hon 0!!!");
+                    System.out.println("Vui long nhap lai!!!");
+                } else
+                    nhapThanhCong = true;
             } catch(InputMismatchException e) {
                 System.err.println("Vui long nhap so!!!");
                 //Xoá hết những ký tự còn lại trong buffer trước khi nhập liệu mới

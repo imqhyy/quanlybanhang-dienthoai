@@ -28,7 +28,10 @@ public class DanhSachNhanVien implements listInterface.IList {
     public void DanhSachNVmini() {
         //Hiển thị danh sách nhân viên hàng thu gọn
         System.out.println("STT   Ma nhan vien   Ho va ten           Tuoi   So dien thoai   Chuc vu      Luong");
-        
+        if(n == 0) {
+            System.out.println("Khong co ket qua phu hop");
+            return;
+        }
         for(int i = 0; i < n; i++) {
             //Khoảng cách từ S đến M là 6 ô, đoạn này tính toán để stt chiếm 6 ô
             System.out.print(i + 1);
@@ -57,10 +60,10 @@ public class DanhSachNhanVien implements listInterface.IList {
             }
             //Khoảng cách từ C đến L là 13, đoạn này tính toán để tên KH chiếm 13 ô
             System.out.print(dsnv[i].getChucVu());
-            for(int j = 0; j < 13 - (dsnv[i].getSDT()).length();j++) {
+            for(int j = 0; j < 13 - (dsnv[i].getChucVu()).length();j++) {
                 System.out.print(" ");
             }
-            System.out.println(dsnv[i].getLuong());
+            System.out.println(dsnv[i].getStringLuong());
         }
         System.out.println("SL: " + n);
     }
@@ -70,8 +73,8 @@ public class DanhSachNhanVien implements listInterface.IList {
         if(n != 0) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de huy lai: ");
             do {
+                System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
                 xacnhan = sc.nextLine();
                 switch (xacnhan) {
                     case "n":
@@ -84,13 +87,17 @@ public class DanhSachNhanVien implements listInterface.IList {
             } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
         }
         boolean nhapThanhCong = false;
-        System.out.print("\nNhap so luong nhan vien: ");
         do {
+            System.out.print("\nNhap so luong nhan vien: ");
             //bắt lỗi người dùng nhập chữ
             try {
                 n = sc.nextInt();
-                nhapThanhCong = true;
                 sc.nextLine();
+                if(n > 0) {
+                    nhapThanhCong = true;
+                } else {
+                    System.out.println("So luong nhan vien phai lon hon 0!");
+                }
             } catch(InputMismatchException e) {
                 System.err.println("Vui long nhap so!!!");
                 //xoá buffer trước khi người dùng nhập lại
@@ -105,7 +112,10 @@ public class DanhSachNhanVien implements listInterface.IList {
             seedID++;
             System.out.println();
         }
+        System.out.println("Nhap thanh cong!");
         dataChange = true;
+        System.out.println("Nhan enter de quay lai!!!");
+        sc.nextLine();
     }
     
     @Override public void xuat() {
@@ -113,7 +123,7 @@ public class DanhSachNhanVien implements listInterface.IList {
         if(n == 0) {
             System.out.println("Khong co nhan vien nao!!!");
         } else {
-            bolocKetqua(this);
+            bolocKetqua();
         }
     }
     
@@ -133,7 +143,13 @@ public class DanhSachNhanVien implements listInterface.IList {
         //Hàm này xuất dữ liệu toàn bộ nhân viên thành chuỗi
         String xuatChuoi = null;
         for(int i = 0; i < n; i++) {
-            String temp = String.join(",", dsnv[i].getMaNV(), dsnv[i].getHoVaTen(), Integer.toString(dsnv[i].getTuoi()), dsnv[i].getSDT(), dsnv[i].getChucVu(), Double.toString(dsnv[i].getLuong()));
+            String temp = String.join(",", 
+                    dsnv[i].getMaNV(), 
+                    dsnv[i].getHoVaTen(), 
+                    Integer.toString(dsnv[i].getTuoi()), 
+                    dsnv[i].getSDT(), 
+                    dsnv[i].getChucVu(), 
+                    dsnv[i].getLuong().toString());
             if(i == 0) xuatChuoi = temp;
             else {
                 xuatChuoi = xuatChuoi + temp;
@@ -187,8 +203,21 @@ public class DanhSachNhanVien implements listInterface.IList {
             System.out.println("Khong tim thay nhan vien nay!");
         }
     }
+
+    private void xoaKhongOutput(String ma) {
+        for(int i = 0; i < n; i++) {
+            if(dsnv[i].getMaNV().equals(ma)) {
+                for(int j = i; j < n - 1; j++) {
+                    dsnv[j] = dsnv[j + 1];
+                }
+                dsnv = Arrays.copyOf(dsnv, n - 1);
+                n--;
+                break;
+            }
+        }
+    }
     
-    public void bolocKetqua(DanhSachNhanVien ds2) {
+    public void bolocKetqua() {
         int chucnang = 0;
         int bolocTuoi = 0;
         int sosanhTuoi = 0;
@@ -197,28 +226,28 @@ public class DanhSachNhanVien implements listInterface.IList {
         do {
             DanhSachNhanVien dsBoLoc = new DanhSachNhanVien();
             //Sao chép dữ liệu của danh sách truyền vào, những gì thay đổi trong bộ lọc sẽ không ảnh hưởng dữ liệu gốc
-            for(int i = 0; i < ds2.n; i++) {
-                dsBoLoc.them(ds2.dsnv[i]);
+            for(int i = 0; i < this.n; i++) {
+                dsBoLoc.them(this.dsnv[i]);
             }
             //Kiểm tra có bộ lọc nào được sử dụng không
             if(bolocTuoi != 0) {
                 for(int i = 0; i < dsBoLoc.n; i++) {
                     if(sosanhTuoi == 1) {
                         if(dsBoLoc.dsnv[i].getTuoi() < bolocTuoi) {
-                            dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
+                            dsBoLoc.xoaKhongOutput(dsBoLoc.dsnv[i].getMaNV());
                             //Thêm i-- để khi có phần tử bị xoá và dồn lên nó sẽ kiểm tra phần bị dồn đó
                             i--;
                         }
                     }
                     if(sosanhTuoi == 2) {
                         if(dsBoLoc.dsnv[i].getTuoi() > bolocTuoi) {
-                            dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
+                            dsBoLoc.xoaKhongOutput(dsBoLoc.dsnv[i].getMaNV());
                             i--;
                         }
                     }
                     if(sosanhTuoi == 3) {
                         if(dsBoLoc.dsnv[i].getTuoi() != bolocTuoi) {
-                            dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
+                            dsBoLoc.xoaKhongOutput(dsBoLoc.dsnv[i].getMaNV());
                             i--;
                         }
                     }
@@ -227,21 +256,21 @@ public class DanhSachNhanVien implements listInterface.IList {
             if(bolocLuong != 0) {
                 for(int i = 0; i < dsBoLoc.n; i++) {
                     if(sosanhLuong == 1) {
-                        if(dsBoLoc.dsnv[i].getLuong() < bolocLuong) {
-                            dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
+                        if(dsBoLoc.dsnv[i].getLuong().doubleValue() < bolocLuong) {
+                            dsBoLoc.xoaKhongOutput(dsBoLoc.dsnv[i].getMaNV());
                             //Thêm i-- để khi có phần tử bị xoá và dồn lên nó sẽ kiểm tra phần bị dồn đó
                             i--;
                         }
                     }
                     if(sosanhLuong == 2) {
-                        if(dsBoLoc.dsnv[i].getLuong() > bolocLuong) {
-                            dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
+                        if(dsBoLoc.dsnv[i].getLuong().doubleValue() > bolocLuong) {
+                            dsBoLoc.xoaKhongOutput(dsBoLoc.dsnv[i].getMaNV());
                             i--;
                         }
                     }
                     if(sosanhLuong == 3) {
-                        if(dsBoLoc.dsnv[i].getLuong() != bolocLuong) {
-                            dsBoLoc.xoa(dsBoLoc.dsnv[i].getMaNV());
+                        if(dsBoLoc.dsnv[i].getLuong().doubleValue() != bolocLuong) {
+                            dsBoLoc.xoaKhongOutput(dsBoLoc.dsnv[i].getMaNV());
                             i--;
                         }
                     }
@@ -252,13 +281,13 @@ public class DanhSachNhanVien implements listInterface.IList {
             System.out.println("-Bo loc-");
             System.out.println("1. Tuoi");
             System.out.println("2. Luong");
-            System.out.println("3. Xoa bo loc");
+            System.out.println("3. Xoa tat ca bo loc");
             System.out.println("0. Thoat");
-            System.out.print("Nhap chuc nang: ");
             boolean nhapThanhCong = false;
             do {
                 //bắt lỗi người dùng nhập chữ
                 try {
+                    System.out.print("Nhap chuc nang: ");
                     chucnang = sc.nextInt();
                     nhapThanhCong = true;
                     sc.nextLine(); //Xoá kí tự enter trong buffer
@@ -270,11 +299,12 @@ public class DanhSachNhanVien implements listInterface.IList {
             switch (chucnang) {
                 case 1: {
                     do {
-                        System.out.print("Nhap so tuoi: ");
+                        
                         nhapThanhCong = false;
                         do {
                             //bắt lỗi người dùng nhập chữ
                             try {
+                                System.out.print("Nhap so tuoi: ");
                                 bolocTuoi = sc.nextInt();
                                 nhapThanhCong = true;
                                 sc.nextLine(); //Xoá kí tự enter trong buffer
@@ -286,12 +316,13 @@ public class DanhSachNhanVien implements listInterface.IList {
                         System.out.println("1. Lon hon hoac bang");
                         System.out.println("2. Be hon hoac bang");
                         System.out.println("3. Bang");
+                        System.out.println("4. Xoa bo loc");
                         System.out.println("0. Thoat");
-                        System.out.print("Nhap chuc nang: ");
                         nhapThanhCong = false;
                         do {
                             //bắt lỗi người dùng nhập chữ
                             try {
+                                System.out.print("Nhap chuc nang: ");
                                 sosanhTuoi = sc.nextInt();
                                 nhapThanhCong = true;
                                 sc.nextLine(); //Xoá kí tự enter trong buffer
@@ -302,33 +333,34 @@ public class DanhSachNhanVien implements listInterface.IList {
                         } while(!nhapThanhCong);
                         switch(sosanhTuoi) {
                             case 1: break;
-                            case 2: {
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4: {
                                 bolocTuoi = 0;
                                 sosanhTuoi = 0;
-                                bolocLuong = 0;
-                                sosanhLuong = 0;
                                 break;
                             }
-                            case 3: break;
-                            case 0: {
+                            case 0:
                                 break;
-                            }
                             default: {
                                 System.out.println("Chuc nang khong hop le!!!");
                                 System.out.println("Nhan enter de nhap lai!!!");
                                 sc.nextLine();
                             }
                         }
-                    } while(sosanhTuoi > 3);
+                    } while(sosanhTuoi > 4);
                     break;
                 }
                 case 2: {
                     do {
-                        System.out.print("Nhap luong: ");
+                        
                         nhapThanhCong = false;
                         do {
                             //bắt lỗi người dùng nhập chữ
                             try {
+                                System.out.print("Nhap luong: ");
                                 bolocLuong = sc.nextDouble();
                                 nhapThanhCong = true;
                                 sc.nextLine(); //Xoá kí tự enter trong buffer
@@ -403,13 +435,13 @@ public class DanhSachNhanVien implements listInterface.IList {
     public DanhSachNhanVien timkiemnangcao(String ma, String hovaten, String sdt, String chucvu) {
         DanhSachNhanVien kqtimkiem = new DanhSachNhanVien();
         for(int i = 0; i < n; i++) {
-            if(!dsnv[i].getMaNV().contains(ma) && !ma.equals("\n")) 
+            if(!dsnv[i].getMaNV().equals(ma) && !ma.equals("")) 
                 continue;
-            if(!dsnv[i].getHoVaTen().toLowerCase().contains(hovaten.toLowerCase()) && !hovaten.equals("\n"))
+            if(!dsnv[i].getHoVaTen().toLowerCase().contains(hovaten.toLowerCase()) && !hovaten.equals(""))
                 continue;
-            if(!dsnv[i].getSDT().contains(sdt) && !sdt.equals("\n"))
+            if(!dsnv[i].getSDT().contains(sdt) && !sdt.equals(""))
                 continue;
-            if(!dsnv[i].getChucVu().toLowerCase().contains(chucvu.toLowerCase()) && !sdt.equals("\n"))
+            if(!dsnv[i].getChucVu().toLowerCase().contains(chucvu.toLowerCase()) && !chucvu.equals(""))
                 continue;
             kqtimkiem.them(dsnv[i]);
         }
@@ -422,24 +454,25 @@ public class DanhSachNhanVien implements listInterface.IList {
         System.out.print("Nhap ma nhan vien can sua: ");
         ma = sc.nextLine();
         boolean suaThanhCong = false;
+        boolean timNV = false;
         for(int i = 0; i < n; i++) {
             if(dsnv[i].getMaNV().equals(ma)) {
+                timNV = true;
                 int chucnang = 0;
                 do {
                     clearScreen();
-                    System.out.println("1. Sua ma nhan vien");
-                    System.out.println("2. Sua ten");
-                    System.out.println("3. Sua tuoi");
-                    System.out.println("4. Sua so dien thoai");
-                    System.out.println("5. Sua chuc vu");
-                    System.out.println("6. Sua luong");
-                    System.out.println("7. Sua tat ca");
+                    System.out.println("1. Sua ten");
+                    System.out.println("2. Sua tuoi");
+                    System.out.println("3. Sua so dien thoai");
+                    System.out.println("4. Sua chuc vu");
+                    System.out.println("5. Sua luong");
+                    System.out.println("6. Sua tat ca");
                     System.out.println("0. Thoat");
-                    System.out.print("Nhap tinh nang: ");
                     boolean nhapThanhCong = false;
                     do {
                         //bắt lỗi người dùng nhập chữ
                         try {
+                            System.out.print("Nhap tinh nang: ");
                             chucnang = sc.nextInt();
                             nhapThanhCong = true;
                             sc.nextLine(); //Xoá kí tự enter trong buffer
@@ -450,25 +483,28 @@ public class DanhSachNhanVien implements listInterface.IList {
                     } while(!nhapThanhCong);
                     switch (chucnang) {
                         case 1:
-                            dsnv[i].setMaNV();
+                            dsnv[i].setHoVaTen();
+                            suaThanhCong = true;
                             break;
                         case 2:
-                            dsnv[i].setHoVaTen();
+                            dsnv[i].setTuoi();
+                            suaThanhCong = true;
                             break;
                         case 3:
-                            dsnv[i].setTuoi();
+                            dsnv[i].setSDT();
+                            suaThanhCong = true;
                             break;
                         case 4:
-                            dsnv[i].setSDT();
-                            break;
-                        case 5:
                             dsnv[i].setChucVu();
+                            suaThanhCong = true;
                             break;
-                        case 6: 
+                        case 5: 
                             dsnv[i].setLuong();
+                            suaThanhCong = true;
                             break;
-                        case 7:
+                        case 6:
                             dsnv[i].setInfo();
+                            suaThanhCong = true;
                             break;
                         case 0:
                             break;
@@ -480,17 +516,20 @@ public class DanhSachNhanVien implements listInterface.IList {
                             
                     }
                 } while(chucnang != 0);
-                suaThanhCong = true;
+                if(suaThanhCong) {
+                    dataChange = true;
+                    System.out.println("Sua thanh cong!!!");
+                    System.out.println("Nhan enter de quay lai!!!");
+                    sc.nextLine();
+                }
                 break;
             }
         }
-        if(!suaThanhCong) {
-            System.out.println("Khong co nhan vien nay!!!");
-        } else {
-            System.out.println("Sua thanh cong!!!");
-            dataChange = true;
+        if(!timNV) {
+            System.out.println("Khong tim thay nhan vien nay!!!");
+            System.out.println("Nhan enter de quay lai!!!");
+            sc.nextLine();
         }
-        
     }
 
     public boolean getDataChange() {

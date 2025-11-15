@@ -1,18 +1,20 @@
 package com.model;
 
-import java.util.InputMismatchException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.Locale;
 
 public class NhanVien extends ConNguoi {
     private String maNV;
     private String chucvu;
-    private double luong;
+    private BigDecimal luong;
     public NhanVien() {
         super();
         maNV = "null";
         chucvu = "null";
-        luong = 0;
+        luong = new BigDecimal(0);
     }
-    public NhanVien(String maNV, String hovaten, int tuoi, String sdt, String chucvu, double luong) {
+    public NhanVien(String maNV, String hovaten, int tuoi, String sdt, String chucvu, BigDecimal luong) {
         super(hovaten, tuoi, sdt);
         this.maNV = maNV;
         this.chucvu = chucvu.toLowerCase();
@@ -25,7 +27,7 @@ public class NhanVien extends ConNguoi {
         System.out.println("Tuoi: " + super.getTuoi());
         System.out.println("So dien thoai: " + super.getSDT());
         System.out.println("Chuc vu: " + chucvu);
-        System.out.println("Luong: " + luong);
+        System.out.println("Luong: " + getStringLuong());
     }
     @Override public void setInfo() {
         System.out.println("\n------Nhap thong tin nhan vien------");
@@ -54,8 +56,19 @@ public class NhanVien extends ConNguoi {
     public String getChucVu() {
         return chucvu;
     }
-    public double getLuong() {
+    public BigDecimal getLuong() {
         return luong;
+    }
+    public String getStringLuong() {
+        // 1. Định nghĩa mẫu định dạng (#,###) và Locale
+        // Locale Việt Nam đảm bảo sử dụng dấu chấm phân cách hàng nghìn.
+        Locale vietNam = Locale.of("vi", "VN");
+        DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance(vietNam);
+
+        // 2. Đặt mẫu (Pattern) thủ công:
+        // " VND" là tiền tố/hậu tố.
+        df.applyPattern("#,### VND");
+        return df.format(luong);
     }
     public void setMaNV() {
         System.out.print("Ma nhan vien: ");
@@ -71,13 +84,14 @@ public class NhanVien extends ConNguoi {
             System.out.print("Luong: ");
             //bắt lỗi nếu người dùng nhập chữ
             try {
-                luong = sc.nextDouble();
-                nhapThanhCong = true;
-                sc.nextLine();
-            } catch(InputMismatchException e) {
+                luong = new BigDecimal(sc.nextLine());
+                if(luong.doubleValue() <= 0) {
+                    System.out.println("Luong phai lon hon 0!!!");
+                    System.out.println("Vui long nhap lai!!!");
+                } else
+                    nhapThanhCong = true;
+            } catch(NumberFormatException e) {
                 System.err.println("Vui long nhap so!!!");
-                //Xoá buffer trước khi nhập liệu mới
-                sc.nextLine();
             }
         } while(!nhapThanhCong);
         

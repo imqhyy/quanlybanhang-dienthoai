@@ -4,7 +4,6 @@ import com.list.DanhSachSmartphone;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
-
 import com.model.SmartPhone;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,12 +19,12 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
     }
 
     @Override
-    public void inputData() {
+    public final void inputData() {
         if (ds1.getDataChange()) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de huy: ");
             do {
+                System.out.print("Nhan 'y' de xac nhan, 'n' de huy: ");
                 xacnhan = sc.nextLine();
                 switch (xacnhan) {
                     case "n":
@@ -57,6 +56,27 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                             arr[7], // manhinh
                             arr[8] // chitiet
                     );
+
+                    //Kiểm tra xem trong danh sách nhập có mã sản phẩm nào bị trùng không
+                    SmartPhone checkSP = ds2.timkiem(temp.getMaSP());
+                    if(checkSP != null) {
+                        System.out.println("Ma nhan vien " + temp.getMaSP() + " trong file bi trung lap!");
+                        System.out.println("Vui long kiem tra lai du lieu trong file data!!");
+                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        System.out.println("Nhan enter de dong thong bao nay!!!");
+                        sc.nextLine();
+                        return;
+                    }
+                    //Kiểm tra giá bán
+                    if((temp.getGiaBan().doubleValue() <= 0)) {
+                        System.out.println("Ma smartphone " + temp.getMaSP() + " co gia ban be hon hoac bang 0!");
+                        System.out.println("Vui long kiem tra lai file data!!!");
+                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        System.out.println("Nhan enter de dong thong bao nay!!!");
+                        sc.nextLine();
+                        return;
+                    }
+                    
                     ds2.them(temp);
                     // Lấy seedID lớn nhất trong mảng để dành cho các thao tác thêm
                     if (Integer.parseInt(temp.getMaSP().substring(2)) > maxSeedID) {
@@ -68,9 +88,15 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                 ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
                 ds1.setDataChange(false);
+                System.out.println("Tai du lieu tu file thanh cong!!!");
+                System.out.println("Nhan enter de dong thong bao nay!!!");
+                sc.nextLine();
             }
         } catch (IOException | NumberFormatException e) {
-            System.err.println("Khong tim thay file!!!");
+            System.err.println("File data co the bi loi!");
+            System.out.println("Vui long kiem tra lai file data!!");
+            System.out.println("Nhan enter de dong thong bao nay!!!");
+            sc.nextLine();
         }
     }
 
@@ -80,7 +106,7 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
             try (FileWriter fw = new FileWriter("src/com/repository/dataSmartPhone.txt")) {
                 String dulieu = ds1.xuatChuoi();
                 if (dulieu == null) {
-                    System.out.println("Khong co gi de ghi vao file!!!");
+                    System.out.println("Khong co du lieu de ghi vao file!!!");
                 } else {
                     fw.write(dulieu);
                     System.out.println("Ghi du lieu vao file thanh cong!!!");
@@ -106,10 +132,10 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
             System.out.println("6. Tim kiem smartphone");
             System.out.println("7. Tai danh sach tu file");
             System.out.println("8. Xuat danh sach ra file");
-            System.out.println("0. Luu va thoat");
-            System.out.print("Nhap chuc nang: ");
+            System.out.println("0. Thoat");
             boolean nhapThanhCong = false;
             do {
+                System.out.print("Nhap chuc nang: ");
                 // bắt lỗi người dùng nhập chữ
                 try {
                     chucnang = sc.nextInt();
@@ -124,14 +150,10 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
             switch (chucnang) {
                 case 1: {
                     ds1.xuat();
-                    System.out.println("Nhan Enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                 case 2: {
                     ds1.nhap();
-                    System.out.println("Nhan enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                 case 3: {
@@ -163,8 +185,6 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                         ds1.DanhSachSPmini();
                         ds1.sua();
                     }
-                    System.out.println("Nhan enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
 
@@ -173,14 +193,19 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                         System.out.println("Danh sach trong!!!");
                     } else {
                         ds1.DanhSachSPmini();
+                        DanhSachSmartphone kqtimkiem;
                         System.out.print("Nhap ma san pham can tim(nhan enter de bo qua): ");
                         String maSP = sc.nextLine();
-                        System.out.print("Nhap ten san pham can tim(nhan enter de bo qua): ");
-                        String tenSP = sc.nextLine();
-                        System.out.print("Nhap thuong hieu can tim(nhan enter de bo qua): ");
-                        String thuonghieu = sc.nextLine();
-                        DanhSachSmartphone kqtimkiem = ds1.timkiemnangcao(maSP, tenSP, thuonghieu);
-                        kqtimkiem.bolocKetqua(kqtimkiem);
+                        if(!maSP.equals("")) {
+                            kqtimkiem = ds1.timkiemnangcao(maSP, "", "");
+                        } else {
+                            System.out.print("Nhap ten san pham can tim(nhan enter de bo qua): ");
+                            String tenSP = sc.nextLine();
+                            System.out.print("Nhap thuong hieu can tim(nhan enter de bo qua): ");
+                            String thuonghieu = sc.nextLine();
+                            kqtimkiem = ds1.timkiemnangcao(maSP, tenSP, thuonghieu);
+                        }
+                        kqtimkiem.bolocKetqua();
 
                     }
                     System.out.println("Nhan enter de quay lai!!!");
@@ -190,8 +215,6 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                 case 7: {
                     // Kiểm tra kết quả trả về của hàm
                     inputData();
-                    System.out.println("Nhan Enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                 case 8: {
@@ -201,7 +224,6 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                     break;
                 }
                 case 0:
-                    outputData();
                     break;
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");

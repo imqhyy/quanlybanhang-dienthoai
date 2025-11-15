@@ -9,7 +9,7 @@ import com.model.SmartPhone;
 import java.io.IOException;
 
 
-public class DanhSachSmartphone {
+public class DanhSachSmartphone implements listInterface.IList {
     SmartPhone[] dsdt; // Mảng lưu SmartPhone
     int n; // Số lượng smartphone hiện có
     int seedID = 1;
@@ -62,13 +62,13 @@ public class DanhSachSmartphone {
     }
 
 
-    public void nhap() {
+    @Override public void nhap() {
         //Kiểm tra xem có dữ liệu cũ nào được lưu không vì nhập sẽ xoá toàn bộ dữ liệu cũ
         if(n != 0) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de huy lai: ");
             do {
+                System.out.print("Nhan 'y' de xac nhan, 'n' de huy lai: ");
                 xacnhan = sc.nextLine();
                 switch (xacnhan) {
                     case "n":
@@ -80,14 +80,18 @@ public class DanhSachSmartphone {
                 }
             } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
         }
-        System.out.print("Nhap so luong smartphone: ");
         boolean nhapThanhCong = false;
         do {
+            System.out.print("Nhap so luong smartphone: ");
             //bắt lỗi người dùng nhập chữ
             try {
                 n = sc.nextInt();
-                nhapThanhCong = true;
                 sc.nextLine(); //Xoá kí tự enter trong buffer
+                if(n > 0) {
+                    nhapThanhCong = true;
+                } else {
+                    System.out.println("So luong smartphone phai lon hon 0!!!");
+                }
             } catch (InputMismatchException e) {
                 System.err.println("Vui long nhap so!!!");
                 sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
@@ -102,16 +106,19 @@ public class DanhSachSmartphone {
             System.out.println();
         }
         dataChange = true;
+        System.out.println("Nhap thanh cong!!!");
+        System.out.println("Nhan enter de quay lai!!!");
+        sc.nextLine();
     }
 
     // Xuất danh sách
-    public void xuat() {
+    @Override public void xuat() {
         System.out.println("\n--Danh sach smartphone--");
         //Kiểm tra xem danh sách nhân viên có rỗng không
         if(n == 0) {
             System.out.println("Khong co smartphone nao nao!!!");
         } else {
-            bolocKetqua(this);
+            bolocKetqua();
         }
     }
 
@@ -161,7 +168,7 @@ public class DanhSachSmartphone {
     }
 
     // Thêm (Tự nhập)
-    public void them() {
+    @Override public void them() {
         // Nới rộng mảng
         dsdt = Arrays.copyOf(dsdt, n + 1);
 
@@ -185,7 +192,7 @@ public class DanhSachSmartphone {
     }
 
     // Xóa
-    public void xoa(String ma) {
+    @Override public void xoa(String ma) {
         boolean daXoa = false;
         for (int i = 0; i < n; i++) {
             if (dsdt[i].getMaSP().equals(ma)) {
@@ -206,7 +213,20 @@ public class DanhSachSmartphone {
         }
     }
 
-    public void bolocKetqua(DanhSachSmartphone ds2) {
+    public void xoaKhongOutput(String ma) {
+        for (int i = 0; i < n; i++) {
+            if (dsdt[i].getMaSP().equals(ma)) {
+                for (int j = i; j < n - 1; j++) {
+                    dsdt[j] = dsdt[j + 1];
+                }
+                dsdt = Arrays.copyOf(dsdt, n - 1);
+                n--;
+                break;
+            }
+        }
+    }
+
+    public void bolocKetqua() {
         int chucnang = 0;
         double bolocGia = 0;
         String bolocThuongHieu = "";
@@ -214,37 +234,37 @@ public class DanhSachSmartphone {
         do {
             DanhSachSmartphone dsBoLoc = new DanhSachSmartphone();
             //Sao chép dữ liệu của danh sách truyền vào, những gì thay đổi trong bộ lọc sẽ không ảnh hưởng dữ liệu gốc
-            for(int i = 0; i < ds2.n; i++) {
-                dsBoLoc.them(ds2.dsdt[i]);
+            for(int i = 0; i < this.n; i++) {
+                dsBoLoc.them(this.dsdt[i]);
             }
             //Kiểm tra có bộ lọc nào được sử dụng không
             if(bolocGia != 0) {
                 for(int i = 0; i < dsBoLoc.n; i++) {
                     if(sosanhGia == 1) {
                         if(dsBoLoc.dsdt[i].getGiaBan().doubleValue() < bolocGia) {
-                            dsBoLoc.xoa(dsBoLoc.dsdt[i].getMaSP());
+                            dsBoLoc.xoaKhongOutput(dsBoLoc.dsdt[i].getMaSP());
                             //Thêm i-- để khi có phần tử bị xoá và dồn lên nó sẽ kiểm tra phần bị dồn đó
                             i--;
                         }
                     }
                     if(sosanhGia == 2) {
                         if(dsBoLoc.dsdt[i].getGiaBan().doubleValue() > bolocGia) {
-                            dsBoLoc.xoa(dsBoLoc.dsdt[i].getMaSP());
+                            dsBoLoc.xoaKhongOutput(dsBoLoc.dsdt[i].getMaSP());
                             i--;
                         }
                     }
                     if(sosanhGia == 3) {
                         if(dsBoLoc.dsdt[i].getGiaBan().doubleValue() != bolocGia) {
-                            dsBoLoc.xoa(dsBoLoc.dsdt[i].getMaSP());
+                            dsBoLoc.xoaKhongOutput(dsBoLoc.dsdt[i].getMaSP());
                             i--;
                         }
                     }
                 }
             }
-            if(bolocThuongHieu != "") {
+            if(!bolocThuongHieu.equals("")) {
                 for(int i = 0; i < dsBoLoc.n; i++) {
                     if(!dsBoLoc.dsdt[i].getThuongHieu().equals(bolocThuongHieu)) {
-                        dsBoLoc.xoa(dsBoLoc.dsdt[i].getMaSP());
+                        dsBoLoc.xoaKhongOutput(dsBoLoc.dsdt[i].getMaSP());
                         i--;
                     }
                 }
@@ -254,12 +274,12 @@ public class DanhSachSmartphone {
             System.out.println("-Bo loc-");
             System.out.println("1. Gia ban");
             System.out.println("2. Thuong hieu");
-            System.out.println("3. Xoa bo loc");
+            System.out.println("3. Xoa tat ca bo loc");
             System.out.println("4. Xem chi tiet san pham");
             System.out.println("0. Thoat");
-            System.out.print("Nhap chuc nang: ");
             boolean nhapThanhCong = false;
             do {
+                System.out.print("Nhap chuc nang: ");
                 //bắt lỗi người dùng nhập chữ
                 try {
                     chucnang = sc.nextInt();
@@ -273,9 +293,9 @@ public class DanhSachSmartphone {
             switch (chucnang) {
                 case 1: {
                     do {
-                        System.out.print("Nhap gia ban: ");
                         nhapThanhCong = false;
                         do {
+                            System.out.print("Nhap gia ban: ");
                             //bắt lỗi người dùng nhập chữ
                             try {
                                 bolocGia = sc.nextDouble();
@@ -289,10 +309,11 @@ public class DanhSachSmartphone {
                         System.out.println("1. Lon hon hoac bang");
                         System.out.println("2. Be hon hoac bang");
                         System.out.println("3. Bang");
+                        System.out.println("4. Xoa bo loc");
                         System.out.println("0. Thoat");
-                        System.out.print("Nhap chuc nang: ");
                         nhapThanhCong = false;
                         do {
+                            System.out.print("Nhap chuc nang: ");
                             //bắt lỗi người dùng nhập chữ
                             try {
                                 sosanhGia = sc.nextInt();
@@ -307,8 +328,12 @@ public class DanhSachSmartphone {
                             case 1: break;
                             case 2: break;
                             case 3: break;
-                            case 0: {
+                            case 4: {
                                 bolocGia = 0;
+                                sosanhGia = 0;
+                            }
+                            case 0: {
+                                
                                 break;
                             }
                             default: {
@@ -317,7 +342,7 @@ public class DanhSachSmartphone {
                                 sc.nextLine();
                             }
                         }
-                    } while(sosanhGia > 3);
+                    } while(sosanhGia > 4);
                     break;
                 }
                 case 2: {
@@ -375,24 +400,25 @@ public class DanhSachSmartphone {
     public DanhSachSmartphone timkiemnangcao(String maSP, String tenSP, String thuonghieu) {
         DanhSachSmartphone kqtimkiem = new DanhSachSmartphone();
         for(int i = 0; i < n; i++) {
-            if(!dsdt[i].getMaSP().contains(maSP) && !maSP.equals("\n")) 
+            if(!dsdt[i].getMaSP().equals(maSP) && !maSP.equals("")) 
                 continue;
-            if(!dsdt[i].getTenSP().toLowerCase().contains(tenSP.toLowerCase()) && !tenSP.equals("\n"))
+            if(!dsdt[i].getTenSP().toLowerCase().contains(tenSP.toLowerCase()) && !tenSP.equals(""))
                 continue;
-            if(!dsdt[i].getThuongHieu().toLowerCase().contains(thuonghieu.toLowerCase()) && !thuonghieu.equals("\n"))
+            if(!dsdt[i].getThuongHieu().toLowerCase().contains(thuonghieu.toLowerCase()) && !thuonghieu.equals(""))
                 continue;
             kqtimkiem.them(dsdt[i]);
         }
         return kqtimkiem;
     }
-    public void sua() {
+    @Override public void sua() {
         String ma;
         System.out.print("Nhap ma smartphone can sua: ");
         ma = sc.nextLine();
         boolean suaThanhCong = false;
-
+        boolean timSP = false;
         for (int i = 0; i < n; i++) {
             if (dsdt[i].getMaSP().equals(ma)) {
+                timSP = true;
                 int chucnang = 0;
                 do {
                     clearScreen();
@@ -407,10 +433,10 @@ public class DanhSachSmartphone {
                     System.out.println("8. Sua chi tiet");
                     System.out.println("9. Sua tat ca");
                     System.out.println("0. Thoat");
-                    System.out.print("Nhap tinh nang: ");
 
                     boolean nhapThanhCong = false;
                     do {
+                        System.out.print("Nhap tinh nang: ");
                         //bắt lỗi người dùng nhập chữ
                         try {
                             chucnang = sc.nextInt();
@@ -425,30 +451,39 @@ public class DanhSachSmartphone {
                     switch (chucnang) {
                         case 1:
                             dsdt[i].setTenSP();
+                            suaThanhCong = true;
                             break;
                         case 2:
                             dsdt[i].setThuongHieu();
+                            suaThanhCong = true;
                             break;
                         case 3:
                             dsdt[i].setGiaBan();
+                            suaThanhCong = true;
                             break;
                         case 4:
                             dsdt[i].setChipset();
+                            suaThanhCong = true;
                             break;
                         case 5:
                             dsdt[i].setRam();
+                            suaThanhCong = true;
                             break;
                         case 6:
                             dsdt[i].setRom();
+                            suaThanhCong = true;
                             break;
                         case 7:
                             dsdt[i].setManHinh();
+                            suaThanhCong = true;
                             break;
                         case 8:
                             dsdt[i].setChiTiet();
+                            suaThanhCong = true;
                             break;
                         case 9:
                             dsdt[i].setInfo(); // Gọi hàm setInfo của SmartPhone
+                            suaThanhCong = true;
                             break;
                         case 0:
                             break;
@@ -458,17 +493,20 @@ public class DanhSachSmartphone {
                             sc.nextLine();
                     }
                 } while (chucnang != 0);
-
-                suaThanhCong = true;
+                if(suaThanhCong) {
+                    System.out.println("Sua thanh cong!!!");
+                    dataChange = true;
+                    System.out.println("Nhan enter de quay lai!!!");
+                    sc.nextLine();
+                }
                 break; // Thoát vòng lặp for
             }
         }
 
-        if (!suaThanhCong) {
-            System.err.println("Khong co smartphone nay!!!");
-        } else {
-            System.out.println("Sua thong tin thanh cong!!!");
-            dataChange = true;
+        if(!timSP) {
+            System.out.println("Khong tim thay smartphone nay!!!");
+            System.out.println("Nhan enter de quay lai!!!");
+            sc.nextLine();
         }
     }
 

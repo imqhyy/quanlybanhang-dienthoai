@@ -10,21 +10,42 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
+
 public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.ILoadSaveData {
     DanhSachDonHang ds1 = new DanhSachDonHang();
     protected static final Scanner sc = new Scanner(System.in);
 
     public QuanLyDonHang() {
         inputData();
+        /**
+         * Không nên gọi phương thức trong constructor, vì các phương thức này
+         * có thể bị ghi đè bởi class kế thừa, gây lỗi dữ liệu
+         * Vì thế thêm final để phương thức inputData này không thể kế thừa
+         */
     }
 
-    @Override public void inputData() {
+    @Override public final void inputData() {
+        /**
+         * Kiểm tra tính đúng đắn của file data khách hàng, nhân viên, smartphone
+         * trước khi input data đơn hàng, vì đơn hàng sẽ tham chiếu trực tiếp đến
+         * dữ liệu của các file data trên
+         */
+        DonHang checkDataNotFail = new DonHang();
+        if(!checkDataNotFail.checkInputDataNotFail()) {
+            System.out.println("Du lieu tu file khach hang, nhan vien, smartphone co the da bi loi!");
+            System.out.println("Vui long kiem tra lai!!");
+            System.out.println("Nhan enter de dong thong bao nay!!!");
+            sc.nextLine();
+            return;
+        }
+
+
         //Kiểm tra dữ liệu có bị thay đổi không trước khi tải lên 1 dữ liệu mới
         if(ds1.getDataChange()) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de huy: ");
             do {
+                System.out.print("Nhan 'y' de xac nhan, 'n' de huy: ");
                 xacnhan = sc.nextLine();
                 switch (xacnhan) {
                     case "n":
@@ -50,9 +71,44 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                             arr[1], //ngày đặt
                             arr[2], //mã khách hàng
                             arr[3], //mã nhân viên
-                            Integer.parseInt(arr[4]), //số lượng sản phẩm
+                            Integer.parseInt(arr[4]), //số sản phẩm
                             arr[5] //data sản phẩm VD: SP1&3|SP2&2
                     );
+                    
+                    //Kiểm tra xem có mã đơn hàng nào bị trùng không
+                    DonHang checkDH = ds2.timkiem(temp.getMaDH());
+                    if(checkDH != null) {
+                        System.out.println("Don hang " + temp.getMaDH() + " trong file bi trung lap!");
+                        System.out.println("Vui long kiem tra lai file data!!");
+                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        System.out.println("Nhan enter de dong thong bao nay!!!");
+                        sc.nextLine();
+                        return;
+                    }
+                    //Kiểm tra số sản phẩm có hợp lệ không
+                    if(temp.getN() <= 0) {
+                        System.out.println("Don hang " + temp.getMaDH() + " co so san pham be hon 0!");
+                        System.out.println("Vui long kiem tra lai file data!!");
+                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        System.out.println("Nhan enter de dong thong bao nay!!!");
+                        sc.nextLine();
+                        return;
+                    } else {
+                        //Kiểm tra xem trong data sản phẩm, có số lượng nào bé hơn 0 không
+                        for(int i = 0; i < temp.getN(); i++) {
+                            if(temp.getSoLuongSP()[i] <= 0) {
+                                System.out.println("Don hang " + temp.getMaDH() + " co so luong san pham be hon 0!");
+                                System.out.println("Vui long kiem tra lai file data!!");
+                                System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                                System.out.println("Nhan enter de dong thong bao nay!!!");
+                                sc.nextLine();
+                                return;
+                            }
+                        }
+                    }
+                    
+                    
+                    
                     ds2.them(temp);
                     //Lấy seedID lớn nhất trong mảng để dành cho các thao tác thêm
                     if(Integer.parseInt(temp.getMaDH().substring(2)) > maxSeedID) {
@@ -64,9 +120,15 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                 ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
                 ds1.setDataChange(false); //Vì dữ liệu đã được làm mới nên chuyển nó về thành false, tức là chưa qua chỉnh sửa
+                System.out.println("Tai du lieu tu file thanh cong!!!");
+                System.out.println("Nhan enter de dong thong bao nay!!!");
+                sc.nextLine();
             }
-        } catch (IOException | NumberFormatException e) {
-            System.err.println("Khong tim thay file!!!");
+        } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.err.println("File data co the bi loi!");
+            System.out.println("Vui long kiem tra lai file data!!");
+            System.out.println("Nhan enter de dong thong bao nay!!!");
+            sc.nextLine();
         }
     }
 
@@ -101,9 +163,9 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
             System.out.println("7. Tai danh sach tu file");
             System.out.println("8. Xuat danh sach ra file");
             System.out.println("0. Thoat");
-            System.out.print("Nhap chuc nang: ");
             boolean nhapThanhCong = false;
             do {
+                System.out.print("Nhap chuc nang: ");
                 //bắt lỗi người dùng nhập chữ
                 try {
                     chucnang = sc.nextInt();
@@ -118,14 +180,10 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
             switch (chucnang) {
                 case 1: {
                     ds1.xuat();
-                    System.out.println("Nhan Enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                 case 2: {
                     ds1.nhap();
-                    System.out.println("Nhan enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                 case 3: {
@@ -157,8 +215,6 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                         ds1.DanhSachDHmini();
                         ds1.sua();
                     }                 
-                    System.out.println("Nhan enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
 
@@ -167,14 +223,21 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                         System.out.println("Danh sach trong!!!");
                     } else {
                         ds1.DanhSachDHmini();
-                        System.out.print("Nhap ma san pham can tim(nhan enter de bo qua): ");
+                        DanhSachDonHang kqtimkiem;
+                        System.out.print("Nhap ma don hang can tim(nhan enter de bo qua): ");
                         String maSP = sc.nextLine();
-                        System.out.print("Nhap ten san pham can tim(nhan enter de bo qua): ");
-                        String tenSP = sc.nextLine();
-                        System.out.print("Nhap thuong hieu can tim(nhan enter de bo qua): ");
-                        String thuonghieu = sc.nextLine();
-                        DanhSachDonHang kqtimkiem = ds1.timkiemnangcao(maSP, tenSP, thuonghieu);
-                        kqtimkiem.bolocKetqua(kqtimkiem);
+                        if(!maSP.equals("")) {
+                            kqtimkiem = ds1.timkiemnangcao(maSP, "", "");
+                        } else {
+                            System.out.print("Nhap ma khach hang can tim(nhan enter de bo qua): ");
+                            String maKH = sc.nextLine();
+                            System.out.print("Nhap ma nhan vien can tim(nhan enter de bo qua): ");
+                            String maNV = sc.nextLine();
+                            kqtimkiem = ds1.timkiemnangcao(maSP, maKH, maNV);
+                        }
+                        
+                        
+                        kqtimkiem.bolocKetqua();
                         
                     }
                     System.out.println("Nhan enter de quay lai!!!");
@@ -184,8 +247,6 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                 case 7: {
                     // Kiểm tra kết quả trả về của hàm
                     inputData();
-                    System.out.println("Nhan Enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                 case 8: {
@@ -195,7 +256,6 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                     break;
                 }
                 case 0:
-                    outputData();
                     break;
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");

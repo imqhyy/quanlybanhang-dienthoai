@@ -54,6 +54,8 @@ public final class DonHang {
         this.KH = dskh.timkiem(maKH);
         this.NV = dsnv.timkiem(maNV);
         this.n = n;
+        //Tránh giá trị âm, nếu âm sẽ tự động chuyển thành 0 để tạo mảng rỗng
+        if(n < 0) n = 0;
         this.dsMua = new SmartPhone[n];
         this.soluongSP = new int[n];
         //Xử lí chuỗi sản phảm
@@ -144,7 +146,7 @@ public final class DonHang {
     public String getStringTongSP() {
         // 1. Định nghĩa mẫu định dạng (#,###) và Locale
         // Locale Việt Nam đảm bảo sử dụng dấu chấm phân cách hàng nghìn.
-        Locale vietNam = new Locale("vi", "VN");
+        Locale vietNam = Locale.of("vi", "VN");
         DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance(vietNam);
 
         // 2. Đặt mẫu (Pattern) thủ công:
@@ -241,14 +243,18 @@ public final class DonHang {
                 }
             } while(dsMua[i] == null);
             
-            System.out.print("So luong: ");
             boolean nhapThanhCong = false;
             do {
+                System.out.print("So luong: ");
                 //bắt lỗi người dùng nhập chữ
                 try {
                     soluongSP[i] = sc.nextInt();
-                    nhapThanhCong = true;
                     sc.nextLine(); //Xoá kí tự enter trong buffer
+                    if(soluongSP[i] <= 0 ) {
+                        System.out.println("So luong phai lon hon 0!!!");
+                    } else
+                        nhapThanhCong = true;
+                    
                 } catch (InputMismatchException e) {
                     System.err.println("Vui long nhap so!!!");
                     sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
@@ -259,14 +265,18 @@ public final class DonHang {
     }
 
     public void setN() {
-        System.out.print("Nhap so san pham: ");
         boolean nhapThanhCong = false;
         do {
+            System.out.print("Nhap so san pham: ");
             //bắt lỗi người dùng nhập chữ
             try {
                 n = sc.nextInt();
-                nhapThanhCong = true;
                 sc.nextLine(); //Xoá kí tự enter trong buffer
+                if(n <= 0) {
+                    System.out.println("So san pham phai lon hon 0!!!");
+                    System.out.println("Vui long nhap lai!!!");
+                } else
+                    nhapThanhCong = true;
             } catch (InputMismatchException e) {
                 System.err.println("Vui long nhap so!!!");
                 sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
@@ -285,76 +295,64 @@ public final class DonHang {
         }
     }
 
+    //Hàm kiểm tra xem các hàm input kia có thành công không
+    public boolean checkInputDataNotFail() {
+        if(!inputDataKH() || !inputDataNV() || !inputDataSP())
+            return false;
+        return true;
+    }
     //Hàm input dữ liệu từ file
-    public void inputDataKH() {
-        if(dskh.xuatN() != 0) {
-            String xacnhan;
-            System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
-            do {
-                xacnhan = sc.nextLine();
-                switch (xacnhan) {
-                    case "n":
-                        return;
-                    case "y":
-                        break;
-                    default:
-                        System.out.println("Vui long nhan 'y' hoac 'n'!");
-                }
-            } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
-        }
+    //trả về false nếu dữ liệu có lỗi, true nếu dữ liệu không lỗi
+    public boolean inputDataKH() {
         try {
-            try(BufferedReader input = new BufferedReader(new FileReader("src/com/repository/dataKhachHang.txt"))) {
+            try (BufferedReader input = new BufferedReader(new FileReader("src/com/repository/dataKhachHang.txt"))) {
                 String line = input.readLine();
                 int maxSeedID = 0;
-                //Tạo ds2, ghi dữ liệu vào ds2 trước, nếu không lỗi mới ghi vào ds1
+                // Tạo ds2, ghi dữ liệu vào ds2 trước, nếu không lỗi mới ghi vào ds1
                 DanhSachKhachHang ds2 = new DanhSachKhachHang();
-                while(line != null) {
-                    //Chia chuỗi thành các chuỗi con phân cách bởi dấu phẩy
+                while (line != null) {
+                    // Chia chuỗi thành các chuỗi con phân cách bởi dấu phẩy
                     String[] arr = line.split(",");
-                    KhachHang temp = new KhachHang(arr[0], arr[1], Integer.parseInt(arr[2]), arr[3]);
-                    //Kiểm tra xem trong danh sách nhập có mã khách hàng nào bị trùng không
+                    KhachHang temp = new KhachHang(
+                                arr[0], //Mã khách hàng
+                                arr[1], //Họ và tên
+                                Integer.parseInt(arr[2]), //Tuổi
+                                arr[3]
+                    ); //Số điện thoại
+                    
+                    // Kiểm tra xem trong danh sách nhập có mã khách hàng nào bị trùng không
                     KhachHang checkKH = ds2.timkiem(temp.getMaKH());
-                    if(checkKH != null) {
-                        System.out.println("Ma khach hang " + temp.getMaKH() + " trong file bi trung lap!");
-                        System.out.println("Vui long kiem tra lai du lieu trong file data!!");
-                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
-                        return;
+                    if (checkKH != null) {
+                        return false;
                     }
+                    //Kiểm tra xem khách hàng temp có tuổi bé hơn hoặc bằng 0 không
+                    if(temp.getTuoi() <= 0) {
+                        return false;
+                    }
+                    //Kiểm tra xem số điện thoại có hợp lệ không
+                    if(!temp.getSDT().matches("\\d+")) {
+                        return false;
+                    }
+                    
                     ds2.them(temp);
-                    //Lấy seedID lớn nhất trong mảng để dành cho các thao tác thêm
-                    if(Integer.parseInt(temp.getMaKH().substring(2)) > maxSeedID) {
+                    // Lấy seedID lớn nhất trong mảng để dành cho các thao tác thêm
+                    if (Integer.parseInt(temp.getMaKH().substring(2)) > maxSeedID) {
                         maxSeedID = Integer.parseInt(temp.getMaKH().substring(2));
                     }
                     line = input.readLine();
                 }
-                //thêm ++ để tăng seedID hiện tại lên 1 để không trùng
-                ds2.setSeedID(maxSeedID++);
+                // thêm ++ để tăng seedID hiện tại lên 1 để không trùng
+                ds2.setSeedID(maxSeedID + 1);
                 dskh = ds2;
-                // System.out.println("Tai du lieu tu file thanh cong!!!");
+                dskh.setDataChange(false);
             }
         } catch (IOException | NumberFormatException e) {
-            System.err.println("Khong tim thay file!!!");
+            return false;
         }
+        return true;
     }
 
-    public void inputDataNV() {
-        if(dsnv.xuatN() != 0) {
-            String xacnhan;
-            System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
-            do {
-                xacnhan = sc.nextLine();
-                switch (xacnhan) {
-                    case "n":
-                        return;
-                    case "y":
-                        break;
-                    default:
-                        System.out.println("Vui long nhan 'y' hoac 'n'!");
-                }
-            } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
-        }
+    public boolean inputDataNV() {
         try {
             try (BufferedReader input = new BufferedReader(new FileReader("src/com/repository/dataNhanVien.txt"))) {
                 String line = input.readLine();
@@ -364,15 +362,32 @@ public final class DonHang {
                 while(line != null) {
                     // chia chuỗi thành các chuỗi con phân cách bởi dấu phẩy
                     String[] arr = line.split(",");
-                    NhanVien temp = new NhanVien(arr[0], arr[1], Integer.parseInt(arr[2]), arr[3], arr[4], Double.parseDouble(arr[5]));
+                    NhanVien temp = new NhanVien(
+                                arr[0], //mã nhân viên
+                                arr[1], //họ tên
+                                Integer.parseInt(arr[2]), //tuổi
+                                arr[3], //số điện thoại
+                                arr[4], //chức vụ
+                                new BigDecimal(arr[5])   //lương
+                    ); 
                     //Kiểm tra xem trong danh sách nhập có mã nhân viên nào bị trùng không
                     NhanVien checkNV = ds2.timkiem(temp.getMaNV());
                     if(checkNV != null) {
-                        System.out.println("Ma nhan vien " + temp.getMaNV() + " trong file bi trung lap!");
-                        System.out.println("Vui long kiem tra lai du lieu trong file data!!");
-                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
-                        return;
+                        return false;
+                    }            
+                    //Kiểm tra xem khách hàng temp có tuổi bé hơn hoặc bằng 0 không
+                    if(temp.getTuoi() <= 0) {
+                        return false;
                     }
+                    //Kiểm tra xem số điện thoại có hợp lệ không
+                    if(!temp.getSDT().matches("\\d+")) {
+                        return false;
+                    }
+                    //Kiểm tra lương
+                    if((temp.getLuong().doubleValue() <= 0)) {
+                        return false;
+                    }
+                    
                     ds2.them(temp);
                     //Lấy seedID lớn nhất trong mảng để dành cho các thao tác thêm
                     if(Integer.parseInt(temp.getMaNV().substring(2)) > maxSeedID) {
@@ -381,40 +396,25 @@ public final class DonHang {
                     line = input.readLine();
                 }
                 //thêm ++ để tăng seedID hiện tại lên 1 để không trùng
-                ds2.setSeedID(maxSeedID++);
+                ds2.setSeedID(maxSeedID + 1);
                 dsnv = ds2;
-                // System.out.println("Tai du lieu tu file thanh cong!!!");
+                dsnv.setDataChange(false);
             }
             
             
             
         } catch (IOException | NumberFormatException e) {
-            System.err.println("Khong tim thay file!!!");
+            return false;
         }
+        return true;
     }
 
-    public void inputDataSP() {
-        if(dssp.xuatN() != 0) {
-            String xacnhan;
-            System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
-            do {
-                xacnhan = sc.nextLine();
-                switch (xacnhan) {
-                    case "n":
-                        return;
-                    case "y":
-                        break;
-                    default:
-                        System.out.println("Vui long nhan 'y' hoac 'n'!");
-                }
-            } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
-        }
+    public boolean inputDataSP() {
         try {
             try (BufferedReader input = new BufferedReader(new FileReader("src/com/repository/dataSmartPhone.txt"))) {
                 String line = input.readLine();
                 int maxSeedID = 0;
-                //Tạo ds2 ghi dữ liệu vào ds2 trước nếu không có lỗi mới ghi vào ds1
+                // Tạo ds2 ghi dữ liệu vào ds2 trước nếu không có lỗi mới ghi vào ds1
                 DanhSachSmartphone ds2 = new DanhSachSmartphone();
                 while (line != null) {
                     // chia chuỗi thành các chuỗi con phân cách bởi dấu phẩy
@@ -430,27 +430,38 @@ public final class DonHang {
                             arr[7], // manhinh
                             arr[8] // chitiet
                     );
+
+                    //Kiểm tra xem trong danh sách nhập có mã sản phẩm nào bị trùng không
+                    SmartPhone checkSP = ds2.timkiem(temp.getMaSP());
+                    if(checkSP != null) {
+                        return false;
+                    }
+                    //Kiểm tra giá bán
+                    if((temp.getGiaBan().doubleValue() <= 0)) {
+                        return false;
+                    }
+                    
                     ds2.them(temp);
-                    //Lấy seedID lớn nhất trong mảng để dành cho các thao tác thêm
-                    if(Integer.parseInt(temp.getMaSP().substring(2)) > maxSeedID) {
+                    // Lấy seedID lớn nhất trong mảng để dành cho các thao tác thêm
+                    if (Integer.parseInt(temp.getMaSP().substring(2)) > maxSeedID) {
                         maxSeedID = Integer.parseInt(temp.getMaSP().substring(2));
                     }
                     line = input.readLine();
                 }
-                //thêm ++ để tăng seedID hiện tại lên 1 để không trùng
-                ds2.setSeedID(maxSeedID++);
+                // thêm ++ để tăng seedID hiện tại lên 1 để không trùng
+                ds2.setSeedID(maxSeedID + 1);
                 dssp = ds2;
-                // System.out.println("Tai du lieu tu file thanh cong!!!");
+                dssp.setDataChange(false);
             }
         } catch (IOException | NumberFormatException e) {
-            System.err.println("Khong tim thay file!!!");
+            return false;
         }
+        return true;
     }
     // Hàm này dùng để nhập ngày tháng năm
     public static LocalDate nhapNgayThangNam(Scanner sc) {
-        LocalDate ngayNhap = null;
+        LocalDate ngayNhap;
         String inputString;
-
         do {
             System.out.print("(DD/MM/YYYY): ");
             inputString = sc.nextLine();
