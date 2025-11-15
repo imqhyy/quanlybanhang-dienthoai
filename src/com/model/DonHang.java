@@ -6,7 +6,6 @@ import com.list.DanhSachSmartphone;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDate;

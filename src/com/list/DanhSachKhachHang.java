@@ -188,7 +188,6 @@ public class DanhSachKhachHang implements listInterface.IList {
     }
 
     public void xoaKhongOutput(String ma) {
-        boolean daXoa = false;
         for(int i = 0; i < n; i++) {
             if(dskh[i].getMaKH().equals(ma)) {
                 for(int j = i; j < n - 1; j++) {
@@ -196,7 +195,6 @@ public class DanhSachKhachHang implements listInterface.IList {
                 }
                 dskh = Arrays.copyOf(dskh, n - 1);
                 n--;
-                daXoa = true;
                 break;
             }
         }
