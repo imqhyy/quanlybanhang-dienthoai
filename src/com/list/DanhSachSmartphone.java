@@ -261,7 +261,7 @@ public class DanhSachSmartphone implements listInterface.IList {
                     }
                 }
             }
-            if(!bolocThuongHieu.equals("")) {
+            if(!bolocThuongHieu.isBlank()) {
                 for(int i = 0; i < dsBoLoc.n; i++) {
                     if(!dsBoLoc.dsdt[i].getThuongHieu().equals(bolocThuongHieu)) {
                         dsBoLoc.xoaKhongOutput(dsBoLoc.dsdt[i].getMaSP());
@@ -400,11 +400,11 @@ public class DanhSachSmartphone implements listInterface.IList {
     public DanhSachSmartphone timkiemnangcao(String maSP, String tenSP, String thuonghieu) {
         DanhSachSmartphone kqtimkiem = new DanhSachSmartphone();
         for(int i = 0; i < n; i++) {
-            if(!dsdt[i].getMaSP().equals(maSP) && !maSP.equals("")) 
+            if(!dsdt[i].getMaSP().equals(maSP) && !maSP.isBlank()) 
                 continue;
-            if(!dsdt[i].getTenSP().toLowerCase().contains(tenSP.toLowerCase()) && !tenSP.equals(""))
+            if(!dsdt[i].getTenSP().toLowerCase().contains(tenSP.toLowerCase()) && !tenSP.isBlank())
                 continue;
-            if(!dsdt[i].getThuongHieu().toLowerCase().contains(thuonghieu.toLowerCase()) && !thuonghieu.equals(""))
+            if(!dsdt[i].getThuongHieu().toLowerCase().contains(thuonghieu.toLowerCase()) && !thuonghieu.isBlank())
                 continue;
             kqtimkiem.them(dsdt[i]);
         }

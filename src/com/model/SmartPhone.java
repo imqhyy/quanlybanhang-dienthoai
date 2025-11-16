@@ -98,20 +98,20 @@ public class SmartPhone {
         do {
             System.out.print("Ten san pham: ");
             tenSP = sc.nextLine();
-            if(tenSP.equals("")) {
+            if(tenSP.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(tenSP.equals(""));
+        } while(tenSP.isBlank());
     }
 
     public void setThuongHieu() {
         do {
             System.out.print("Thuong hieu: ");
             thuonghieu = sc.nextLine();
-            if(thuonghieu.equals("")) {
+            if(thuonghieu.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(thuonghieu.equals(""));
+        } while(thuonghieu.isBlank());
     }
 
     public void setGiaBan() {
@@ -139,26 +139,30 @@ public class SmartPhone {
         do {
             System.out.print("Chipset: ");
         chipset = sc.nextLine();
-            if(chipset.equals("")) {
+            if(chipset.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(chipset.equals(""));
+        } while(chipset.isBlank());
     }
 
     public void setRam() {
-        System.out.print("Ram: ");
-        ram = sc.nextLine();
+        do {
+            System.out.print("Rom: ");
+            ram = sc.nextLine();
+            if(ram.isBlank()) {
+                System.out.println("Hay nhap gi do!!!");
+            }
+        } while(ram.isBlank());
     }
 
     public void setRom() {
-        
         do {
             System.out.print("Rom: ");
             rom = sc.nextLine();
-            if(rom.equals("")) {
+            if(rom.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(rom.equals(""));
+        } while(rom.isBlank());
     }
 
     public void setManHinh() {
@@ -166,10 +170,10 @@ public class SmartPhone {
         do {
             System.out.print("Man hinh: ");
             manhinh = sc.nextLine();
-            if(manhinh.equals("")) {
+            if(manhinh.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(manhinh.equals(""));
+        } while(manhinh.isBlank());
     }
 
     public void setChiTiet() {
@@ -177,10 +181,10 @@ public class SmartPhone {
         do {
             System.out.print("Chi tiet: ");
             chitiet = sc.nextLine();
-            if(chitiet.equals("")) {
+            if(chitiet.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(chitiet.equals(""));
+        } while(chitiet.isBlank());
     }
     // endregion
 

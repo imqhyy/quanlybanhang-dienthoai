@@ -324,6 +324,9 @@ public final class DonHang {
                     if (checkKH != null) {
                         return false;
                     }
+                    //Kiểm tra họ và tên có phải chuỗi rỗng hay chỉ có khoảng trắng
+                    if(temp.getHoVaTen().isBlank())
+                        return false;
                     //Kiểm tra xem khách hàng temp có tuổi bé hơn hoặc bằng 0 không
                     if(temp.getTuoi() <= 0) {
                         return false;
@@ -378,7 +381,9 @@ public final class DonHang {
                     NhanVien checkNV = ds2.timkiem(temp.getMaNV());
                     if(checkNV != null) {
                         return false;
-                    }            
+                    }
+                    if(temp.getHoVaTen().isBlank())
+                        return false;        
                     //Kiểm tra xem khách hàng temp có tuổi bé hơn hoặc bằng 0 không
                     if(temp.getTuoi() <= 0) {
                         return false;
@@ -442,6 +447,8 @@ public final class DonHang {
                     if(checkSP != null) {
                         return false;
                     }
+                    if(temp.getTenSP().isBlank() || temp.getThuongHieu().isBlank() || temp.getChipset().isBlank() || temp.getChiTiet().isBlank() || temp.getManHinh().isBlank() || temp.getRam().isBlank() || temp.getRom().isBlank())
+                        return false;
                     //Kiểm tra giá bán
                     if((temp.getGiaBan().doubleValue() <= 0)) {
                         return false;

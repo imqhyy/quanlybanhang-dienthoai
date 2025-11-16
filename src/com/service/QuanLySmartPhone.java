@@ -60,7 +60,15 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                     //Kiểm tra xem trong danh sách nhập có mã sản phẩm nào bị trùng không
                     SmartPhone checkSP = ds2.timkiem(temp.getMaSP());
                     if(checkSP != null) {
-                        System.out.println("Ma nhan vien " + temp.getMaSP() + " trong file bi trung lap!");
+                        System.out.println("Ma smartphone " + temp.getMaSP() + " trong file bi trung lap!");
+                        System.out.println("Vui long kiem tra lai du lieu trong file data!!");
+                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        System.out.println("Nhan enter de dong thong bao nay!!!");
+                        sc.nextLine();
+                        return;
+                    }
+                    if(temp.getTenSP().isBlank() || temp.getThuongHieu().isBlank() || temp.getChipset().isBlank() || temp.getChiTiet().isBlank() || temp.getManHinh().isBlank() || temp.getRam().isBlank() || temp.getRom().isBlank()) {
+                        System.out.println("Ma smartphone " + temp.getMaSP() + " co thong tin khong hop le!");
                         System.out.println("Vui long kiem tra lai du lieu trong file data!!");
                         System.out.println("Du lieu cu se duoc khoi phuc!!!");
                         System.out.println("Nhan enter de dong thong bao nay!!!");

@@ -63,7 +63,15 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                         System.out.println("Nhan enter de dong thong bao nay!!!");
                         sc.nextLine();
                         return;
-                    }            
+                    }
+                    if(temp.getHoVaTen().isBlank()) {
+                        System.out.println("Ma nhan vien " + temp.getMaNV() + " co ho va ten khong hop le!");
+                        System.out.println("Vui long kiem tra lai du lieu trong file data!!");
+                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        System.out.println("Nhan enter de dong thong bao nay!!!");
+                        sc.nextLine();
+                        return;
+                    }
                     //Kiểm tra xem khách hàng temp có tuổi bé hơn hoặc bằng 0 không
                     if(temp.getTuoi() < 18 || temp.getTuoi() > 32) {
                         System.out.println("Ma nhan vien " + temp.getMaNV() + " co tuoi khong hop le!");

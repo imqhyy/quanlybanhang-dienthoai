@@ -333,11 +333,11 @@ public class DanhSachKhachHang implements listInterface.IList {
     public DanhSachKhachHang timkiemnangcao(String ma, String hovaten, String sdt) {
         DanhSachKhachHang kqtimkiem = new DanhSachKhachHang();
         for(int i = 0; i < n; i++) {
-            if(!dskh[i].getMaKH().equals(ma) && !ma.equals("")) 
+            if(!dskh[i].getMaKH().equals(ma) && !ma.isBlank()) 
                 continue;
-            if(!dskh[i].getHoVaTen().toLowerCase().contains(hovaten.toLowerCase()) && !hovaten.equals(""))
+            if(!dskh[i].getHoVaTen().toLowerCase().contains(hovaten.toLowerCase()) && !hovaten.isBlank())
                 continue;
-            if(!dskh[i].getSDT().contains(sdt) && !hovaten.equals(""))
+            if(!dskh[i].getSDT().contains(sdt) && !hovaten.isBlank())
                 continue;
             kqtimkiem.them(dskh[i]);
         }

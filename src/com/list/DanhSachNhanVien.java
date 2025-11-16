@@ -435,13 +435,13 @@ public class DanhSachNhanVien implements listInterface.IList {
     public DanhSachNhanVien timkiemnangcao(String ma, String hovaten, String sdt, String chucvu) {
         DanhSachNhanVien kqtimkiem = new DanhSachNhanVien();
         for(int i = 0; i < n; i++) {
-            if(!dsnv[i].getMaNV().equals(ma) && !ma.equals("")) 
+            if(!dsnv[i].getMaNV().equals(ma) && !ma.isBlank()) 
                 continue;
-            if(!dsnv[i].getHoVaTen().toLowerCase().contains(hovaten.toLowerCase()) && !hovaten.equals(""))
+            if(!dsnv[i].getHoVaTen().toLowerCase().contains(hovaten.toLowerCase()) && !hovaten.isBlank())
                 continue;
-            if(!dsnv[i].getSDT().contains(sdt) && !sdt.equals(""))
+            if(!dsnv[i].getSDT().contains(sdt) && !sdt.isBlank())
                 continue;
-            if(!dsnv[i].getChucVu().toLowerCase().contains(chucvu.toLowerCase()) && !chucvu.equals(""))
+            if(!dsnv[i].getChucVu().toLowerCase().contains(chucvu.toLowerCase()) && !chucvu.isBlank())
                 continue;
             kqtimkiem.them(dsnv[i]);
         }

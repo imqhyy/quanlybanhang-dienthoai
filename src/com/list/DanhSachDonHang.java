@@ -387,11 +387,11 @@ public class DanhSachDonHang implements listInterface.IList {
     public DanhSachDonHang timkiemnangcao(String maDH, String maKH, String maNV) {
         DanhSachDonHang kqtimkiem = new DanhSachDonHang();
         for(int i = 0; i < n; i++) {
-            if(!dsdh[i].getMaDH().equals(maDH) && !maDH.equals("")) 
+            if(!dsdh[i].getMaDH().equals(maDH) && !maDH.isBlank()) 
                 continue;
-            if(!dsdh[i].getKH().getMaKH().equals(maKH) && !maKH.equals(""))
+            if(!dsdh[i].getKH().getMaKH().equals(maKH) && !maKH.isBlank())
                 continue;
-            if(!dsdh[i].getNV().getMaNV().equals(maNV) && !maNV.equals(""))
+            if(!dsdh[i].getNV().getMaNV().equals(maNV) && !maNV.isBlank())
                 continue;
             kqtimkiem.them(dsdh[i]);
         }

@@ -105,10 +105,7 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                                 return;
                             }
                         }
-                    }
-                    
-                    
-                    
+                    }         
                     ds2.them(temp);
                     //Lấy seedID lớn nhất trong mảng để dành cho các thao tác thêm
                     if(Integer.parseInt(temp.getMaDH().substring(2)) > maxSeedID) {
