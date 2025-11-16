@@ -50,8 +50,8 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                                 arr[0], //Mã khách hàng
                                 arr[1], //Họ và tên
                                 Integer.parseInt(arr[2]), //Tuổi
-                                arr[3]
-                    ); //Số điện thoại
+                                arr[3] //Số điện thoại
+                    );
                     
                     // Kiểm tra xem trong danh sách nhập có mã khách hàng nào bị trùng không
                     KhachHang checkKH = ds2.timkiem(temp.getMaKH());
@@ -106,10 +106,11 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                 System.out.println("Nhan enter de dong thong bao nay!!!");
                 sc.nextLine();
             }
-            /** Ở đây có 3 lỗi có thể xảy ra
+            /** Ở đây có 4 lỗi có thể xảy ra
              * IOException 
              * NumberFormatException 
              * ArrayIndexOutOfBoundsException
+             * FileNotFoundException
              */
         } catch (Exception e) {
             System.err.println("File data co the da bi loi!");

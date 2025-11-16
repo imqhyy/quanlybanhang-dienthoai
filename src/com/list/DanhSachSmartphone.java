@@ -68,7 +68,7 @@ public class DanhSachSmartphone implements listInterface.IList {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
             do {
-                System.out.print("Nhan 'y' de xac nhan, 'n' de huy lai: ");
+                System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
                 xacnhan = sc.nextLine();
                 switch (xacnhan) {
                     case "n":
@@ -269,6 +269,7 @@ public class DanhSachSmartphone implements listInterface.IList {
                     }
                 }
             }
+            clearScreen();
             dsBoLoc.DanhSachSPmini();
             System.out.println();
             System.out.println("-Bo loc-");

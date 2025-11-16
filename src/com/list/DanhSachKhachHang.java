@@ -62,7 +62,7 @@ public class DanhSachKhachHang implements listInterface.IList {
         if(n != 0) {
             String xacnhan;
             System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de huy lai: ");
+            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
             do {
                 xacnhan = sc.nextLine();
                 switch (xacnhan) {
@@ -143,6 +143,7 @@ public class DanhSachKhachHang implements listInterface.IList {
         }
         //Xoá kí tự enter cuối chuỗi
         if(xuatChuoi != null && xuatChuoi.length() > 0) {
+            //Xoá kí tự enter cuối chuỗi
             xuatChuoi = xuatChuoi.substring(0, xuatChuoi.length() - 1);
         }
         return xuatChuoi;
@@ -234,6 +235,7 @@ public class DanhSachKhachHang implements listInterface.IList {
                     }
                 }
             }
+            clearScreen();
             dsBoLoc.DanhSachKHmini();
             System.out.println();
             System.out.println("-Bo loc-");
@@ -290,13 +292,10 @@ public class DanhSachKhachHang implements listInterface.IList {
                             case 1: break;
                             case 2: break;
                             case 3: break;
-                            case 0: {
-                                bolocTuoi = 0;
-                                break;
-                            }
+                            case 0: break;
                             default: {
                                 System.out.println("Chuc nang khong hop le!!!");
-                                System.out.println("Nhan enter de nhap lai!!!");
+                                System.out.println("Nhan enter de quay lai!!!");
                                 sc.nextLine();
                             }
                         }
@@ -337,7 +336,7 @@ public class DanhSachKhachHang implements listInterface.IList {
                 continue;
             if(!dskh[i].getHoVaTen().toLowerCase().contains(hovaten.toLowerCase()) && !hovaten.isBlank())
                 continue;
-            if(!dskh[i].getSDT().contains(sdt) && !hovaten.isBlank())
+            if(!dskh[i].getSDT().contains(sdt) && !sdt.isBlank())
                 continue;
             kqtimkiem.them(dskh[i]);
         }

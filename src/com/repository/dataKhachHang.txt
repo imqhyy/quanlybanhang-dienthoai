@@ -7,4 +7,4 @@ KH6,Nhan Le Hong Tran,27,08493593
 KH7,Hong Tran Nhan Le,25,03472842
 KH8,Le Nhan Hong Tran,19,0343248923
 KH9,Huy Dang Quoc,20,092348834
-KH10,Le Tran Nhan,
+KH10,Le Tran Nhan,19,9289424

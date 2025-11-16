@@ -276,6 +276,7 @@ public class DanhSachNhanVien implements listInterface.IList {
                     }
                 }
             }
+            clearScreen();
             dsBoLoc.DanhSachNVmini();
             System.out.println();
             System.out.println("-Bo loc-");

@@ -121,10 +121,11 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                 System.out.println("Nhan enter de dong thong bao nay!!!");
                 sc.nextLine();
             }
-            /** Ở đây có 3 lỗi có thể xảy ra
+            /** Ở đây có 4 lỗi có thể xảy ra
              * IOException 
              * NumberFormatException 
              * ArrayIndexOutOfBoundsException
+             * FileNotFoundException
              */
         } catch (Exception e) {
             System.err.println("File data co the da bi loi!");
