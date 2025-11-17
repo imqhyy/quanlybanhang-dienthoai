@@ -27,9 +27,9 @@ public final class DonHang {
      * dù người dùng đó đã bị xoá
      */
     private NhanVien NV;
-    private DanhSachKhachHang dskh = new DanhSachKhachHang();
-    private DanhSachNhanVien dsnv = new DanhSachNhanVien();
-    private DanhSachSmartphone dssp = new DanhSachSmartphone();
+    private static DanhSachKhachHang dskh = new DanhSachKhachHang();
+    private static DanhSachNhanVien dsnv = new DanhSachNhanVien();
+    private static DanhSachSmartphone dssp = new DanhSachSmartphone();
     private int n; //Số sản phẩm
     private SmartPhone[] dsMua;
     private int[] soluongSP;

@@ -256,8 +256,27 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                     sc.nextLine();
                     break;
                 }
-                case 0:
+                case 0: {
+                    if(ds1.getDataChange()) {
+                        String xacnhan;
+                        System.out.println("Ban chua luu nhung thay doi, hay luu de cap nhat du lieu vao he thong!");
+                        do {
+                                System.out.print("Nhan 'y' de luu, 'n' de huy: ");
+                                xacnhan = sc.nextLine();
+                                switch (xacnhan) {
+                                    case "n":
+                                        return;
+                                    case "y": {
+                                        outputData();
+                                        break;
+                                    }
+                                    default:
+                                        System.out.println("Vui long nhan 'y' hoac 'n'!");
+                                }
+                            } while (!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
+                    }
                     break;
+                }
                 default: {
                     System.out.println("Vui long nhap dung chuc nang!!!");
                     System.out.println("Nhan enter de nhap lai!!!");
