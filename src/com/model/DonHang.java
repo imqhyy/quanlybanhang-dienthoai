@@ -226,7 +226,6 @@ public final class DonHang {
 
     //Đảm bảo tính duy nhất của mã sản phẩm sẽ không có hàm setMaDH
     public void setNgayDat() {
-        System.out.print("Nhap ngay dat hang");
         this.ngayDat = nhapNgayThangNam(sc);
     }
 
@@ -518,18 +517,25 @@ public final class DonHang {
     // Hàm này dùng để nhập ngày tháng năm
     public static LocalDate nhapNgayThangNam(Scanner sc) {
         LocalDate ngayNhap;
+        LocalDate ngayHienTai = LocalDate.now();
         String inputString;
+        boolean nhapThanhCong = false;
         do {
-            System.out.print("(DD/MM/YYYY): ");
+            System.out.print("Nhap ngay dat hang(DD/MM/YYYY): ");
             inputString = sc.nextLine();
             try {
                 ngayNhap = LocalDate.parse(inputString, DATE_FORMATTER);
-                return ngayNhap;
+                if(ngayNhap.isAfter(ngayHienTai)) {
+                    System.out.println("Ngay nhap khong duoc lon hon ngay hien tai!");
+                } else {
+                    nhapThanhCong = true;
+                    return ngayNhap;
+                }     
             } catch (java.time.format.DateTimeParseException e) {
                 System.out.println("Error: Dinh dang ngay nhap khong hop le");
                 ngayNhap = null;
             }
-        } while (ngayNhap == null);
+        } while (!nhapThanhCong);
         return null;
     }
 }

@@ -83,7 +83,7 @@ public class DanhSachSmartphone implements listInterface.IList {
         } while(!nhapThanhCong);
         dsdt = Arrays.copyOf(dsdt, n + n_temp);
         for(int i = n; i < n + n_temp; i++) {
-            System.out.print("Smartphone " + (i + 1));
+            System.out.println("Smartphone " + (i + 1));
             dsdt[i] = new SmartPhone();
             dsdt[i].setInfo(seedID);
             seedID++;
@@ -102,6 +102,8 @@ public class DanhSachSmartphone implements listInterface.IList {
         //Kiểm tra xem danh sách nhân viên có rỗng không
         if(n == 0) {
             System.out.println("Khong co smartphone nao nao!!!");
+            System.out.println("\nNhan enter de quay lai!");
+            sc.nextLine();
         } else {
             bolocKetqua();
         }

@@ -96,6 +96,8 @@ public class DanhSachKhachHang implements listInterface.IList {
         //Kiểm tra xem danh sách nhân viên có rỗng không
         if(n == 0) {
             System.out.println("Khong co khach hang nao!!!");
+            System.out.println("\nNhan enter de quay lai!");
+            sc.nextLine();
         } else {
             bolocKetqua();
         }
@@ -227,9 +229,9 @@ public class DanhSachKhachHang implements listInterface.IList {
             System.out.println("1. Tuoi");
             System.out.println("2. Xoa bo loc");
             System.out.println("0. Thoat");
-            System.out.print("Nhap chuc nang: ");
             boolean nhapThanhCong = false;
             do {
+                System.out.print("Nhap chuc nang: ");
                 //bắt lỗi người dùng nhập chữ
                 try {
                     chucnang = sc.nextInt();
@@ -243,9 +245,10 @@ public class DanhSachKhachHang implements listInterface.IList {
             switch (chucnang) {
                 case 1: {
                     do {
-                        System.out.print("Nhap so tuoi: ");
+                        
                         nhapThanhCong = false;
                         do {
+                            System.out.print("Nhap so tuoi: ");
                             //bắt lỗi người dùng nhập chữ
                             try {
                                 bolocTuoi = sc.nextInt();

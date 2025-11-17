@@ -6,13 +6,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.ILoadSaveData {
     private DanhSachDonHang ds1 = new DanhSachDonHang();
     private static final Scanner sc = new Scanner(System.in);
-
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public QuanLyDonHang() {
         inputData();
         /**
@@ -77,6 +79,14 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                     DonHang checkDH = ds2.timkiem(temp.getMaDH());
                     if (checkDH != null) {
                         System.out.println("Don hang " + temp.getMaDH() + " trong file bi trung lap!");
+                        System.out.println("Vui long kiem tra lai file data!!");
+                        System.out.println("Du lieu cu se duoc khoi phuc!!!");
+                        System.out.println("Nhan enter de dong thong bao nay!!!");
+                        sc.nextLine();
+                        return;
+                    }
+                    if(LocalDate.parse(temp.getNgayDat(), DATE_FORMATTER).isAfter(LocalDate.now())) {
+                        System.out.println("Don hang " + temp.getMaDH() + " co ngay ban hang khong hop le!");
                         System.out.println("Vui long kiem tra lai file data!!");
                         System.out.println("Du lieu cu se duoc khoi phuc!!!");
                         System.out.println("Nhan enter de dong thong bao nay!!!");

@@ -222,6 +222,7 @@ public class SmartPhone {
         setChipset();
         setRam();
         setRom();
+        setManHinh();
         setChiTiet();
     }
 
@@ -238,6 +239,7 @@ public class SmartPhone {
         setChipset();
         setRam();
         setRom();
+        setManHinh();
         setChiTiet();
     }
 

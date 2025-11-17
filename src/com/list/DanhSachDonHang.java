@@ -114,6 +114,8 @@ public class DanhSachDonHang implements listInterface.IList {
         // Kiểm tra xem danh sách nhân viên có rỗng không
         if (n == 0) {
             System.out.println("Khong co don hang nao nao!!!");
+            System.out.println("\nNhan enter de quay lai!");
+            sc.nextLine();
         } else {
             bolocKetqua();
         }

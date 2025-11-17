@@ -180,8 +180,6 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
                 }
                 case 2: {
                     ds1.nhap();
-                    System.out.println("Nhan enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                 case 3: {

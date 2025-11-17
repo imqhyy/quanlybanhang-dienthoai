@@ -107,6 +107,8 @@ public class DanhSachNhanVien implements listInterface.IList {
         System.out.println("\n--Danh sach nhan vien--");
         if(n == 0) {
             System.out.println("Khong co nhan vien nao!!!");
+            System.out.println("\nNhan enter de quay lai!");
+            sc.nextLine();
         } else {
             bolocKetqua();
         }
