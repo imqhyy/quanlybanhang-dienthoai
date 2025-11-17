@@ -139,7 +139,7 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
     public void menu() {
         int chucnang = 0;
         do {
-            clearScreen();
+            DanhSachSmartphone.clearScreen();
             System.out.println("--- QUAN LY SMARTPHONE ---");
             System.out.println("1. Xem danh sach smartphone");
             System.out.println("2. Them nhieu smartphone");

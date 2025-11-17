@@ -142,7 +142,7 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
     public void menu() {
         int chucnang = 0;
         do {
-            clearScreen();
+            DanhSachKhachHang.clearScreen();
             System.out.println("1. Xem danh sach khach hang");
             System.out.println("2. Them nhieu khach hang");
             System.out.println("3. Them mot khach hang");
@@ -269,24 +269,4 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
         } while (chucnang != 0);
     }
 
-    // lệnh clear console
-    public static void clearScreen() {
-        try {
-            // Lựa chọn lệnh dựa trên hệ điều hành
-            final String os = System.getProperty("os.name");
-
-            if (os.contains("Windows")) {
-                // Đối với Windows, dùng 'cls'
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                // Đối với Linux/macOS, dùng 'clear'
-                // Hoặc dùng chuỗi escape code (ít phụ thuộc vào lệnh 'clear')
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (final IOException | InterruptedException e) {
-            // Xử lý lỗi nếu không thể chạy lệnh (ví dụ: bị hạn chế quyền)
-            System.out.println("\n(Không thể xóa màn hình)\n");
-        }
-    }
 }
