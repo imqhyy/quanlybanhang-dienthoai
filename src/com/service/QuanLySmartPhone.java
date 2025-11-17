@@ -99,7 +99,8 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                 ds1 = ds2;
                 ds1.setDataChange(false);
                 System.out.println("Tai du lieu tu file dataSmartPhone.txt thanh cong!!!");
-                
+                System.out.println("Nhan enter de dong thong bao nay!!!");
+                sc.nextLine();
             }
             /**
              * Ở đây có 4 lỗi có thể xảy ra
@@ -224,8 +225,6 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
                         kqtimkiem.bolocKetqua();
 
                     }
-                    System.out.println("Nhan enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                 case 7: {

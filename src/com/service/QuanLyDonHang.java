@@ -118,8 +118,8 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                 ds1 = ds2;
                 ds1.setDataChange(false); //Vì dữ liệu đã được làm mới nên chuyển nó về thành false, tức là chưa qua chỉnh sửa
                 System.out.println("Tai du lieu tu file dataDonHang.txt thanh cong!!!");
-                // System.out.println("Nhan enter de dong thong bao nay!!!");
-                // sc.nextLine();
+                System.out.println("Nhan enter de dong thong bao nay!!!");
+                sc.nextLine();
             }
             /** Ở đây có 4 lỗi có thể xảy ra
              * IOException 
@@ -243,8 +243,6 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                         kqtimkiem.bolocKetqua();
                         
                     }
-                    System.out.println("Nhan enter de quay lai!!!");
-                    sc.nextLine();
                     break;
                 }
                 case 7: {

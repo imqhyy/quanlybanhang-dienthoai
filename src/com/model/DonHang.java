@@ -86,10 +86,10 @@ public final class DonHang {
         System.out.println("------Thong tin don hang------");
         System.out.println("Ma don hang: " + maDH);
         System.out.println("Ngay dat: " + ngayDat.format(DATE_FORMATTER));
-        System.out.println("Ma khach hang: " + maKH_storage);
-        System.out.println("Ho ten: " + (KH != null ? KH.getHoVaTen() : "N/A"));
-        System.out.println("Ma nhan vien: " + maNV_storage);
-        System.out.println("Ho ten: " + (NV != null ? NV.getHoVaTen() : "N/A"));
+        System.out.println("Ma khach hang: " + (KH != null ? KH.getMaKH() : "N/A"));
+        System.out.println("Ho ten: " + (KH != null ? KH.getHoVaTen() : "Khach hang nay co the da bi xoa!"));
+        System.out.println("Ma nhan vien: " + (NV != null ? NV.getMaNV() : "N/A"));
+        System.out.println("Ho ten: " + (NV != null ? NV.getHoVaTen() : "Nhan vien nay co the da bi xoa!"));
         System.out.println("STT   Ma san pham   Ten san pham                  Don gia            SL");
         for(int i = 0; i < n; i++) {
             //Khoảng cách từ S đến M là 6 ô, đoạn này tính toán để stt chiếm 6 ô

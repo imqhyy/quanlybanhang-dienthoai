@@ -358,6 +358,7 @@ public class DanhSachNhanVien implements listInterface.IList {
                         System.out.println("1. Lon hon hoac bang");
                         System.out.println("2. Be hon hoac bang");
                         System.out.println("3. Bang");
+                        System.out.println("4. Xoa bo loc");
                         System.out.println("0. Thoat");
                         System.out.print("Nhap chuc nang: ");
                         nhapThanhCong = false;
@@ -376,6 +377,10 @@ public class DanhSachNhanVien implements listInterface.IList {
                             case 1: break;
                             case 2: break;
                             case 3: break;
+                            case 4: {
+                                bolocLuong = 0;
+                                sosanhLuong = 0;
+                            }
                             case 0: {
                                 bolocLuong = 0;
                                 break;

@@ -11,12 +11,6 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
         try (Scanner sc = new Scanner(System.in)) {
-            QuanLyNhanVien dsnv = new QuanLyNhanVien();
-            QuanLyKhachHang dskh = new QuanLyKhachHang();
-            QuanLySmartPhone dssp = new QuanLySmartPhone();
-            QuanLyDonHang dsdh = new QuanLyDonHang();
-            System.out.println("Nhan enter de dong thong bao nay!!!");
-            sc.nextLine();
             int chucnang = 0;
             do {
                 clearScreen();
@@ -41,15 +35,19 @@ public class App {
                 } while (!nhapThanhCong);
                 switch (chucnang) {
                     case 1:
+                        QuanLyNhanVien dsnv = new QuanLyNhanVien();
                         dsnv.menu();
                         break;
                     case 2:
+                        QuanLyKhachHang dskh = new QuanLyKhachHang();
                         dskh.menu();
                         break;
                     case 3:
+                        QuanLySmartPhone dssp = new QuanLySmartPhone();
                         dssp.menu();
                         break;
                     case 4:
+                        QuanLyDonHang dsdh = new QuanLyDonHang();
                         dsdh.menu();
                         break;
                     case 0:

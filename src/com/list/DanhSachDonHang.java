@@ -311,11 +311,7 @@ public class DanhSachDonHang implements listInterface.IList {
                         } while(!nhapThanhCong);
                         switch(sosanhGia) {
                             case 1: break;
-                            case 2:{
-                                bolocGia = 0;
-                                sosanhGia = 0;
-                                break;
-                            }
+                            case 2: break;
                             case 3: break;
                             case 0:
                                 break;
@@ -379,14 +375,23 @@ public class DanhSachDonHang implements listInterface.IList {
         for(int i = 0; i < n; i++) {
             if(!dsdh[i].getMaDH().equals(maDH) && !maDH.isBlank()) 
                 continue;
-            //Nhân viên và khách hàng có thể đã bị xoá, nên cần kiểm tra nó có null không trước khi thực hiện thao tác tìm kiếm
-            if(dsdh[i].getKH() != null) {
-                if(!dsdh[i].getKH().getMaKH().equals(maKH) && !maKH.isBlank())
-                continue;
+            /**
+             * đầu tiên kiểm tra tham số truyền vào có phải Blank, nếu Blank
+             * nghĩa là k cần xét, bỏ qua. Tiếp theo kiểm tra coi tại đơn hàng đó, biến KhachHang
+             * có null không, nếu null nghĩa là người dùng có thể đã bị xoá sau đó mới so sánh mã
+             */
+            if(!maKH.isBlank()) {
+                if(dsdh[i].getKH() != null) {
+                    if(!dsdh[i].getKH().getMaKH().equals(maKH))
+                        continue; 
+                } else continue;
             }
-            if(dsdh[i].getNV() != null) {
-                if(!dsdh[i].getNV().getMaNV().equals(maNV) && !maNV.isBlank())
-                continue;
+            
+            if(!maNV.isBlank()) {
+                if(dsdh[i].getNV() != null) {
+                    if(!dsdh[i].getNV().getMaNV().equals(maNV))
+                        continue;
+                } else continue;
             }
             
             kqtimkiem.them(dsdh[i]);
