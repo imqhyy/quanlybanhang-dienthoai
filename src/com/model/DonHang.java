@@ -18,6 +18,14 @@ public final class DonHang {
     private String maDH;
     private LocalDate ngayDat;
     private KhachHang KH;
+    private String maKH_storage;
+    private String maNV_storage;
+    /** 2 biến storage này dùng để lưu trữ mã độc lập
+     * dành cho xuất chuỗi, vì KH và NV có thể null, 
+     * lúc đó sẽ không lấy ra được mã từ phương thức getMa()
+     * 2 biến này sẽ lưu trực tiếp mã đó để xuất chuỗi có thể lấy lại được mã
+     * dù người dùng đó đã bị xoá
+     */
     private NhanVien NV;
     private DanhSachKhachHang dskh = new DanhSachKhachHang();
     private DanhSachNhanVien dsnv = new DanhSachNhanVien();
@@ -37,6 +45,8 @@ public final class DonHang {
         maDH = "null";
         ngayDat = null;
         KH = null;
+        maKH_storage = "null";
+        maNV_storage = "null";
         NV = null;
         n = 0;
         dsMua = new SmartPhone[n];
@@ -50,8 +60,11 @@ public final class DonHang {
         inputDataSP();
         this.maDH = maDH;
         this.ngayDat = LocalDate.parse(ngaydat, DATE_FORMATTER);
-        this.KH = dskh.timkiem(maKH);
-        this.NV = dsnv.timkiem(maNV);
+        this.KH = dskh.timkiem(maKH); //Chỗ này sẽ trả về null nếu như khách hàng bị xoá trước đó
+        this.NV = dsnv.timkiem(maNV); //Chỗ này sẽ trả về null nếu như nhân viên bị xoá trước đó
+        this.maKH_storage = maKH;
+        this.maNV_storage = maNV;
+        //Vì vậy, đối với các thao tác dùng getNV hoặc getKH nên kiểm tra null trước khi sử dụng
         this.n = n;
         //Tránh giá trị âm, nếu âm sẽ tự động chuyển thành 0 để tạo mảng rỗng
         if(n < 0) n = 0;
@@ -73,9 +86,9 @@ public final class DonHang {
         System.out.println("------Thong tin don hang------");
         System.out.println("Ma don hang: " + maDH);
         System.out.println("Ngay dat: " + ngayDat.format(DATE_FORMATTER));
-        System.out.println("Ma khach hang: " + (KH != null ? KH.getMaKH() : "N/A"));
+        System.out.println("Ma khach hang: " + maKH_storage);
         System.out.println("Ho ten: " + (KH != null ? KH.getHoVaTen() : "N/A"));
-        System.out.println("Ma nhan vien: " + (NV != null ? NV.getMaNV() : "N/A"));
+        System.out.println("Ma nhan vien: " + maNV_storage);
         System.out.println("Ho ten: " + (NV != null ? NV.getHoVaTen() : "N/A"));
         System.out.println("STT   Ma san pham   Ten san pham                  Don gia            SL");
         for(int i = 0; i < n; i++) {
@@ -120,6 +133,14 @@ public final class DonHang {
 
     public KhachHang getKH() {
         return KH;
+    }
+    
+    public String getMaKH_storage() {
+        return maKH_storage;
+    }
+
+    public String getMaNV_storage() {
+        return maNV_storage;
     }
 
     public NhanVien getNV() {
@@ -173,7 +194,9 @@ public final class DonHang {
         System.out.println("Ma don hang: " + maDH);
         setNgayDat();
         KH = setKH();
+        maKH_storage = KH.getMaKH();
         NV = setNV();
+        maNV_storage = NV.getMaNV();
         setSP();
     }
     public void setInfo() {
@@ -181,7 +204,9 @@ public final class DonHang {
         System.out.println("Ma don hang: " + maDH);
         setNgayDat();
         KH = setKH();
+        maKH_storage = KH.getMaKH();
         NV = setNV();
+        maNV_storage = NV.getMaNV();
         setSP();
     }
 

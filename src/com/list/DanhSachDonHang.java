@@ -138,8 +138,8 @@ public class DanhSachDonHang implements listInterface.IList {
             String temp = String.join(",",
                 dsdh[i].getMaDH(),
                 dsdh[i].getNgayDat(),
-                dsdh[i].getKH().getMaKH(),
-                dsdh[i].getNV().getMaNV(),
+                dsdh[i].getMaKH_storage(),
+                dsdh[i].getMaNV_storage(),
                 Integer.toString(dsdh[i].getN()),
                 dsdh[i].getDataSP()
             );
@@ -379,10 +379,16 @@ public class DanhSachDonHang implements listInterface.IList {
         for(int i = 0; i < n; i++) {
             if(!dsdh[i].getMaDH().equals(maDH) && !maDH.isBlank()) 
                 continue;
-            if(!dsdh[i].getKH().getMaKH().equals(maKH) && !maKH.isBlank())
+            //Nhân viên và khách hàng có thể đã bị xoá, nên cần kiểm tra nó có null không trước khi thực hiện thao tác tìm kiếm
+            if(dsdh[i].getKH() != null) {
+                if(!dsdh[i].getKH().getMaKH().equals(maKH) && !maKH.isBlank())
                 continue;
-            if(!dsdh[i].getNV().getMaNV().equals(maNV) && !maNV.isBlank())
+            }
+            if(dsdh[i].getNV() != null) {
+                if(!dsdh[i].getNV().getMaNV().equals(maNV) && !maNV.isBlank())
                 continue;
+            }
+            
             kqtimkiem.them(dsdh[i]);
         }
         return kqtimkiem;
@@ -469,7 +475,7 @@ public class DanhSachDonHang implements listInterface.IList {
     }
 
     public void setDataChange(boolean x) {
-        x = dataChange;
+        dataChange = x;
     }
 
     // lệnh clear console
