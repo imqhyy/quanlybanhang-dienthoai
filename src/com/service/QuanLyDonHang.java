@@ -86,7 +86,7 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
                         return;
                     }
                     if(LocalDate.parse(temp.getNgayDat(), DATE_FORMATTER).isAfter(LocalDate.now())) {
-                        System.out.println("Don hang " + temp.getMaDH() + " co ngay ban hang khong hop le!");
+                        System.out.println("Don hang " + temp.getMaDH() + " co ngay dat hang khong hop le!");
                         System.out.println("Vui long kiem tra lai file data!!");
                         System.out.println("Du lieu cu se duoc khoi phuc!!!");
                         System.out.println("Nhan enter de dong thong bao nay!!!");
