@@ -144,8 +144,8 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
         do {
             clearScreen();
             System.out.println("1. Xem danh sach khach hang");
-            System.out.println("2. Nhap danh sach moi");
-            System.out.println("3. Them khach hang");
+            System.out.println("2. Them nhieu khach hang");
+            System.out.println("3. Them mot khach hang");
             System.out.println("4. Xoa khach hang");
             System.out.println("5. Sua khach hang");
             System.out.println("6. Tim kiem");
