@@ -63,31 +63,15 @@ public class DanhSachSmartphone implements listInterface.IList {
 
 
     @Override public void nhap() {
-        //Kiểm tra xem có dữ liệu cũ nào được lưu không vì nhập sẽ xoá toàn bộ dữ liệu cũ
-        if(n != 0) {
-            String xacnhan;
-            System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            do {
-                System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
-                xacnhan = sc.nextLine();
-                switch (xacnhan) {
-                    case "n":
-                        return;
-                    case "y":
-                        break;
-                    default:
-                        System.out.println("Vui long nhan 'y' hoac 'n'!");
-                }
-            } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
-        }
+        int n_temp = 0;
         boolean nhapThanhCong = false;
         do {
             System.out.print("Nhap so luong smartphone: ");
             //bắt lỗi người dùng nhập chữ
             try {
-                n = sc.nextInt();
+                n_temp = sc.nextInt();
                 sc.nextLine(); //Xoá kí tự enter trong buffer
-                if(n > 0) {
+                if(n_temp > 0) {
                     nhapThanhCong = true;
                 } else {
                     System.out.println("So luong smartphone phai lon hon 0!!!");
@@ -97,14 +81,15 @@ public class DanhSachSmartphone implements listInterface.IList {
                 sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
             }
         } while(!nhapThanhCong);
-        dsdt = new SmartPhone[n];
-        for(int i = 0; i < n; i++) {
+        dsdt = Arrays.copyOf(dsdt, n + n_temp);
+        for(int i = 0; i < n + n_temp; i++) {
             System.out.print("Smartphone " + (i + 1));
             dsdt[i] = new SmartPhone();
             dsdt[i].setInfo(seedID);
             seedID++;
             System.out.println();
         }
+        n = n + n_temp;
         dataChange = true;
         System.out.println("Nhap thanh cong!!!");
         System.out.println("Nhan enter de quay lai!!!");

@@ -58,31 +58,15 @@ public class DanhSachKhachHang implements listInterface.IList {
     
     
     @Override public void nhap() {
-        //Kiểm tra xem có dữ liệu cũ nào được lưu không vì nhập sẽ xoá toàn bộ dữ liệu cũ
-        if(n != 0) {
-            String xacnhan;
-            System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
-            do {
-                xacnhan = sc.nextLine();
-                switch (xacnhan) {
-                    case "n":
-                        return;
-                    case "y":
-                        break;
-                    default:
-                        System.out.println("Vui long nhan 'y' hoac 'n'!");
-                }
-            } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
-        }
+        int n_temp = 0;
         boolean nhapThanhCong = false;
         do {
             System.out.print("Nhap so luong khach hang: ");
             //bắt lỗi người dùng nhập chữ
             try {
-                n = sc.nextInt();
+                n_temp = sc.nextInt();
                 sc.nextLine();
-                if(n > 0) {
+                if(n_temp > 0) {
                     nhapThanhCong = true;
                 } else {
                     System.out.println("So luong khach hang phai lon hon 0!");
@@ -92,14 +76,15 @@ public class DanhSachKhachHang implements listInterface.IList {
                 sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
             }
         } while(!nhapThanhCong);
-        dskh = new KhachHang[n];
-        for(int i = 0; i < n; i++) {
+        dskh = Arrays.copyOf(dskh, n + n_temp);
+        for(int i = n; i < n + n_temp; i++) {
             System.out.print("Khach hang " + (i + 1));
             dskh[i] = new KhachHang();
             dskh[i].setInfo(seedID);
             seedID++;
             System.out.println();
         }
+        n = n + n_temp;
         System.out.println("Nhap thanh cong!");
         dataChange = true;
         System.out.println("Nhan enter de quay lai!!!");

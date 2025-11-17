@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.model.DonHang;
+import java.sql.Array;
 import java.util.Arrays;
 public class DanhSachDonHang implements listInterface.IList {
     private DonHang[] dsdh;
@@ -73,31 +74,15 @@ public class DanhSachDonHang implements listInterface.IList {
 
 
     @Override public void nhap() {
-        //Kiểm tra xem có dữ liệu cũ nào được lưu không vì nhập sẽ xoá toàn bộ dữ liệu cũ
-        if(n != 0) {
-            String xacnhan;
-            System.out.println("Hanh dong nay se xoa du lieu cu!!!");
-            do {
-                System.out.print("Nhan 'y' de xac nhan, 'n' de quay lai: ");
-                xacnhan = sc.nextLine();
-                switch (xacnhan) {
-                    case "n":
-                        return;
-                    case "y":
-                        break;
-                    default:
-                        System.out.println("Vui long nhan 'y' hoac 'n'!");
-                }
-            } while(!xacnhan.toLowerCase().equals("y") && !xacnhan.toLowerCase().equals("n"));
-        }
+        int n_temp = 0;
         boolean nhapThanhCong = false;
         do {
             System.out.print("Nhap so luong don hang: ");
             //bắt lỗi người dùng nhập chữ
             try {
-                n = sc.nextInt();
+                n_temp = sc.nextInt();
                 sc.nextLine(); //Xoá kí tự enter trong buffer
-                if(n > 0 ) {
+                if(n_temp > 0 ) {
                     nhapThanhCong = true;
                 } else {
                     System.out.println("So luong don hang phai lon hon 0!!!");
@@ -107,14 +92,19 @@ public class DanhSachDonHang implements listInterface.IList {
                 sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
             }
         } while(!nhapThanhCong);
-        dsdh = new DonHang[n];
-        for(int i = 0; i < n; i++) {
+        dsdh = Arrays.copyOf(dsdh, n + n_temp);
+        for(int i = n; i < n + n_temp; i++) {
             System.out.print("Don hang " + (i + 1));
             dsdh[i] = new DonHang();
             dsdh[i].setInfo(seedID);
             seedID++;
             System.out.println();
         }
+        n = n + n_temp;
+        System.out.println("Nhap thanh cong!");
+        dataChange = true;
+        System.out.println("Nhan enter de quay lai!!!");
+        sc.nextLine();
     }
 
     // Xuất danh sách
