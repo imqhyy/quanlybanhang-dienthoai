@@ -30,7 +30,7 @@ public class SmartPhone {
     }
 
     public SmartPhone(String maSP, String tenSP, String thuonghieu, BigDecimal giaBan, String chipset, String ram,
-        String rom, String manhinh, String chitiet) {
+            String rom, String manhinh, String chitiet) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.thuonghieu = thuonghieu;
@@ -92,26 +92,25 @@ public class SmartPhone {
     }
     // endregion
 
-
     public void setTenSP() {
-        
+
         do {
             System.out.print("Ten san pham: ");
             tenSP = sc.nextLine();
-            if(tenSP.isBlank()) {
+            if (tenSP.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(tenSP.isBlank());
+        } while (tenSP.isBlank());
     }
 
     public void setThuongHieu() {
         do {
             System.out.print("Thuong hieu: ");
             thuonghieu = sc.nextLine();
-            if(thuonghieu.isBlank()) {
+            if (thuonghieu.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(thuonghieu.isBlank());
+        } while (thuonghieu.isBlank());
     }
 
     public void setGiaBan() {
@@ -121,7 +120,7 @@ public class SmartPhone {
             // bắt lỗi nếu người dùng nhập chữ
             try {
                 giaBan = new BigDecimal(sc.nextLine());
-                if(giaBan.doubleValue() <= 0) {
+                if (giaBan.doubleValue() <= 0) {
                     System.out.println("Gia ban phai lon hon 0!!!");
                     System.out.println("Vui long nhap lai!!!");
                 } else
@@ -129,66 +128,66 @@ public class SmartPhone {
             } catch (NumberFormatException e) {
                 System.err.println("Vui long nhap so!!!");
             }
-            
+
         } while (!nhapThanhCong);
 
     }
 
     public void setChipset() {
-        
+
         do {
             System.out.print("Chipset: ");
-        chipset = sc.nextLine();
-            if(chipset.isBlank()) {
+            chipset = sc.nextLine();
+            if (chipset.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(chipset.isBlank());
+        } while (chipset.isBlank());
     }
 
     public void setRam() {
         do {
-            System.out.print("Rom: ");
+            System.out.print("Ram: ");
             ram = sc.nextLine();
-            if(ram.isBlank()) {
+            if (ram.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(ram.isBlank());
+        } while (ram.isBlank());
     }
 
     public void setRom() {
         do {
             System.out.print("Rom: ");
             rom = sc.nextLine();
-            if(rom.isBlank()) {
+            if (rom.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(rom.isBlank());
+        } while (rom.isBlank());
     }
 
     public void setManHinh() {
-        
+
         do {
             System.out.print("Man hinh: ");
             manhinh = sc.nextLine();
-            if(manhinh.isBlank()) {
+            if (manhinh.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(manhinh.isBlank());
+        } while (manhinh.isBlank());
     }
 
     public void setChiTiet() {
-        
+
         do {
             System.out.print("Chi tiet: ");
             chitiet = sc.nextLine();
-            if(chitiet.isBlank()) {
+            if (chitiet.isBlank()) {
                 System.out.println("Hay nhap gi do!!!");
             }
-        } while(chitiet.isBlank());
+        } while (chitiet.isBlank());
     }
     // endregion
 
-    //phương thức get tất cả thuộc tính
+    // phương thức get tất cả thuộc tính
     public void getInfo() {
         // 1. Định nghĩa mẫu định dạng (#,###) và Locale
         // Locale Việt Nam đảm bảo sử dụng dấu chấm phân cách hàng nghìn.
@@ -212,7 +211,7 @@ public class SmartPhone {
         System.out.println("Chi tiet: " + chitiet);
     }
 
-    //phương thức set tất cả thuộc tính
+    // phương thức set tất cả thuộc tính
     public void setInfo() {
         System.out.println("------Nhap thong tin dien thoai------");
         System.out.println("Ma san pham: " + maSP);
@@ -225,6 +224,7 @@ public class SmartPhone {
         setRom();
         setChiTiet();
     }
+
     public void setInfo(int seedID) {
         System.out.println("------Nhap thong tin dien thoai------");
         String ma = "SP";
