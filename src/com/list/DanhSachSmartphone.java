@@ -346,9 +346,9 @@ public class DanhSachSmartphone implements listInterface.IList {
                     System.out.print("Nhap ma san pham muon xem chi tiet: ");
                     String ma = sc.nextLine();
                     boolean xemThanhCong = false;
-                    for(int i = 0; i < n; i++) {
-                        if(dsdt[i].getMaSP().equals(ma)) {
-                            dsdt[i].getInfo();
+                    for(int i = 0; i < dsBoLoc.n; i++) {
+                        if(dsBoLoc.dsdt[i].getMaSP().equals(ma)) {
+                            dsBoLoc.dsdt[i].getInfo();
                             xemThanhCong = true;
                             break;
                         }
