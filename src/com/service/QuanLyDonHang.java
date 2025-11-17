@@ -158,8 +158,8 @@ public class QuanLyDonHang implements serviceInterface.IMenu, serviceInterface.I
             clearScreen();
             System.out.println("--- QUAN LY DON HANG ---");
             System.out.println("1. Xem danh sach don hang");
-            System.out.println("2. Nhap nhieu don hang");
-            System.out.println("3. Them don hang");
+            System.out.println("2. Them nhieu don hang");
+            System.out.println("3. Them mot don hang");
             System.out.println("4. Xoa don hang");
             System.out.println("5. Sua don hang");
             System.out.println("6. Tim kiem don hang");
