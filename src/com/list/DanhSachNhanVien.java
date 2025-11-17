@@ -89,7 +89,7 @@ public class DanhSachNhanVien implements listInterface.IList {
             }
         } while(!nhapThanhCong);
         dsnv = Arrays.copyOf(dsnv, n + n_temp);
-        for(int i = 0; i < n + n_temp; i++) {
+        for(int i = n; i < n + n_temp; i++) {
             System.out.print("Nhan vien " + (i+1));
             dsnv[i] = new NhanVien();
             dsnv[i].setInfo(seedID);

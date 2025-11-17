@@ -152,7 +152,7 @@ public class QuanLyNhanVien implements serviceInterface.IMenu, serviceInterface.
         do {
             clearScreen();
             System.out.println("1. Xem danh sach nhan vien");
-            System.out.println("2. Nhap danh sach moi");
+            System.out.println("2. Nhap nhieu nhan vien");
             System.out.println("3. Them nhan vien");
             System.out.println("4. Xoa nhan vien");
             System.out.println("5. Sua nhan vien");

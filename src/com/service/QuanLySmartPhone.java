@@ -139,7 +139,7 @@ public class QuanLySmartPhone implements serviceInterface.IMenu, serviceInterfac
             clearScreen();
             System.out.println("--- QUAN LY SMARTPHONE ---");
             System.out.println("1. Xem danh sach smartphone");
-            System.out.println("2. Nhap danh sach moi");
+            System.out.println("2. Nhap nhieu smartphone");
             System.out.println("3. Them smartphone");
             System.out.println("4. Xoa smartphone");
             System.out.println("5. Sua smartphone");

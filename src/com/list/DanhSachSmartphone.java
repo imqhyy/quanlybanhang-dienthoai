@@ -82,7 +82,7 @@ public class DanhSachSmartphone implements listInterface.IList {
             }
         } while(!nhapThanhCong);
         dsdt = Arrays.copyOf(dsdt, n + n_temp);
-        for(int i = 0; i < n + n_temp; i++) {
+        for(int i = n; i < n + n_temp; i++) {
             System.out.print("Smartphone " + (i + 1));
             dsdt[i] = new SmartPhone();
             dsdt[i].setInfo(seedID);
