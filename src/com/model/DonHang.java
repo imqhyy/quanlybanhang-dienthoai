@@ -20,6 +20,7 @@ public final class DonHang {
     private KhachHang KH;
     private String maKH_storage;
     private String maNV_storage;
+    private String dataSP_storage;
     /** 2 biến storage này dùng để lưu trữ mã độc lập
      * dành cho xuất chuỗi, vì KH và NV có thể null, 
      * lúc đó sẽ không lấy ra được mã từ phương thức getMa()
@@ -47,6 +48,7 @@ public final class DonHang {
         KH = null;
         maKH_storage = "null";
         maNV_storage = "null";
+        dataSP_storage = "null";
         NV = null;
         n = 0;
         dsMua = new SmartPhone[n];
@@ -64,6 +66,7 @@ public final class DonHang {
         this.NV = dsnv.timkiem(maNV); //Chỗ này sẽ trả về null nếu như nhân viên bị xoá trước đó
         this.maKH_storage = maKH;
         this.maNV_storage = maNV;
+        this.dataSP_storage = dataSP;
         //Vì vậy, đối với các thao tác dùng getNV hoặc getKH nên kiểm tra null trước khi sử dụng
         this.n = n;
         //Tránh giá trị âm, nếu âm sẽ tự động chuyển thành 0 để tạo mảng rỗng
@@ -143,6 +146,10 @@ public final class DonHang {
         return maNV_storage;
     }
 
+    public String getMaDH_storage() {
+        return dataSP_storage;
+    }
+
     public NhanVien getNV() {
         return NV;
     }
@@ -176,6 +183,13 @@ public final class DonHang {
     }
     
     public String getDataSP() {
+
+        for(int i = 0; i < n; i++) {
+            if(dsMua[i] == null) {
+                return dataSP_storage;
+            }
+        }
+
         String data = "";
         for(int i = 0; i < n; i++) {
             if(i != 0) data = data + "|";
