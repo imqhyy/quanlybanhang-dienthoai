@@ -292,8 +292,12 @@ public class DanhSachNhanVien implements listInterface.IList {
                             try {
                                 System.out.print("Nhap so tuoi: ");
                                 bolocTuoi = sc.nextInt();
-                                nhapThanhCong = true;
                                 sc.nextLine(); //Xoá kí tự enter trong buffer
+                                if(bolocTuoi >= 18 && bolocTuoi <= 32) {
+                                    nhapThanhCong = true;
+                                } else {
+                                    System.out.println("Tuoi nhan vien phai tu 18 den 32 tuoi!");
+                                }
                             } catch (InputMismatchException e) {
                                 System.err.println("Vui long nhap so!!!");
                                 sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
@@ -348,8 +352,12 @@ public class DanhSachNhanVien implements listInterface.IList {
                             try {
                                 System.out.print("Nhap luong: ");
                                 bolocLuong = sc.nextDouble();
-                                nhapThanhCong = true;
                                 sc.nextLine(); //Xoá kí tự enter trong buffer
+                                if(bolocLuong > 0) {
+                                    nhapThanhCong = true;
+                                } else {
+                                    System.out.println("Luong phai lon hon 0!");
+                                }
                             } catch (InputMismatchException e) {
                                 System.err.println("Vui long nhap so!!!");
                                 sc.nextLine();//Xoá buffer trước khi người dùng nhập lại

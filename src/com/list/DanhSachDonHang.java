@@ -288,8 +288,13 @@ public class DanhSachDonHang implements listInterface.IList {
                             // bắt lỗi người dùng nhập chữ
                             try {
                                 bolocGia = sc.nextDouble();
-                                nhapThanhCong = true;
                                 sc.nextLine(); // Xoá kí tự enter trong buffer
+                                if(bolocGia > 0) {
+                                    nhapThanhCong = true;
+                                } else {
+                                    System.out.println("Gia ban phai lon hon 0!");
+                                }
+                                
                             } catch (InputMismatchException e) {
                                 System.err.println("Vui long nhap so!!!");
                                 sc.nextLine();// Xoá buffer trước khi người dùng nhập lại

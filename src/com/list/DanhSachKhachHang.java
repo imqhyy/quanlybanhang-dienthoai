@@ -249,8 +249,12 @@ public class DanhSachKhachHang implements listInterface.IList {
                             //bắt lỗi người dùng nhập chữ
                             try {
                                 bolocTuoi = sc.nextInt();
-                                nhapThanhCong = true;
                                 sc.nextLine(); //Xoá kí tự enter trong buffer
+                                if(bolocTuoi > 0 && bolocTuoi < 100) {
+                                    nhapThanhCong = true;
+                                } else {
+                                    System.out.println("Tuoi khach hang phai lon hon 0 va be hon 100");
+                                }
                             } catch (InputMismatchException e) {
                                 System.err.println("Vui long nhap so!!!");
                                 sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
