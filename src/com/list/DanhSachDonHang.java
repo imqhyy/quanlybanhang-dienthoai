@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.model.DonHang;
-import java.sql.Array;
 import java.util.Arrays;
 public class DanhSachDonHang implements listInterface.IList {
     private DonHang[] dsdh;
