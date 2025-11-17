@@ -11,6 +11,12 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
         try (Scanner sc = new Scanner(System.in)) {
+            QuanLyNhanVien dsnv = new QuanLyNhanVien();
+            QuanLyKhachHang dskh = new QuanLyKhachHang();
+            QuanLySmartPhone dssp = new QuanLySmartPhone();
+            QuanLyDonHang dsdh = new QuanLyDonHang();
+            System.out.println("Nhan enter de dong thong bao nay!!!");
+            sc.nextLine();
             int chucnang = 0;
             do {
                 clearScreen();
@@ -19,35 +25,31 @@ public class App {
                 System.out.println("3. Quan ly smartphone");
                 System.out.println("4. Quan ly don hang");
                 System.out.println("0. Thoat");
-                
+
                 boolean nhapThanhCong = false;
                 do {
                     System.out.print("Nhap chuc nang: ");
-                    //bắt lỗi người dùng nhập chữ
+                    // bắt lỗi người dùng nhập chữ
                     try {
                         chucnang = sc.nextInt();
                         nhapThanhCong = true;
-                        sc.nextLine(); //Xoá kí tự enter trong buffer
+                        sc.nextLine(); // Xoá kí tự enter trong buffer
                     } catch (InputMismatchException e) {
                         System.err.println("Vui long nhap so!!!");
-                        sc.nextLine();//Xoá buffer trước khi người dùng nhập lại
+                        sc.nextLine();// Xoá buffer trước khi người dùng nhập lại
                     }
-                } while(!nhapThanhCong);
+                } while (!nhapThanhCong);
                 switch (chucnang) {
                     case 1:
-                        QuanLyNhanVien dsnv = new QuanLyNhanVien();
                         dsnv.menu();
                         break;
                     case 2:
-                        QuanLyKhachHang dskh = new QuanLyKhachHang();
                         dskh.menu();
                         break;
                     case 3:
-                        QuanLySmartPhone dssp = new QuanLySmartPhone();
                         dssp.menu();
                         break;
                     case 4:
-                        QuanLyDonHang dsdh = new QuanLyDonHang();
                         dsdh.menu();
                         break;
                     case 0:
@@ -58,7 +60,7 @@ public class App {
                         sc.nextLine();
                     }
                 }
-            } while(chucnang != 0);
+            } while (chucnang != 0);
         }
     }
 

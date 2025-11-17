@@ -102,9 +102,9 @@ public class QuanLyKhachHang implements serviceInterface.IMenu, serviceInterface
                 ds2.setSeedID(maxSeedID + 1);
                 ds1 = ds2;
                 ds1.setDataChange(false);
-                System.out.println("Tai du lieu tu file thanh cong!!!");
-                System.out.println("Nhan enter de dong thong bao nay!!!");
-                sc.nextLine();
+                System.out.println("Tai du lieu tu file dataKhachHang.txt thanh cong!!!");
+                // System.out.println("Nhan enter de dong thong bao nay!!!");
+                // sc.nextLine();
             }
             /** Ở đây có 4 lỗi có thể xảy ra
              * IOException 
